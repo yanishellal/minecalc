@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MineCalc - Calculateur minier</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-content">
+      <a class="logo" href="index.html">Mine<span>Calc</span></a>
+
+      <nav aria-label="Navigation principale">
+        <a href="#accueil">Accueil</a>
+        <a href="#calculateurs">Calculateurs</a>
+        <a href="#formules">Formules</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#historique">Historique</a>
+        <a href="#apropos">À propos</a>
+      </nav>
+      <button class="theme-button" id="theme-button" type="button" aria-label="Activer le mode sombre">
+        Mode sombre
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section id="accueil" class="hero">
+      <div class="container hero-content">
+        <div>
+          <p class="eyebrow">Outil pédagogique pour le génie minier</p>
+
+          <h1>Apprends, calcule et comprends.</h1>
+
+          <p class="hero-text">
+            MineCalc t'aide à réaliser des calculs miniers courants avec des
+            formules expliquées simplement.
+          </p>
+
+          <a class="button button-primary" href="#calculateurs">
+            Commencer un calcul
+          </a>
+        </div>
+
+        <div class="hero-card" aria-label="Présentation de MineCalc">
+          <div class="hero-icon">⛏</div>
+          <h2>Premier outil</h2>
+          <p>Calcul du tonnage d'un bloc de minerai.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculateurs" class="calculator-section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Nos outils</p>
+
+          <h2>Calculateurs miniers</h2>
+
+          <p>
+            Commence par le tonnage, puis compare plusieurs blocs avec la
+            teneur moyenne pondérée.
+          </p>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <p class="eyebrow">Calculateur 01</p>
+
+            <h3>Calcul du tonnage</h3>
+
+            <p>Entre les dimensions du bloc et sa densité.</p>
+          </div>
+
+          <div class="calculator-layout">
+            <form id="tonnage-form" class="calculator-card">
+              <div class="form-group">
+                <label for="length">
+                  Longueur <span>(m)</span>
+                </label>
+
+                <input
+                  id="length"
+                  name="length"
+                  type="number"
+                  min="0"
+                  step="any"
+                  placeholder="Ex. 20"
+                  required
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="width">
+                  Largeur <span>(m)</span>
+                </label>
+
+                <input
+                  id="width"
+                  name="width"
+                  type="number"
+                  min="0"
+                  step="any"
+                  placeholder="Ex. 10"
+                  required
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="height">
+                  Hauteur <span>(m)</span>
+                </label>
+
+                <input
+                  id="height"
+                  name="height"
+                  type="number"
+                  min="0"
+                  step="any"
+                  placeholder="Ex. 5"
+                  required
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="density">
+                  Densité <span>(t/m³)</span>
+                </label>
+
+                <input
+                  id="density"
+                  name="density"
+                  type="number"
+                  min="0"
+                  step="any"
+                  placeholder="Ex. 2.7"
+                  required
+                >
+              </div>
+
+              <button class="button button-primary button-full" type="submit">
+                Calculer le tonnage
+              </button>
+
+              <button
+                class="button button-secondary button-full"
+                id="reset-button"
+                type="button"
+              >
+                Réinitialiser
+              </button>
+
+              <p id="form-message" class="form-message" role="alert"></p>
+            </form>
+
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+
+              <p id="result-value" class="result-value">-- tonnes</p>
+
+              <div class="result-details">
+                <p>
+                  <strong>Volume :</strong>
+                  <span id="volume-value">-- m³</span>
+                </p>
+
+                <p>
+                  <strong>Formule :</strong>
+                  T = V × ρ
+                </p>
+              </div>
+
+              <div class="explanation">
+                <h3>Comment le calcul fonctionne ?</h3>
+
+                <p>
+                  Le volume est obtenu avec
+                  <strong>V = longueur × largeur × hauteur</strong>.
+                  Le tonnage est ensuite calculé avec
+                  <strong>T = volume × densité</strong>.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <p class="eyebrow">Calculateur 02</p>
+
+            <h3>Teneur moyenne pondérée</h3>
+
+            <p>
+              Ajoute plusieurs blocs pour obtenir la teneur globale du minerai.
+            </p>
+          </div>
+
+          <div class="grade-layout">
+            <form id="grade-form" class="calculator-card">
+              <div id="block-list">
+                <div class="block-row">
+                  <div class="form-group">
+                    <label for="tonnage-1">
+                      Bloc 1 - Tonnage <span>(t)</span>
+                    </label>
+
+                    <input
+                      id="tonnage-1"
+                      class="block-tonnage"
+                      type="number"
+                      min="0"
+                      step="any"
+                      placeholder="Ex. 1000"
+                      required
+                    >
+                  </div>
+
+                  <div class="form-group">
+                    <label for="grade-1">
+                      Bloc 1 - Teneur <span>(%)</span>
+                    </label>
+
+                    <input
+                      id="grade-1"
+                      class="block-grade"
+                      type="number"
+                      min="0"
+                      max="100"
+                      step="any"
+                      placeholder="Ex. 2.5"
+                      required
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="grade-actions">
+                <button
+                  class="button button-secondary"
+                  id="add-block-button"
+                  type="button"
+                >
+                  + Ajouter un bloc
+                </button>
+
+                <button class="button button-primary" type="submit">
+                  Calculer la teneur
+                </button>
+              </div>
+
+              <button
+                class="button button-secondary button-full"
+                id="grade-reset-button"
+                type="button"
+              >
+                Réinitialiser
+              </button>
+
+              <p id="grade-message" class="form-message" role="alert"></p>
+            </form>
+
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+
+              <p id="grade-result" class="result-value">-- %</p>
+
+              <div class="result-details">
+                <p>
+                  <strong>Tonnage total :</strong>
+                  <span id="total-tonnage">-- t</span>
+                </p>
+
+                <p>
+                  <strong>Formule :</strong>
+                  Gm = Σ(T × G) / ΣT
+                </p>
+              </div>
+
+              <div class="explanation">
+                <h3>Pourquoi une moyenne pondérée ?</h3>
+
+                <p>
+                  Un bloc plus lourd influence davantage la teneur globale
+                  qu'un petit bloc.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <p class="eyebrow">Calculateur 03</p>
+            <h3>Convertisseur d'unités</h3>
+            <p>Convertis rapidement les unités utilisées en génie minier.</p>
+          </div>
+
+          <div class="converter-card">
+            <div class="converter-fields">
+              <div class="form-group">
+                <label for="conversion-category">Catégorie</label>
+                <select id="conversion-category">
+                  <option value="mass">Masse</option>
+                  <option value="volume">Volume</option>
+                  <option value="length">Longueur</option>
+                  <option value="pressure">Pression</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="conversion-value">Valeur</label>
+                <input id="conversion-value" type="number" step="any" placeholder="Ex. 1" value="1">
+              </div>
+
+              <div class="form-group">
+                <label for="from-unit">De</label>
+                <select id="from-unit"></select>
+              </div>
+
+              <div class="form-group">
+                <label for="to-unit">Vers</label>
+                <select id="to-unit"></select>
+              </div>
+            </div>
+
+            <button class="button button-primary" id="convert-button" type="button">
+              Convertir
+            </button>
+
+            <div class="conversion-result" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="conversion-result">--</p>
+              <p id="conversion-message" class="form-message" role="alert"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <p class="eyebrow">Calculateur 04</p>
+            <h3>Récupération métallurgique</h3>
+            <p>Estime la quantité de métal récupérée après le traitement.</p>
+          </div>
+
+          <div class="calculator-layout">
+            <form id="recovery-form" class="calculator-card">
+              <div class="form-group">
+                <label for="recovery-tonnage">Tonnage du minerai <span>(t)</span></label>
+                <input id="recovery-tonnage" type="number" min="0" step="any" placeholder="Ex. 1000" required>
+              </div>
+
+              <div class="form-group">
+                <label for="recovery-grade">Teneur du minerai <span>(%)</span></label>
+                <input id="recovery-grade" type="number" min="0" max="100" step="any" placeholder="Ex. 2" required>
+              </div>
+
+              <div class="form-group">
+                <label for="recovery-rate">Taux de récupération <span>(%)</span></label>
+                <input id="recovery-rate" type="number" min="0" max="100" step="any" placeholder="Ex. 85" required>
+              </div>
+
+              <button class="button button-primary button-full" type="submit">
+                Calculer la récupération
+              </button>
+
+              <button class="button button-secondary button-full" id="recovery-reset-button" type="button">
+                Réinitialiser
+              </button>
+
+              <p id="recovery-message" class="form-message" role="alert"></p>
+            </form>
+
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="recovered-metal" class="result-value">-- tonnes</p>
+
+              <div class="result-details">
+                <p><strong>Métal contenu :</strong> <span id="contained-metal">-- tonnes</span></p>
+                <p><strong>Formule :</strong> Mᵣ = T × G × R</p>
+              </div>
+
+              <div class="explanation">
+                <h3>Comment le calcul fonctionne ?</h3>
+                <p>
+                  La masse de métal contenu est calculée avec
+                  <strong>T × G / 100</strong>. On applique ensuite le taux de
+                  récupération pour obtenir le métal récupéré.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <p class="eyebrow">Calculateur 05</p>
+            <h3>Rapport de découverture</h3>
+            <p>Compare la quantité de stérile à déplacer avec le minerai extrait.</p>
+          </div>
+
+          <div class="calculator-layout">
+            <form id="stripping-form" class="calculator-card">
+              <div class="form-group">
+                <label for="waste-tonnage">Tonnage de stérile <span>(t)</span></label>
+                <input id="waste-tonnage" type="number" min="0" step="any" placeholder="Ex. 3000" required>
+              </div>
+
+              <div class="form-group">
+                <label for="ore-tonnage">Tonnage de minerai <span>(t)</span></label>
+                <input id="ore-tonnage" type="number" min="0" step="any" placeholder="Ex. 1000" required>
+              </div>
+
+              <button class="button button-primary button-full" type="submit">
+                Calculer le rapport
+              </button>
+
+              <button class="button button-secondary button-full" id="stripping-reset-button" type="button">
+                Réinitialiser
+              </button>
+
+              <p id="stripping-message" class="form-message" role="alert"></p>
+            </form>
+
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="stripping-result" class="result-value">--</p>
+
+              <div class="result-details">
+                <p><strong>Interprétation :</strong> <span id="stripping-interpretation">--</span></p>
+                <p><strong>Formule :</strong> Rd = Ts ÷ Tm</p>
+              </div>
+
+              <div class="explanation">
+                <h3>Que signifie ce rapport ?</h3>
+                <p>
+                  Un rapport de 3 signifie qu'il faut déplacer 3 tonnes de
+                  stérile pour extraire 1 tonne de minerai.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <p class="eyebrow">Calculateur 06</p>
+            <h3>Productivité d'une machine</h3>
+            <p>Calcule la quantité moyenne produite pendant une période de travail.</p>
+          </div>
+
+          <div class="calculator-layout">
+            <form id="productivity-form" class="calculator-card">
+              <div class="form-group">
+                <label for="production-quantity">Quantité produite <span>(t)</span></label>
+                <input id="production-quantity" type="number" min="0" step="any" placeholder="Ex. 800" required>
+              </div>
+
+              <div class="form-group">
+                <label for="working-time">Temps de travail <span>(heures)</span></label>
+                <input id="working-time" type="number" min="0" step="any" placeholder="Ex. 8" required>
+              </div>
+
+              <button class="button button-primary button-full" type="submit">
+                Calculer la productivité
+              </button>
+
+              <button class="button button-secondary button-full" id="productivity-reset-button" type="button">
+                Réinitialiser
+              </button>
+
+              <p id="productivity-message" class="form-message" role="alert"></p>
+            </form>
+
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="productivity-result" class="result-value">-- t/h</p>
+
+              <div class="result-details">
+                <p><strong>Quantité :</strong> <span id="productivity-quantity-result">-- t</span></p>
+                <p><strong>Formule :</strong> P = Q ÷ t</p>
+              </div>
+
+              <div class="explanation">
+                <h3>Comment le calcul fonctionne ?</h3>
+                <p>
+                  La productivité correspond à la quantité produite divisée
+                  par le temps de travail.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="formules" class="formulas-section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Apprendre</p>
+          <h2>Formules minières essentielles</h2>
+          <p>
+            Comprends les calculs utilisés par les outils MineCalc avant
+            d'interpréter leurs résultats.
+          </p>
+        </div>
+
+        <div class="formula-grid">
+          <article class="formula-card">
+            <div class="formula-number">01</div>
+            <h3>Calcul du volume</h3>
+            <p class="formula-equation">V = L × l × h</p>
+            <p>
+              Le volume d'un bloc rectangulaire est obtenu en multipliant sa
+              longueur, sa largeur et sa hauteur.
+            </p>
+            <p class="formula-units">
+              <strong>Unités :</strong> mètres et mètres cubes (m³)
+            </p>
+          </article>
+
+          <article class="formula-card">
+            <div class="formula-number">02</div>
+            <h3>Calcul du tonnage</h3>
+            <p class="formula-equation">T = V × ρ</p>
+            <p>
+              Le tonnage est obtenu en multipliant le volume du bloc par la
+              densité du matériau.
+            </p>
+            <p class="formula-units">
+              <strong>Unités :</strong> m³ × t/m³ = tonnes
+            </p>
+          </article>
+
+          <article class="formula-card">
+            <div class="formula-number">03</div>
+            <h3>Teneur moyenne pondérée</h3>
+            <p class="formula-equation">Gm = Σ(T × G) ÷ ΣT</p>
+            <p>
+              Chaque teneur est pondérée par le tonnage de son bloc. Les blocs
+              les plus importants ont donc davantage d'influence.
+            </p>
+            <p class="formula-units">
+              <strong>Unités :</strong> tonnage en t et teneur en %
+            </p>
+          </article>
+
+          <article class="formula-card">
+            <div class="formula-number">04</div>
+            <h3>Récupération métallurgique</h3>
+            <p class="formula-equation">Mᵣ = T × (G ÷ 100) × (R ÷ 100)</p>
+            <p>
+              La récupération représente la quantité de métal extraite du
+              minerai pendant le traitement.
+            </p>
+            <p class="formula-units">
+              <strong>Unités :</strong> tonnage en t, teneur et récupération en %
+            </p>
+          </article>
+
+          <article class="formula-card">
+            <div class="formula-number">05</div>
+            <h3>Rapport de découverture</h3>
+            <p class="formula-equation">Rd = Ts ÷ Tm</p>
+            <p>
+              Ce rapport compare le tonnage de stérile au tonnage de minerai
+              dans une exploitation à ciel ouvert.
+            </p>
+            <p class="formula-units">
+              <strong>Unités :</strong> tonnes de stérile par tonne de minerai
+            </p>
+          </article>
+
+          <article class="formula-card">
+            <div class="formula-number">06</div>
+            <h3>Productivité</h3>
+            <p class="formula-equation">P = Q ÷ t</p>
+            <p>
+              La productivité indique la quantité moyenne de matériau produite
+              ou déplacée pendant une heure de travail.
+            </p>
+            <p class="formula-units">
+              <strong>Unités :</strong> tonnes par heure (t/h)
+            </p>
+          </article>
+
+          <article class="formula-card">
+            <div class="formula-number">07</div>
+            <h3>Conversion d'unités</h3>
+            <p class="formula-equation">Résultat = valeur × facteur</p>
+            <p>
+              Une conversion utilise un facteur qui relie l'unité de départ à
+              l'unité d'arrivée.
+            </p>
+            <p class="formula-units">
+              <strong>Exemple :</strong> 1 t = 1 000 kg
+            </p>
+          </article>
+        </div>
+
+        <div class="example-box">
+          <h3>Exemple complet</h3>
+          <p>
+            Un bloc mesure 20 m × 10 m × 5 m et possède une densité de
+            2,7 t/m³.
+          </p>
+          <p>
+            <strong>Volume :</strong> 20 × 10 × 5 = 1 000 m³
+          </p>
+          <p>
+            <strong>Tonnage :</strong> 1 000 × 2,7 = 2 700 tonnes
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="quiz-section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Réviser</p>
+          <h2>Quiz de génie minier</h2>
+          <p>Teste tes connaissances avec trois questions rapides.</p>
+        </div>
+
+        <form id="quiz-form" class="quiz-card">
+          <fieldset class="question">
+            <legend>1. Quelle formule permet de calculer le tonnage ?</legend>
+            <label>
+              <input type="radio" name="question-1" value="a" required>
+              T = V × ρ
+            </label>
+            <label>
+              <input type="radio" name="question-1" value="b">
+              T = V ÷ ρ
+            </label>
+            <label>
+              <input type="radio" name="question-1" value="c">
+              T = ρ ÷ V
+            </label>
+          </fieldset>
+
+          <fieldset class="question">
+            <legend>2. Pourquoi utilise-t-on une teneur moyenne pondérée ?</legend>
+            <label>
+              <input type="radio" name="question-2" value="a" required>
+              Pour donner plus d'importance aux blocs les plus lourds
+            </label>
+            <label>
+              <input type="radio" name="question-2" value="b">
+              Pour supprimer les données des petits blocs
+            </label>
+            <label>
+              <input type="radio" name="question-2" value="c">
+              Pour convertir les tonnes en kilogrammes
+            </label>
+          </fieldset>
+
+          <fieldset class="question">
+            <legend>3. Un minerai contient 20 t de métal et la récupération est de 85 %. Combien récupère-t-on ?</legend>
+            <label>
+              <input type="radio" name="question-3" value="a" required>
+              17 t
+            </label>
+            <label>
+              <input type="radio" name="question-3" value="b">
+              20,85 t
+            </label>
+            <label>
+              <input type="radio" name="question-3" value="c">
+              23,53 t
+            </label>
+          </fieldset>
+
+          <button class="button button-primary" type="submit">Voir mon score</button>
+          <button class="button button-secondary" id="quiz-reset-button" type="button">Recommencer</button>
+          <div id="quiz-result" class="quiz-result" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+
+    <section id="historique" class="history-section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Suivi</p>
+          <h2>Historique des calculs</h2>
+          <p>
+            Tes derniers résultats sont enregistrés uniquement dans ce
+            navigateur.
+          </p>
+        </div>
+
+        <div class="history-card">
+          <div class="history-header">
+            <p id="history-empty">Aucun calcul enregistré pour le moment.</p>
+            <button class="button button-secondary" id="clear-history-button" type="button">
+              Effacer l'historique
+            </button>
+          </div>
+          <div id="history-list" class="history-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="apropos" class="about-section">
+      <div class="container">
+        <p class="eyebrow">À propos</p>
+
+        <h2>Un projet pour apprendre le génie minier</h2>
+
+        <p>
+          MineCalc est un projet étudiant. Les résultats sont indicatifs et
+          doivent être vérifiés avec les données de terrain et les méthodes
+          utilisées dans tes cours.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>MineCalc &copy; 2026 - Projet étudiant</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
