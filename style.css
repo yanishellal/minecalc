@@ -606,6 +606,91 @@ input:focus {
   font-size: 1.2rem;
 }
 
+.contact-section {
+  padding: 90px 0;
+  background: #eef5ef;
+}
+
+body.dark-mode .contact-section {
+  background: #17231b;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1.4fr;
+  gap: 28px;
+  align-items: stretch;
+}
+
+.contact-main-card,
+.contact-card {
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background: var(--color-white);
+  box-shadow: var(--shadow);
+}
+
+.contact-main-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px;
+}
+
+.contact-main-card h3 {
+  margin-top: 0;
+  margin-bottom: 14px;
+  font-size: 1.8rem;
+}
+
+.contact-main-card p {
+  margin: 0 0 22px;
+  color: var(--color-text-muted);
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.contact-card {
+  padding: 22px;
+}
+
+.contact-icon {
+  display: inline-flex;
+  width: 46px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background: var(--color-green-light);
+  font-size: 1.4rem;
+}
+
+.contact-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.15rem;
+}
+
+.contact-card p {
+  margin: 0 0 10px;
+  color: var(--color-text-muted);
+}
+
+.contact-card a {
+  color: var(--color-green);
+  font-weight: 700;
+}
+
 .about-section {
   background: var(--color-white);
 }
@@ -696,10 +781,13 @@ body.dark-mode .site-footer {
   .formulas-section,
   .quiz-section,
   .history-section,
+  .contact-section,
   .about-section {
     padding: 60px 0;
   }
 
+  .contact-layout,
+  .contact-grid,
   .formula-grid {
     grid-template-columns: 1fr;
   }
