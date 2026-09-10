@@ -94,6 +94,18 @@ nav a:hover {
   color: var(--color-green);
 }
 
+.menu-button {
+  display: none;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  color: var(--color-dark);
+  background: var(--color-white);
+  font: inherit;
+  font-weight: 700;
+}
+
 .theme-button {
   border: 1px solid var(--color-border);
   border-radius: 8px;
@@ -633,16 +645,31 @@ body.dark-mode .site-footer {
     padding: 10px 0;
   }
 
+  .menu-button {
+    display: block;
+    margin-left: auto;
+  }
+
   nav {
-    gap: 12px;
+    display: none;
+    flex-basis: 100%;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--color-border);
+    padding: 10px 0;
+  }
+
+  nav.is-open {
+    display: flex;
   }
 
   nav a {
-    font-size: 0.82rem;
+    padding: 9px 0;
+    font-size: 0.9rem;
   }
 
   .theme-button {
-    margin-left: auto;
+    margin-left: 0;
   }
 
   .hero {

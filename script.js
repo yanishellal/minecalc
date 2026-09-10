@@ -9,6 +9,8 @@ const historyEmpty = document.querySelector("#history-empty");
 const clearHistoryButton = document.querySelector("#clear-history-button");
 const themeButton = document.querySelector("#theme-button");
 const themeStorageKey = "minecalc-theme";
+const menuButton = document.querySelector("#menu-button");
+const mainNavigation = document.querySelector("#main-navigation");
 
 tonnageForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -477,6 +479,25 @@ themeButton.addEventListener("click", () => {
 });
 
 updateThemeButton();
+
+menuButton.addEventListener("click", () => {
+  const isOpen = mainNavigation.classList.toggle("is-open");
+  menuButton.textContent = isOpen ? "Fermer" : "Menu";
+  menuButton.setAttribute("aria-expanded", String(isOpen));
+  menuButton.setAttribute(
+    "aria-label",
+    isOpen ? "Fermer le menu" : "Ouvrir le menu"
+  );
+});
+
+mainNavigation.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => {
+    mainNavigation.classList.remove("is-open");
+    menuButton.textContent = "Menu";
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.setAttribute("aria-label", "Ouvrir le menu");
+  });
+});
 
 function getHistory() {
   const storedHistory = localStorage.getItem(historyStorageKey);
