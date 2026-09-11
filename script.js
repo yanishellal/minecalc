@@ -738,6 +738,37 @@ concentrateForm.addEventListener("submit", (event) => {
   saveCalculation("Teneur du concentré", `${formatNumber(concentrateGrade)} %`);
 });
 
+const cutoffForm = document.querySelector("#cutoff-form");
+const cutoffResult = document.querySelector("#cutoff-result");
+const cutoffMessage = document.querySelector("#cutoff-message");
+
+cutoffForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const cost = Number(document.querySelector("#cutoff-cost").value);
+  const metalValue = Number(document.querySelector("#cutoff-price").value);
+  const recovery = Number(document.querySelector("#cutoff-recovery").value);
+
+  if (
+    !Number.isFinite(cost) ||
+    !Number.isFinite(metalValue) ||
+    !Number.isFinite(recovery) ||
+    cost <= 0 ||
+    metalValue <= 0 ||
+    recovery <= 0 ||
+    recovery > 100
+  ) {
+    cutoffMessage.textContent =
+      "Les coûts et la valeur doivent être positifs, avec une récupération entre 0 et 100 %.";
+    return;
+  }
+
+  const cutoffGrade = (cost / (metalValue * (recovery / 100))) * 100;
+
+  cutoffResult.textContent = `${formatNumber(cutoffGrade)} %`;
+  cutoffMessage.textContent = "";
+  saveCalculation("Teneur de coupure", `${formatNumber(cutoffGrade)} %`);
+});
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -1094,7 +1125,7 @@ function updateDashboard() {
   lastElement.textContent = history.length ? history[0].name : "--";
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
-  progressElement.textContent = `${Math.round((toolCount / 22) * 100)}%`;
+  progressElement.textContent = `${Math.round((toolCount / 23) * 100)}%`;
 }
 
 const profileForm = document.querySelector("#profile-form");
