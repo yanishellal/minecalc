@@ -1391,10 +1391,11 @@ function getCalculatorFormulaData() {
     .map((section) => {
       const form = section.querySelector("form");
       const title = section.querySelector(".tool-heading > h3");
-      const category = section.querySelector(".calculator-category h3");
+      const category = section.querySelector(".calculator-category h3")
+        || section.querySelector(".calculator-category");
       const formulaParagraph = Array.from(
         section.querySelectorAll(".result-details p")
-      ).find((paragraph) => paragraph.textContent.includes("Formule"));
+      ).find((paragraph) => /formule\s*:/i.test(paragraph.textContent));
       const result = section.querySelector(".result-value");
       const explanation = section.querySelector(".explanation p")
         || section.querySelector(".tool-heading > p:last-child");
@@ -1424,56 +1425,71 @@ function getCalculatorFormulaData() {
 const calculatorFormulaData = getCalculatorFormulaData();
 const formulaGrid = document.querySelector("#formula-grid");
 
-const formulaGroups = new Map();
-
-calculatorFormulaData.forEach((calculator, index) => {
-  if (!formulaGroups.has(calculator.category)) {
-    const group = document.createElement("section");
-    group.className = "formula-group";
-    group.setAttribute("aria-labelledby", `formula-group-${formulaGroups.size}`);
-
-    const heading = document.createElement("h3");
-    heading.id = `formula-group-${formulaGroups.size}`;
-    heading.textContent = calculator.category;
-
-    const cards = document.createElement("div");
-    cards.className = "formula-group-grid";
-    group.append(heading, cards);
-    formulaGroups.set(calculator.category, cards);
-    formulaGrid.appendChild(group);
+function renderFormulaReference() {
+  if (!formulaGrid || !calculatorFormulaData.length) {
+    return;
   }
 
-  const card = document.createElement("article");
-  card.className = "formula-card";
+  formulaGrid.replaceChildren();
+  const formulaGroups = new Map();
 
-  const number = document.createElement("div");
-  number.className = "formula-number";
-  number.textContent = String(index + 1).padStart(2, "0");
+  calculatorFormulaData.forEach((calculator, index) => {
+    if (!formulaGroups.has(calculator.category)) {
+      const group = document.createElement("section");
+      group.className = "formula-group";
+      group.setAttribute("aria-labelledby", `formula-group-${formulaGroups.size}`);
 
-  const title = document.createElement("h3");
-  title.textContent = calculator.name;
+      const heading = document.createElement("h3");
+      heading.id = `formula-group-${formulaGroups.size}`;
+      heading.textContent = calculator.category;
 
-  const equation = document.createElement("p");
-  equation.className = "formula-equation";
-  equation.textContent = calculator.formula;
+      const cards = document.createElement("div");
+      cards.className = "formula-group-grid";
+      group.append(heading, cards);
+      formulaGroups.set(calculator.category, cards);
+      formulaGrid.appendChild(group);
+    }
 
-  const explanation = document.createElement("p");
-  explanation.textContent = calculator.explanation;
+    const card = document.createElement("article");
+    card.className = "formula-card";
 
-  const units = document.createElement("p");
-  units.className = "formula-units";
-  const unitsLabel = document.createElement("strong");
-  unitsLabel.textContent = "Unités : ";
-  units.append(unitsLabel, document.createTextNode(calculator.units));
+    const number = document.createElement("div");
+    number.className = "formula-number";
+    number.textContent = String(index + 1).padStart(2, "0");
 
-  card.append(number, title, equation, explanation, units);
-  formulaGroups.get(calculator.category).appendChild(card);
-});
+    const title = document.createElement("h3");
+    title.textContent = calculator.name;
+
+    const equation = document.createElement("p");
+    equation.className = "formula-equation";
+    equation.textContent = calculator.formula;
+
+    const explanation = document.createElement("p");
+    explanation.textContent = calculator.explanation;
+
+    const units = document.createElement("p");
+    units.className = "formula-units";
+    const unitsLabel = document.createElement("strong");
+    unitsLabel.textContent = "Unités : ";
+    units.append(unitsLabel, document.createTextNode(calculator.units));
+
+    card.append(number, title, equation, explanation, units);
+    formulaGroups.get(calculator.category).appendChild(card);
+  });
+}
+
+renderFormulaReference();
 
 const quizQuestions = document.querySelector("#quiz-questions");
 const correctAnswers = {};
 
-calculatorFormulaData.forEach((calculator, index) => {
+function renderQuizQuestions() {
+  if (!quizQuestions || !calculatorFormulaData.length) {
+    return;
+  }
+
+  quizQuestions.replaceChildren();
+  calculatorFormulaData.forEach((calculator, index) => {
   const questionNumber = index + 1;
   const questionName = `question-${questionNumber}`;
   const correctOption = String.fromCharCode(97 + (index % 3));
@@ -1509,8 +1525,11 @@ calculatorFormulaData.forEach((calculator, index) => {
     question.appendChild(label);
   });
 
-  quizQuestions.appendChild(question);
-});
+    quizQuestions.appendChild(question);
+  });
+}
+
+renderQuizQuestions();
 
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
