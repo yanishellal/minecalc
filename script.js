@@ -5,6 +5,7 @@ const volumeValue = document.querySelector("#volume-value");
 const formMessage = document.querySelector("#form-message");
 const historyStorageKey = "minecalc-history";
 const favoritesStorageKey = "minecalc-favorites";
+const notesStorageKey = "minecalc-notes";
 const historyList = document.querySelector("#history-list");
 const historyEmpty = document.querySelector("#history-empty");
 const clearHistoryButton = document.querySelector("#clear-history-button");
@@ -678,6 +679,7 @@ function getHistory() {
 function displayHistory() {
   const history = getHistory();
   const favorites = getFavorites();
+  const notes = getNotes();
   historyList.innerHTML = "";
   historyEmpty.hidden = history.length > 0;
 
@@ -689,9 +691,11 @@ function displayHistory() {
       <div>
         <p><strong>${calculation.name}</strong></p>
         <small>${calculation.date}</small>
+        ${notes[historyId] ? `<small class="history-note-text">${notes[historyId]}</small>` : ""}
       </div>
       <div class="history-result">
         <strong>${calculation.result}</strong>
+        <button class="history-note-button" type="button" data-history-id="${historyId}">Note</button>
         <button class="favorite-button${favorites.includes(historyId) ? " is-favorite" : ""}" type="button" data-history-id="${historyId}" aria-label="${favorites.includes(historyId) ? "Retirer des favoris" : "Ajouter aux favoris"}">
           ${favorites.includes(historyId) ? "★" : "☆"}
         </button>
@@ -701,6 +705,7 @@ function displayHistory() {
   });
 
   renderHistoryChart(history);
+  updateDashboard();
 }
 
 function getFavorites() {
@@ -708,6 +713,21 @@ function getFavorites() {
 
   if (!storedFavorites) {
     return [];
+  }
+
+  function getNotes() {
+    const storedNotes = localStorage.getItem(notesStorageKey);
+
+    if (!storedNotes) {
+      return {};
+    }
+
+    try {
+      const notes = JSON.parse(storedNotes);
+      return notes && typeof notes === "object" ? notes : {};
+    } catch {
+      return {};
+    }
   }
 
   try {
@@ -748,6 +768,26 @@ function renderHistoryChart(history) {
 }
 
 historyList.addEventListener("click", (event) => {
+  const noteButton = event.target.closest(".history-note-button");
+
+  if (noteButton) {
+    const historyId = noteButton.dataset.historyId;
+    const notes = getNotes();
+    const currentNote = notes[historyId] || "";
+    const note = window.prompt("Ajoute une note à ce résultat :", currentNote);
+
+    if (note !== null) {
+      if (note.trim()) {
+        notes[historyId] = note.trim();
+      } else {
+        delete notes[historyId];
+      }
+      localStorage.setItem(notesStorageKey, JSON.stringify(notes));
+      displayHistory();
+    }
+    return;
+  }
+
   const button = event.target.closest(".favorite-button");
 
   if (!button) {
@@ -766,6 +806,32 @@ historyList.addEventListener("click", (event) => {
 
   localStorage.setItem(favoritesStorageKey, JSON.stringify(favorites));
   displayHistory();
+});
+
+function updateDashboard() {
+  const history = getHistory();
+  const favorites = getFavorites();
+  const totalElement = document.querySelector("#dashboard-total");
+  const favoritesElement = document.querySelector("#dashboard-favorites");
+  const lastElement = document.querySelector("#dashboard-last");
+  const lastDateElement = document.querySelector("#dashboard-last-date");
+
+  totalElement.textContent = history.length;
+  favoritesElement.textContent = favorites.length;
+  lastElement.textContent = history.length ? history[0].name : "--";
+  lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
+}
+
+document.querySelectorAll(".example-button").forEach((button) => {
+  button.addEventListener("click", () => {
+    if (button.dataset.example === "tonnage") {
+      document.querySelector("#length").value = 20;
+      document.querySelector("#width").value = 10;
+      document.querySelector("#height").value = 5;
+      document.querySelector("#density").value = 2.7;
+      document.querySelector("#tonnage-form").scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  });
 });
 
 clearHistoryButton.addEventListener("click", () => {

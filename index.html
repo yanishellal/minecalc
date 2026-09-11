@@ -30,6 +30,7 @@
         <a href="#formules">Formules</a>
         <a href="#quiz">Quiz</a>
         <a href="#historique">Historique</a>
+        <a href="#tableau-de-bord">Tableau de bord</a>
         <a href="#faq">FAQ</a>
         <a href="#projets">Projets</a>
         <a href="#ressources">Ressources</a>
@@ -101,6 +102,9 @@
 
           <div class="calculator-layout">
             <form id="tonnage-form" class="calculator-card">
+              <button class="example-button" data-example="tonnage" type="button">
+                Exemple
+              </button>
               <div class="form-group">
                 <label for="length">
                   Longueur <span>(m)</span>
@@ -875,6 +879,7 @@
             </div>
           </div>
           <div id="history-list" class="history-list"></div>
+          <p class="history-note">Astuce : utilise le bouton de note pour garder une remarque sur un résultat.</p>
         </div>
 
         <div class="chart-card">
@@ -886,6 +891,33 @@
             <p>Nombre de résultats enregistrés par outil.</p>
           </div>
           <div id="history-chart" class="history-chart" aria-label="Graphique de l'activité des calculs"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tableau-de-bord" class="dashboard-section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Mon espace</p>
+          <h2>Tableau de bord</h2>
+          <p>Un résumé rapide de ta progression dans MineCalc.</p>
+        </div>
+        <div class="dashboard-grid">
+          <article class="dashboard-card">
+            <span class="dashboard-label">Calculs réalisés</span>
+            <strong id="dashboard-total">0</strong>
+            <p>résultats dans ton navigateur</p>
+          </article>
+          <article class="dashboard-card">
+            <span class="dashboard-label">Favoris</span>
+            <strong id="dashboard-favorites">0</strong>
+            <p>résultats conservés</p>
+          </article>
+          <article class="dashboard-card">
+            <span class="dashboard-label">Dernier outil</span>
+            <strong id="dashboard-last">--</strong>
+            <p id="dashboard-last-date">Aucune activité</p>
+          </article>
         </div>
       </div>
     </section>
@@ -914,6 +946,14 @@
           <details>
             <summary>Que signifie la dilution ?</summary>
             <p>La dilution représente l'ajout de stérile au minerai. Elle diminue la teneur finale du matériau envoyé au traitement.</p>
+          </details>
+          <details>
+            <summary>Quelle est la meilleure méthode pour vérifier un résultat ?</summary>
+            <p>Vérifie d'abord les unités, écris la formule, refais le calcul avec une estimation mentale et compare le résultat à un ordre de grandeur attendu.</p>
+          </details>
+          <details>
+            <summary>Pourquoi faut-il arrondir à la fin ?</summary>
+            <p>Conserver plusieurs décimales pendant les étapes intermédiaires limite les erreurs d'arrondi et rend le résultat final plus fiable.</p>
           </details>
         </div>
       </div>

@@ -690,6 +690,19 @@ body.dark-mode .projects-section {
   padding: 30px;
 }
 
+.example-button {
+  float: right;
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 12px;
+  cursor: pointer;
+  color: var(--color-green);
+  background: var(--color-green-light);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
 .converter-card {
   padding: 30px;
   border: 1px solid var(--color-border);
@@ -883,6 +896,71 @@ body.dark-mode .contact-section {
   color: var(--color-text-muted);
 }
 
+.history-note-text {
+  display: block;
+  margin-top: 5px;
+  color: var(--color-green) !important;
+  font-style: italic;
+}
+
+.history-note-button {
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 5px 8px;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  background: var(--color-white);
+  font: inherit;
+  font-size: 0.78rem;
+}
+
+.history-note {
+  margin: 18px 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.dashboard-section {
+  padding: 90px 0;
+  background: var(--color-white);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.dashboard-card {
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 24px;
+  background: var(--color-background);
+}
+
+.dashboard-label {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.dashboard-card strong {
+  display: block;
+  margin: 8px 0;
+  overflow: hidden;
+  color: var(--color-green);
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dashboard-card p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+}
+
 .contact-badge {
   align-self: flex-start;
   margin-bottom: 22px;
@@ -1072,6 +1150,7 @@ body.dark-mode .site-footer {
   .formulas-section,
   .quiz-section,
   .history-section,
+  .dashboard-section,
   .faq-section,
   .projects-section,
   .resources-section,
@@ -1083,6 +1162,7 @@ body.dark-mode .site-footer {
   .contact-layout,
   .project-grid,
   .resource-grid,
+  .dashboard-grid,
   .contact-grid,
   .formula-grid {
     grid-template-columns: 1fr;
