@@ -622,38 +622,90 @@ body.dark-mode .contact-section {
   align-items: stretch;
 }
 
-.contact-main-card,
-.contact-card {
+.contact-info-card,
+.contact-form {
   border: 1px solid var(--color-border);
   border-radius: 20px;
   background: var(--color-white);
   box-shadow: var(--shadow);
 }
 
-.contact-main-card {
+.contact-info-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding: 30px;
 }
 
-.contact-main-card h3 {
+.contact-info-card h3,
+.contact-form h3 {
   margin-top: 0;
   margin-bottom: 14px;
   font-size: 1.8rem;
 }
 
-.contact-main-card p {
+.contact-info-card > p {
   margin: 0 0 22px;
   color: var(--color-text-muted);
 }
 
+.contact-badge {
+  align-self: flex-start;
+  margin-bottom: 22px;
+  border-radius: 999px;
+  padding: 7px 13px;
+  color: var(--color-white);
+  background: var(--color-green);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contact-detail {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.contact-detail .contact-icon {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.contact-detail strong,
+.contact-detail a,
+.contact-detail > div > span {
+  display: block;
+}
+
+.contact-detail a,
+.contact-detail > div > span {
+  margin-top: 3px;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+}
+
+.contact-detail a {
+  color: var(--color-green);
+  font-weight: 700;
+}
+
+.contact-link {
+  margin-top: auto;
+  padding-top: 28px;
+  color: var(--color-green);
+  font-weight: 800;
+}
+
 .contact-form {
-  border: 1px solid var(--color-border);
-  border-radius: 20px;
   padding: 30px;
-  background: var(--color-white);
-  box-shadow: var(--shadow);
+}
+
+.contact-form-intro {
+  margin: -4px 0 22px;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
 }
 
 .contact-form textarea {
@@ -672,22 +724,6 @@ body.dark-mode .contact-section {
   border-color: var(--color-green);
 }
 
-.contact-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.contact-card {
-  padding: 22px;
-}
-
 .contact-icon {
   display: inline-flex;
   width: 46px;
@@ -698,21 +734,6 @@ body.dark-mode .contact-section {
   border-radius: 12px;
   background: var(--color-green-light);
   font-size: 1.4rem;
-}
-
-.contact-card h3 {
-  margin: 0 0 10px;
-  font-size: 1.15rem;
-}
-
-.contact-card p {
-  margin: 0 0 10px;
-  color: var(--color-text-muted);
-}
-
-.contact-card a {
-  color: var(--color-green);
-  font-weight: 700;
 }
 
 .about-section {
