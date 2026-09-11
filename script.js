@@ -1087,6 +1087,69 @@ utilizationForm.addEventListener("submit", (event) => {
   saveCalculation("Taux d'utilisation", `${formatNumber(utilization)} %`);
 });
 
+bindSimpleCalculation(
+  "#energy-consumption-form",
+  ["#energy-consumption-power", "#energy-consumption-time"],
+  "#energy-consumption-result",
+  "#energy-consumption-message",
+  (power, time) => power * time,
+  "Énergie consommée",
+  "kWh"
+);
+
+bindSimpleCalculation(
+  "#energy-cost-form",
+  ["#energy-cost-energy", "#energy-cost-rate"],
+  "#energy-cost-result",
+  "#energy-cost-message",
+  (energy, rate) => energy * rate,
+  "Coût énergétique",
+  "DA"
+);
+
+const metalBalanceForm = document.querySelector("#metal-balance-form");
+const metalBalanceRecovery = document.querySelector("#metal-balance-recovery");
+const metalBalanceContained = document.querySelector("#metal-balance-contained");
+const metalBalanceLoss = document.querySelector("#metal-balance-loss");
+const metalBalanceMessage = document.querySelector("#metal-balance-message");
+
+metalBalanceForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const feedTonnage = Number(document.querySelector("#metal-balance-feed").value);
+  const feedGrade = Number(document.querySelector("#metal-balance-grade").value);
+  const recoveredMetal = Number(document.querySelector("#metal-balance-recovered").value);
+
+  if (
+    !Number.isFinite(feedTonnage) ||
+    !Number.isFinite(feedGrade) ||
+    !Number.isFinite(recoveredMetal) ||
+    feedTonnage <= 0 ||
+    feedGrade < 0 ||
+    feedGrade > 100 ||
+    recoveredMetal < 0
+  ) {
+    metalBalanceMessage.textContent =
+      "Le tonnage doit être positif, la teneur comprise entre 0 et 100 %, et le métal récupéré positif ou nul.";
+    return;
+  }
+
+  const containedMetal = feedTonnage * feedGrade / 100;
+
+  if (recoveredMetal > containedMetal) {
+    metalBalanceMessage.textContent =
+      "Le métal récupéré ne peut pas dépasser le métal contenu dans l'alimentation.";
+    return;
+  }
+
+  const recovery = containedMetal === 0 ? 0 : (recoveredMetal / containedMetal) * 100;
+  const loss = containedMetal - recoveredMetal;
+  metalBalanceRecovery.textContent = `${formatNumber(recovery)} %`;
+  metalBalanceContained.textContent = `${formatNumber(containedMetal)} t`;
+  metalBalanceLoss.textContent = `${formatNumber(loss)} t`;
+  metalBalanceMessage.textContent = "";
+  saveCalculation("Bilan métal", `${formatNumber(recovery)} %`);
+});
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -1443,7 +1506,7 @@ function updateDashboard() {
   lastElement.textContent = history.length ? history[0].name : "--";
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
-  progressElement.textContent = `${Math.round((toolCount / 35) * 100)}%`;
+  progressElement.textContent = `${Math.round((toolCount / 38) * 100)}%`;
 }
 
 const profileForm = document.querySelector("#profile-form");

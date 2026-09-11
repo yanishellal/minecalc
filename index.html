@@ -68,7 +68,7 @@
           </a>
 
           <div class="hero-stats" aria-label="Fonctionnalités de MineCalc">
-            <div><strong>35</strong><span>outils miniers</span></div>
+            <div><strong>38</strong><span>outils miniers</span></div>
             <div><strong>100%</strong><span>pédagogique</span></div>
             <div><strong>24/7</strong><span>accessible</span></div>
           </div>
@@ -1183,6 +1183,73 @@
               <p id="utilization-result" class="result-value">-- %</p>
               <div class="result-details"><p><strong>Formule :</strong> U = (To ÷ Td) × 100</p></div>
               <div class="explanation"><h3>Interprétation</h3><p>Une faible utilisation peut révéler des attentes, des problèmes d'organisation ou un manque d'alimentation de la machine.</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Énergie et équipements</h3></div>
+            <p class="eyebrow">Calculateur 36</p>
+            <h3>Énergie consommée</h3>
+            <p>Calcule l'énergie consommée par un équipement électrique pendant une durée donnée.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="energy-consumption-form" class="calculator-card">
+              <div class="form-group"><label for="energy-consumption-power">Puissance de l'équipement <span>(kW)</span></label><input id="energy-consumption-power" type="number" min="0" step="any" placeholder="Ex. 250" required></div>
+              <div class="form-group"><label for="energy-consumption-time">Durée de fonctionnement <span>(h)</span></label><input id="energy-consumption-time" type="number" min="0" step="any" placeholder="Ex. 8" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer l'énergie</button>
+              <p id="energy-consumption-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="energy-consumption-result" class="result-value">-- kWh</p>
+              <div class="result-details"><p><strong>Formule :</strong> E = P × t</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Économie minière</h3></div>
+            <p class="eyebrow">Calculateur 37</p>
+            <h3>Coût énergétique</h3>
+            <p>Estime le coût de l'électricité consommée par une machine ou une installation.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="energy-cost-form" class="calculator-card">
+              <div class="form-group"><label for="energy-cost-energy">Énergie consommée <span>(kWh)</span></label><input id="energy-cost-energy" type="number" min="0" step="any" placeholder="Ex. 2000" required></div>
+              <div class="form-group"><label for="energy-cost-rate">Tarif de l'électricité <span>(DA/kWh)</span></label><input id="energy-cost-rate" type="number" min="0" step="any" placeholder="Ex. 12" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le coût</button>
+              <p id="energy-cost-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="energy-cost-result" class="result-value">-- DA</p>
+              <div class="result-details"><p><strong>Formule :</strong> C = E × tarif</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Traitement du minerai</h3></div>
+            <p class="eyebrow">Calculateur 38</p>
+            <h3>Bilan métal complet</h3>
+            <p>Compare le métal contenu à l'alimentation avec le métal récupéré et les pertes estimées.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="metal-balance-form" class="calculator-card">
+              <div class="form-group"><label for="metal-balance-feed">Tonnage alimenté <span>(t)</span></label><input id="metal-balance-feed" type="number" min="0" step="any" placeholder="Ex. 1000" required></div>
+              <div class="form-group"><label for="metal-balance-grade">Teneur d'alimentation <span>(%)</span></label><input id="metal-balance-grade" type="number" min="0" max="100" step="any" placeholder="Ex. 2.5" required></div>
+              <div class="form-group"><label for="metal-balance-recovered">Métal récupéré <span>(t)</span></label><input id="metal-balance-recovered" type="number" min="0" step="any" placeholder="Ex. 20" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le bilan</button>
+              <p id="metal-balance-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="metal-balance-recovery" class="result-value">-- %</p>
+              <div class="result-details"><p><strong>Métal contenu :</strong> <span id="metal-balance-contained">-- t</span></p><p><strong>Pertes estimées :</strong> <span id="metal-balance-loss">-- t</span></p><p><strong>Formule :</strong> R = Mr ÷ Mc × 100</p></div>
             </section>
           </div>
         </div>

@@ -17,6 +17,7 @@ utilisées dans les études minières.
 - Calcul du nombre de godets, de la durée de chargement et de la distance moyenne de transport ;
 - Calcul de la ventilation totale, de la puissance mécanique et du métal récupéré après traitement ;
 - Calcul de la vitesse moyenne, de la disponibilité mécanique et du taux d'utilisation ;
+- Calcul de l'énergie consommée, du coût énergétique et du bilan métal ;
 - Quiz de révision ;
 - Historique local des calculs ;
 - Mode sombre.
@@ -119,6 +120,15 @@ Métal récupéré = tonnage × teneur ÷ 100 × récupération ÷ 100
 Vitesse moyenne = distance ÷ temps
 Disponibilité = ((temps programmé − temps d'arrêt) ÷ temps programmé) × 100
 Utilisation = (temps de fonctionnement ÷ temps disponible) × 100
+```
+
+### Énergie et bilan métal
+
+```text
+Énergie consommée = puissance × durée
+Coût énergétique = énergie consommée × tarif
+Métal contenu = tonnage alimenté × teneur ÷ 100
+Récupération = métal récupéré ÷ métal contenu × 100
 ```
 
 ## Avertissement
