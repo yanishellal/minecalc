@@ -1399,7 +1399,12 @@ const correctAnswers = {
   "question-7": "a",
   "question-8": "c",
   "question-9": "a",
-  "question-10": "a"
+  "question-10": "a",
+  "question-11": "a",
+  "question-12": "a",
+  "question-13": "a",
+  "question-14": "a",
+  "question-15": "a"
 };
 
 quizForm.addEventListener("submit", (event) => {

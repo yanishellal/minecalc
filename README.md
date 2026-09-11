@@ -187,6 +187,15 @@ Production par trou = volume total abattu ÷ nombre de trous
 Coût unitaire du transport = coût total du transport ÷ tonnage transporté
 ```
 
+### Formules complémentaires
+
+```text
+Teneur diluée = teneur du minerai × tonnage du minerai ÷ (tonnage du minerai + tonnage de stérile)
+Disponibilité = (temps programmé − temps d'arrêt) ÷ temps programmé × 100
+Métal récupéré = métal contenu × récupération ÷ 100
+Coût total = coûts fixes + coûts variables
+```
+
 ## Avertissement
 
 MineCalc est un outil pédagogique. Les résultats sont indicatifs et doivent
