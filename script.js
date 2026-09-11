@@ -9,6 +9,7 @@ const historyList = document.querySelector("#history-list");
 const historyEmpty = document.querySelector("#history-empty");
 const clearHistoryButton = document.querySelector("#clear-history-button");
 const exportHistoryButton = document.querySelector("#export-history-button");
+const printHistoryButton = document.querySelector("#print-history-button");
 const themeButton = document.querySelector("#theme-button");
 const themeStorageKey = "minecalc-theme";
 const menuButton = document.querySelector("#menu-button");
@@ -770,6 +771,10 @@ historyList.addEventListener("click", (event) => {
 clearHistoryButton.addEventListener("click", () => {
   localStorage.removeItem(historyStorageKey);
   displayHistory();
+});
+
+printHistoryButton.addEventListener("click", () => {
+  window.print();
 });
 
 exportHistoryButton.addEventListener("click", () => {

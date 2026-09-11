@@ -568,6 +568,71 @@ body.dark-mode .history-section {
   color: var(--color-text-muted);
 }
 
+.projects-section,
+.resources-section {
+  padding: 90px 0;
+}
+
+.projects-section {
+  background: #eef5ef;
+}
+
+body.dark-mode .projects-section {
+  background: #17231b;
+}
+
+.project-grid,
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.project-card,
+.resource-card {
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 26px;
+  background: var(--color-white);
+  box-shadow: var(--shadow);
+}
+
+.project-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 18px;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--color-green-light);
+  font-size: 1.4rem;
+}
+
+.project-card h3,
+.resource-card h3 {
+  margin: 0 0 10px;
+}
+
+.project-card p,
+.resource-card p {
+  color: var(--color-text-muted);
+}
+
+.project-card a {
+  color: var(--color-green);
+  font-weight: 800;
+}
+
+.resource-card strong {
+  color: var(--color-orange);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+}
+
+.contact-info-card {
+  border-top: 4px solid var(--color-orange);
+}
+
 .history-item {
   display: flex;
   align-items: center;
@@ -1008,15 +1073,58 @@ body.dark-mode .site-footer {
   .quiz-section,
   .history-section,
   .faq-section,
+  .projects-section,
+  .resources-section,
   .contact-section,
   .about-section {
     padding: 60px 0;
   }
 
   .contact-layout,
+  .project-grid,
+  .resource-grid,
   .contact-grid,
   .formula-grid {
     grid-template-columns: 1fr;
+  }
+
+  @media print {
+    .site-header,
+    .hero,
+    .calculator-section,
+    .formulas-section,
+    .quiz-section,
+    .faq-section,
+    .projects-section,
+    .resources-section,
+    .contact-section,
+    .about-section,
+    .site-footer,
+    .chart-card,
+    #clear-history-button,
+    #export-history-button,
+    #print-history-button,
+    .favorite-button {
+      display: none !important;
+    }
+
+    body,
+    .history-section,
+    .history-card {
+      color: #000;
+      background: #fff;
+      box-shadow: none;
+    }
+
+    .history-section {
+      display: block !important;
+      padding: 0;
+    }
+
+    .history-item {
+      border: 1px solid #999;
+      background: #fff;
+    }
   }
 
   .history-header,
