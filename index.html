@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MineCalc - Calculateur minier</title>
+  <meta name="description" content="MineCalc : calculateurs miniers, formules et outils pédagogiques pour réviser le génie minier.">
+  <meta name="theme-color" content="#2f6b4f">
+  <title>MineCalc | Calculs miniers et révision</title>
+  <link rel="preload" href="style.css" as="style">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -935,6 +938,43 @@
             <p>des outils disponibles ont été essayés</p>
           </article>
         </div>
+        <div class="dashboard-tools">
+          <form id="profile-form" class="profile-card">
+            <h3>Mon profil étudiant</h3>
+            <label for="profile-name">Prénom ou pseudonyme</label>
+            <input id="profile-name" type="text" maxlength="40" placeholder="Ex. Yanis">
+            <label for="profile-level">Niveau d'étude</label>
+            <select id="profile-level">
+              <option value="Débutant">Débutant</option>
+              <option value="Intermédiaire">Intermédiaire</option>
+              <option value="Avancé">Avancé</option>
+            </select>
+            <button class="button button-primary button-full" type="submit">Enregistrer le profil</button>
+            <p id="profile-message" class="form-message" role="status"></p>
+          </form>
+          <div class="profile-card">
+            <h3 id="profile-greeting">Bienvenue sur MineCalc</h3>
+            <p id="profile-summary">Crée ton profil pour personnaliser ton espace.</p>
+            <div class="backup-actions">
+              <button class="button button-secondary" id="export-data-button" type="button">Sauvegarder mes données</button>
+              <label class="button button-secondary file-button" for="import-data-input">Restaurer</label>
+              <input id="import-data-input" type="file" accept="application/json" hidden>
+            </div>
+          </div>
+        </div>
+        <div class="revision-goal">
+          <div>
+            <p class="eyebrow">Objectif de révision</p>
+            <h3>Garde un rythme régulier</h3>
+            <p id="goal-status">Choisis un nombre de calculs à réaliser.</p>
+          </div>
+          <div class="goal-controls">
+            <label for="goal-target">Objectif</label>
+            <input id="goal-target" type="number" min="1" max="100" value="10">
+            <button class="button button-primary" id="save-goal-button" type="button">Enregistrer</button>
+          </div>
+          <div class="goal-progress"><span id="goal-progress-bar"></span></div>
+        </div>
       </div>
     </section>
 
@@ -1133,6 +1173,6 @@
     <p>MineCalc &copy; 2026 - Projet étudiant</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>

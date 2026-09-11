@@ -6,6 +6,8 @@ const formMessage = document.querySelector("#form-message");
 const historyStorageKey = "minecalc-history";
 const favoritesStorageKey = "minecalc-favorites";
 const notesStorageKey = "minecalc-notes";
+const profileStorageKey = "minecalc-profile";
+const goalStorageKey = "minecalc-goal";
 const historyList = document.querySelector("#history-list");
 const historyEmpty = document.querySelector("#history-empty");
 const clearHistoryButton = document.querySelector("#clear-history-button");
@@ -715,26 +717,26 @@ function getFavorites() {
     return [];
   }
 
-  function getNotes() {
-    const storedNotes = localStorage.getItem(notesStorageKey);
-
-    if (!storedNotes) {
-      return {};
-    }
-
-    try {
-      const notes = JSON.parse(storedNotes);
-      return notes && typeof notes === "object" ? notes : {};
-    } catch {
-      return {};
-    }
-  }
-
   try {
     const favorites = JSON.parse(storedFavorites);
     return Array.isArray(favorites) ? favorites : [];
   } catch {
     return [];
+  }
+}
+
+function getNotes() {
+  const storedNotes = localStorage.getItem(notesStorageKey);
+
+  if (!storedNotes) {
+    return {};
+  }
+
+  try {
+    const notes = JSON.parse(storedNotes);
+    return notes && typeof notes === "object" ? notes : {};
+  } catch {
+    return {};
   }
 }
 
@@ -825,7 +827,124 @@ function updateDashboard() {
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
   progressElement.textContent = `${Math.round((toolCount / 9) * 100)}%`;
+  updateGoal();
 }
+
+const profileForm = document.querySelector("#profile-form");
+const profileName = document.querySelector("#profile-name");
+const profileLevel = document.querySelector("#profile-level");
+const profileMessage = document.querySelector("#profile-message");
+const profileGreeting = document.querySelector("#profile-greeting");
+const profileSummary = document.querySelector("#profile-summary");
+
+function updateProfile() {
+  let profile;
+
+  try {
+    profile = JSON.parse(localStorage.getItem(profileStorageKey) || "null");
+  } catch {
+    profile = null;
+  }
+
+  if (!profile || !profile.name) {
+    return;
+  }
+
+  profileName.value = profile.name;
+  profileLevel.value = profile.level || "Débutant";
+  profileGreeting.textContent = `Bonjour ${profile.name} !`;
+  profileSummary.textContent = `Niveau : ${profile.level || "Débutant"}. Continue ta révision à ton rythme.`;
+}
+
+profileForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const name = profileName.value.trim();
+  const level = profileLevel.value;
+
+  if (!name) {
+    profileMessage.textContent = "Indique un prénom ou un pseudonyme.";
+    return;
+  }
+
+  localStorage.setItem(profileStorageKey, JSON.stringify({ name, level }));
+  profileMessage.textContent = "Profil enregistré sur cet appareil.";
+  updateProfile();
+});
+
+const saveGoalButton = document.querySelector("#save-goal-button");
+const goalTarget = document.querySelector("#goal-target");
+const goalStatus = document.querySelector("#goal-status");
+const goalProgressBar = document.querySelector("#goal-progress-bar");
+
+function updateGoal() {
+  const target = Number(localStorage.getItem(goalStorageKey) || goalTarget.value || 10);
+  const completed = getHistory().length;
+  const percentage = Math.min(100, Math.round((completed / target) * 100));
+
+  goalTarget.value = target;
+  goalStatus.textContent = `${completed} calcul${completed > 1 ? "s" : ""} sur ${target} réalisé${target > 1 ? "s" : ""}.`;
+  goalProgressBar.style.width = `${percentage}%`;
+}
+
+saveGoalButton.addEventListener("click", () => {
+  const target = Number(goalTarget.value);
+
+  if (Number.isInteger(target) && target > 0 && target <= 100) {
+    localStorage.setItem(goalStorageKey, String(target));
+    updateGoal();
+  }
+});
+
+const exportDataButton = document.querySelector("#export-data-button");
+const importDataInput = document.querySelector("#import-data-input");
+
+exportDataButton.addEventListener("click", () => {
+  const data = {
+    history: getHistory(),
+    favorites: getFavorites(),
+    notes: getNotes(),
+    profile: JSON.parse(localStorage.getItem(profileStorageKey) || "null"),
+    goal: localStorage.getItem(goalStorageKey) || "10"
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "minecalc-donnees.json";
+  link.click();
+  URL.revokeObjectURL(url);
+});
+
+importDataInput.addEventListener("change", async () => {
+  const file = importDataInput.files[0];
+
+  if (!file) {
+    return;
+  }
+
+  try {
+    const data = JSON.parse(await file.text());
+    if (!Array.isArray(data.history) || !Array.isArray(data.favorites)) {
+      throw new Error("Format invalide");
+    }
+    localStorage.setItem(historyStorageKey, JSON.stringify(data.history.slice(0, 10)));
+    localStorage.setItem(favoritesStorageKey, JSON.stringify(data.favorites));
+    localStorage.setItem(notesStorageKey, JSON.stringify(data.notes || {}));
+    if (data.profile) {
+      localStorage.setItem(profileStorageKey, JSON.stringify(data.profile));
+    }
+    localStorage.setItem(goalStorageKey, String(Number(data.goal) || 10));
+    updateProfile();
+    displayHistory();
+  } catch {
+    profileMessage.textContent = "Le fichier sélectionné n'est pas une sauvegarde MineCalc valide.";
+  } finally {
+    importDataInput.value = "";
+  }
+});
+
+updateProfile();
+updateGoal();
 
 document.querySelectorAll(".example-button").forEach((button) => {
   button.addEventListener("click", () => {
