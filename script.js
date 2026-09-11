@@ -1199,6 +1199,36 @@ bindSimpleCalculation(
   "DA"
 );
 
+bindSimpleCalculation(
+  "#waste-volume-form",
+  ["#waste-volume-ore", "#waste-volume-ratio"],
+  "#waste-volume-result",
+  "#waste-volume-message",
+  (ore, ratio) => ore * ratio,
+  "Stérile à déplacer",
+  "t"
+);
+
+bindSimpleCalculation(
+  "#annual-production-form",
+  ["#annual-production-daily", "#annual-production-days"],
+  "#annual-production-result",
+  "#annual-production-message",
+  (dailyProduction, workingDays) => dailyProduction * workingDays,
+  "Production annuelle",
+  "t/an"
+);
+
+bindSimpleCalculation(
+  "#explosive-mass-form",
+  ["#explosive-mass-volume", "#explosive-mass-factor"],
+  "#explosive-mass-result",
+  "#explosive-mass-message",
+  (volume, powderFactor) => volume * powderFactor,
+  "Masse d'explosif",
+  "kg"
+);
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -1555,7 +1585,7 @@ function updateDashboard() {
   lastElement.textContent = history.length ? history[0].name : "--";
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
-  progressElement.textContent = `${Math.round((toolCount / 41) * 100)}%`;
+  progressElement.textContent = `${Math.round((toolCount / 44) * 100)}%`;
 }
 
 const profileForm = document.querySelector("#profile-form");

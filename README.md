@@ -19,6 +19,7 @@ utilisées dans les études minières.
 - Calcul de la vitesse moyenne, de la disponibilité mécanique et du taux d'utilisation ;
 - Calcul de l'énergie consommée, du coût énergétique et du bilan métal ;
 - Calcul des réserves exploitables, de la durée d'exploitation et du coût de forage ;
+- Calcul du volume de stérile, de la production annuelle et de la masse d'explosif ;
 - Quiz de révision ;
 - Historique local des calculs ;
 - Mode sombre.
@@ -138,6 +139,14 @@ Récupération = métal récupéré ÷ métal contenu × 100
 Réserves exploitables = ressource estimée × récupération minière ÷ 100
 Durée d'exploitation = réserves exploitables ÷ production journalière
 Coût de forage = longueur totale forée × coût par mètre
+```
+
+### Exploitation et dynamitage
+
+```text
+Stérile à déplacer = tonnage de minerai × rapport de découverture
+Production annuelle = production journalière × jours travaillés
+Masse d'explosif = volume abattu × charge spécifique
 ```
 
 ## Avertissement
