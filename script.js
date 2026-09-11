@@ -1275,6 +1275,59 @@ netRevenueForm.addEventListener("submit", (event) => {
   saveCalculation("Revenu net", `${formatNumber(netRevenue)} DA`);
 });
 
+bindSimpleCalculation(
+  "#water-consumption-form",
+  ["#water-consumption-rate", "#water-consumption-time"],
+  "#water-consumption-result",
+  "#water-consumption-message",
+  (hourlyRate, time) => hourlyRate * time,
+  "Volume d'eau consommé",
+  "m³"
+);
+
+bindSimpleCalculation(
+  "#maintenance-cost-form",
+  ["#maintenance-cost-hours", "#maintenance-cost-rate"],
+  "#maintenance-cost-result",
+  "#maintenance-cost-message",
+  (hours, rate) => hours * rate,
+  "Coût de maintenance",
+  "DA"
+);
+
+const netProductivityForm = document.querySelector("#net-productivity-form");
+const netProductivityResult = document.querySelector("#net-productivity-result");
+const netProductivityTime = document.querySelector("#net-productivity-time");
+const netProductivityMessage = document.querySelector("#net-productivity-message");
+
+netProductivityForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const production = Number(document.querySelector("#net-productivity-production").value);
+  const totalTime = Number(document.querySelector("#net-productivity-total-time").value);
+  const stops = Number(document.querySelector("#net-productivity-stops").value);
+  const productiveTime = totalTime - stops;
+
+  if (
+    !Number.isFinite(production) ||
+    !Number.isFinite(totalTime) ||
+    !Number.isFinite(stops) ||
+    production <= 0 ||
+    totalTime <= 0 ||
+    stops < 0 ||
+    productiveTime <= 0
+  ) {
+    netProductivityMessage.textContent =
+      "La production et le temps total doivent être positifs, avec des arrêts inférieurs au temps total.";
+    return;
+  }
+
+  const productivity = production / productiveTime;
+  netProductivityResult.textContent = `${formatNumber(productivity)} t/h`;
+  netProductivityTime.textContent = `${formatNumber(productiveTime)} h`;
+  netProductivityMessage.textContent = "";
+  saveCalculation("Productivité nette", `${formatNumber(productivity)} t/h`);
+});
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -1631,7 +1684,7 @@ function updateDashboard() {
   lastElement.textContent = history.length ? history[0].name : "--";
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
-  progressElement.textContent = `${Math.round((toolCount / 47) * 100)}%`;
+  progressElement.textContent = `${Math.round((toolCount / 50) * 100)}%`;
 }
 
 const profileForm = document.querySelector("#profile-form");

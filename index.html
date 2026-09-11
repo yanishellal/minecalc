@@ -68,7 +68,7 @@
           </a>
 
           <div class="hero-stats" aria-label="Fonctionnalités de MineCalc">
-            <div><strong>47</strong><span>outils miniers</span></div>
+            <div><strong>50</strong><span>outils miniers</span></div>
             <div><strong>100%</strong><span>pédagogique</span></div>
             <div><strong>24/7</strong><span>accessible</span></div>
           </div>
@@ -1450,6 +1450,73 @@
               <p id="net-revenue-result" class="result-value">-- DA</p>
               <div class="result-details"><p><strong>Formule :</strong> Rn = revenu brut − coûts</p></div>
               <div class="explanation"><h3>Attention</h3><p>Ce résultat est une estimation pédagogique avant impôts, amortissements et autres charges financières.</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Environnement et sécurité</h3></div>
+            <p class="eyebrow">Calculateur 48</p>
+            <h3>Volume d'eau consommé</h3>
+            <p>Estime le volume d'eau utilisé par une installation pendant une période de fonctionnement.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="water-consumption-form" class="calculator-card">
+              <div class="form-group"><label for="water-consumption-rate">Consommation horaire <span>(m³/h)</span></label><input id="water-consumption-rate" type="number" min="0" step="any" placeholder="Ex. 12" required></div>
+              <div class="form-group"><label for="water-consumption-time">Durée d'utilisation <span>(h)</span></label><input id="water-consumption-time" type="number" min="0" step="any" placeholder="Ex. 10" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le volume</button>
+              <p id="water-consumption-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="water-consumption-result" class="result-value">-- m³</p>
+              <div class="result-details"><p><strong>Formule :</strong> V = débit horaire × durée</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Économie minière</h3></div>
+            <p class="eyebrow">Calculateur 49</p>
+            <h3>Coût de maintenance</h3>
+            <p>Estime le coût total de maintenance à partir du nombre d'heures d'entretien et du tarif horaire.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="maintenance-cost-form" class="calculator-card">
+              <div class="form-group"><label for="maintenance-cost-hours">Heures de maintenance <span>(h)</span></label><input id="maintenance-cost-hours" type="number" min="0" step="any" placeholder="Ex. 24" required></div>
+              <div class="form-group"><label for="maintenance-cost-rate">Tarif horaire <span>(DA/h)</span></label><input id="maintenance-cost-rate" type="number" min="0" step="any" placeholder="Ex. 1800" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le coût</button>
+              <p id="maintenance-cost-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="maintenance-cost-result" class="result-value">-- DA</p>
+              <div class="result-details"><p><strong>Formule :</strong> C = heures de maintenance × tarif horaire</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Production minière</h3></div>
+            <p class="eyebrow">Calculateur 50</p>
+            <h3>Productivité nette</h3>
+            <p>Calcule la production réelle par heure en retirant les arrêts du temps total disponible.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="net-productivity-form" class="calculator-card">
+              <div class="form-group"><label for="net-productivity-production">Production réalisée <span>(t)</span></label><input id="net-productivity-production" type="number" min="0" step="any" placeholder="Ex. 800" required></div>
+              <div class="form-group"><label for="net-productivity-total-time">Temps total prévu <span>(h)</span></label><input id="net-productivity-total-time" type="number" min="0" step="any" placeholder="Ex. 10" required></div>
+              <div class="form-group"><label for="net-productivity-stops">Temps d'arrêt <span>(h)</span></label><input id="net-productivity-stops" type="number" min="0" step="any" placeholder="Ex. 2" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer la productivité</button>
+              <p id="net-productivity-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="net-productivity-result" class="result-value">-- t/h</p>
+              <div class="result-details"><p><strong>Temps productif :</strong> <span id="net-productivity-time">-- h</span></p><p><strong>Formule :</strong> Pn = production ÷ (temps total − arrêts)</p></div>
             </section>
           </div>
         </div>

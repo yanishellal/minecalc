@@ -21,6 +21,7 @@ utilisées dans les études minières.
 - Calcul des réserves exploitables, de la durée d'exploitation et du coût de forage ;
 - Calcul du volume de stérile, de la production annuelle et de la masse d'explosif ;
 - Calcul de la consommation et du coût du carburant, ainsi que du revenu net ;
+- Calcul du volume d'eau, du coût de maintenance et de la productivité nette ;
 - Quiz de révision ;
 - Historique local des calculs ;
 - Mode sombre.
@@ -156,6 +157,14 @@ Masse d'explosif = volume abattu × charge spécifique
 Consommation de carburant = consommation horaire × temps de fonctionnement
 Coût du carburant = volume consommé × prix unitaire
 Revenu net = revenu brut − coût total
+```
+
+### Environnement et performance
+
+```text
+Volume d'eau consommé = débit horaire × durée
+Coût de maintenance = heures de maintenance × tarif horaire
+Productivité nette = production ÷ (temps total − temps d'arrêt)
 ```
 
 ## Avertissement
