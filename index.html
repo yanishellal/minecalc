@@ -68,7 +68,7 @@
           </a>
 
           <div class="hero-stats" aria-label="Fonctionnalités de MineCalc">
-            <div><strong>09</strong><span>outils miniers</span></div>
+            <div><strong>14</strong><span>outils miniers</span></div>
             <div><strong>100%</strong><span>pédagogique</span></div>
             <div><strong>24/7</strong><span>accessible</span></div>
           </div>
@@ -97,7 +97,83 @@
 
         <div class="tool-section">
           <div class="tool-heading">
-            <p class="eyebrow">Calculateur 01</p>
+            <div class="calculator-category"><h3>Forage et dynamitage</h3></div>
+            <p class="eyebrow">Calculateur 03</p>
+            <h3>Volume abattu par une maille</h3>
+            <p>Estime le volume obtenu avec une maille de forage.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="blast-form" class="calculator-card">
+              <div class="form-group"><label for="blast-burden">Banquette <span>(m)</span></label><input id="blast-burden" type="number" min="0" step="any" placeholder="Ex. 3" required></div>
+              <div class="form-group"><label for="blast-spacing">Espacement <span>(m)</span></label><input id="blast-spacing" type="number" min="0" step="any" placeholder="Ex. 4" required></div>
+              <div class="form-group"><label for="blast-height">Hauteur <span>(m)</span></label><input id="blast-height" type="number" min="0" step="any" placeholder="Ex. 8" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le volume</button>
+              <p id="blast-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite"><p class="result-label">Résultat</p><p id="blast-result" class="result-value">-- m³</p><div class="result-details"><p><strong>Formule :</strong> V = B × E × H</p></div><div class="explanation"><h3>Utilité</h3><p>Ce volume aide à estimer le matériau abattu par trou.</p></div></section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Transport</h3></div>
+            <p class="eyebrow">Calculateur 04</p>
+            <h3>Temps de cycle d'un camion</h3>
+            <p>Additionne les principales phases d'un cycle de transport.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="cycle-form" class="calculator-card">
+              <div class="form-group"><label for="cycle-loading">Chargement <span>(min)</span></label><input id="cycle-loading" type="number" min="0" step="any" required></div>
+              <div class="form-group"><label for="cycle-haul">Trajet chargé <span>(min)</span></label><input id="cycle-haul" type="number" min="0" step="any" required></div>
+              <div class="form-group"><label for="cycle-dump">Déchargement <span>(min)</span></label><input id="cycle-dump" type="number" min="0" step="any" required></div>
+              <div class="form-group"><label for="cycle-return">Retour à vide <span>(min)</span></label><input id="cycle-return" type="number" min="0" step="any" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le cycle</button>
+              <p id="cycle-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite"><p class="result-label">Résultat</p><p id="cycle-result" class="result-value">-- min</p><div class="result-details"><p><strong>Cycles possibles :</strong> <span id="cycle-hour-result">-- /h</span></p><p><strong>Formule :</strong> Tc = Σ temps</p></div></section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Économie minière</h3></div>
+            <p class="eyebrow">Calculateur 05</p>
+            <h3>Revenu brut du minerai</h3>
+            <p>Calcule une estimation simple du revenu avant les coûts.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="revenue-form" class="calculator-card">
+              <div class="form-group"><label for="revenue-tonnage">Tonnage <span>(t)</span></label><input id="revenue-tonnage" type="number" min="0" step="any" required></div>
+              <div class="form-group"><label for="revenue-price">Prix par tonne <span>(DA/t)</span></label><input id="revenue-price" type="number" min="0" step="any" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le revenu</button>
+              <p id="revenue-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite"><p class="result-label">Résultat</p><p id="revenue-result" class="result-value">-- DA</p><div class="result-details"><p><strong>Formule :</strong> R = T × P</p></div></section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Aérage et sécurité</h3></div>
+            <p class="eyebrow">Calculateur 06</p>
+            <h3>Débit d'air dans une galerie</h3>
+            <p>Estime le débit à partir de la section et de la vitesse de l'air.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="air-form" class="calculator-card">
+              <div class="form-group"><label for="air-area">Section <span>(m²)</span></label><input id="air-area" type="number" min="0" step="any" required></div>
+              <div class="form-group"><label for="air-speed">Vitesse de l'air <span>(m/s)</span></label><input id="air-speed" type="number" min="0" step="any" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le débit</button>
+              <p id="air-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite"><p class="result-label">Résultat</p><p id="air-result" class="result-value">-- m³/s</p><div class="result-details"><p><strong>Formule :</strong> Q = S × v</p></div></section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>G&eacute;ologie et r&eacute;serves</h3></div>
+          <p class="eyebrow">Calculateur 01</p>
 
             <h3>Calcul du tonnage</h3>
 
@@ -325,7 +401,8 @@
 
         <div class="tool-section">
           <div class="tool-heading">
-            <p class="eyebrow">Calculateur 03</p>
+            <div class="calculator-category"><h3>Convertisseur d'unités</h3></div>
+            <p class="eyebrow">Dernier outil</p>
             <h3>Convertisseur d'unités</h3>
             <p>Convertis rapidement les unités utilisées en génie minier.</p>
           </div>
@@ -372,63 +449,8 @@
 
         <div class="tool-section">
           <div class="tool-heading">
-            <p class="eyebrow">Calculateur 04</p>
-            <h3>Récupération métallurgique</h3>
-            <p>Estime la quantité de métal récupérée après le traitement.</p>
-          </div>
-
-          <div class="calculator-layout">
-            <form id="recovery-form" class="calculator-card">
-              <div class="form-group">
-                <label for="recovery-tonnage">Tonnage du minerai <span>(t)</span></label>
-                <input id="recovery-tonnage" type="number" min="0" step="any" placeholder="Ex. 1000" required>
-              </div>
-
-              <div class="form-group">
-                <label for="recovery-grade">Teneur du minerai <span>(%)</span></label>
-                <input id="recovery-grade" type="number" min="0" max="100" step="any" placeholder="Ex. 2" required>
-              </div>
-
-              <div class="form-group">
-                <label for="recovery-rate">Taux de récupération <span>(%)</span></label>
-                <input id="recovery-rate" type="number" min="0" max="100" step="any" placeholder="Ex. 85" required>
-              </div>
-
-              <button class="button button-primary button-full" type="submit">
-                Calculer la récupération
-              </button>
-
-              <button class="button button-secondary button-full" id="recovery-reset-button" type="button">
-                Réinitialiser
-              </button>
-
-              <p id="recovery-message" class="form-message" role="alert"></p>
-            </form>
-
-            <section class="result-card" aria-live="polite">
-              <p class="result-label">Résultat</p>
-              <p id="recovered-metal" class="result-value">-- tonnes</p>
-
-              <div class="result-details">
-                <p><strong>Métal contenu :</strong> <span id="contained-metal">-- tonnes</span></p>
-                <p><strong>Formule :</strong> Mᵣ = T × G × R</p>
-              </div>
-
-              <div class="explanation">
-                <h3>Comment le calcul fonctionne ?</h3>
-                <p>
-                  La masse de métal contenu est calculée avec
-                  <strong>T × G / 100</strong>. On applique ensuite le taux de
-                  récupération pour obtenir le métal récupéré.
-                </p>
-              </div>
-            </section>
-          </div>
-        </div>
-
-        <div class="tool-section">
-          <div class="tool-heading">
-            <p class="eyebrow">Calculateur 05</p>
+            <div class="calculator-category"><h3>Exploitation &agrave; ciel ouvert</h3></div>
+          <p class="eyebrow">Calculateur 05</p>
             <h3>Rapport de découverture</h3>
             <p>Compare la quantité de stérile à déplacer avec le minerai extrait.</p>
           </div>
@@ -584,7 +606,8 @@
 
         <div class="tool-section">
           <div class="tool-heading">
-            <p class="eyebrow">Calculateur 08</p>
+            <div class="calculator-category"><h3>&Eacute;conomie mini&egrave;re</h3></div>
+          <p class="eyebrow">Calculateur 08</p>
             <h3>Coût de production</h3>
             <p>Estime le coût moyen de production par tonne de minerai.</p>
           </div>
@@ -627,7 +650,8 @@
 
         <div class="tool-section">
           <div class="tool-heading">
-            <p class="eyebrow">Calculateur 09</p>
+            <div class="calculator-category"><h3>Transport</h3></div>
+          <p class="eyebrow">Calculateur 09</p>
             <h3>Débit d'une pelle ou d'un chargeur</h3>
             <p>Estime la production horaire à partir du volume du godet.</p>
           </div>
@@ -962,19 +986,7 @@
             </div>
           </div>
         </div>
-        <div class="revision-goal">
-          <div>
-            <p class="eyebrow">Objectif de révision</p>
-            <h3>Garde un rythme régulier</h3>
-            <p id="goal-status">Choisis un nombre de calculs à réaliser.</p>
-          </div>
-          <div class="goal-controls">
-            <label for="goal-target">Objectif</label>
-            <input id="goal-target" type="number" min="1" max="100" value="10">
-            <button class="button button-primary" id="save-goal-button" type="button">Enregistrer</button>
-          </div>
-          <div class="goal-progress"><span id="goal-progress-bar"></span></div>
-        </div>
+
       </div>
     </section>
 

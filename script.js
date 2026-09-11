@@ -7,7 +7,6 @@ const historyStorageKey = "minecalc-history";
 const favoritesStorageKey = "minecalc-favorites";
 const notesStorageKey = "minecalc-notes";
 const profileStorageKey = "minecalc-profile";
-const goalStorageKey = "minecalc-goal";
 const historyList = document.querySelector("#history-list");
 const historyEmpty = document.querySelector("#history-empty");
 const clearHistoryButton = document.querySelector("#clear-history-button");
@@ -453,6 +452,71 @@ loaderResetButton.addEventListener("click", () => {
   loaderMessage.textContent = "";
 });
 
+function bindSimpleCalculation(formId, inputIds, resultId, messageId, calculation, historyName, unit) {
+  const form = document.querySelector(formId);
+  const result = document.querySelector(resultId);
+  const message = document.querySelector(messageId);
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const values = inputIds.map((id) => Number(document.querySelector(id).value));
+
+    if (values.some((value) => !Number.isFinite(value) || value <= 0)) {
+      message.textContent = "Toutes les valeurs doivent être supérieures à zéro.";
+      return;
+    }
+
+    const calculated = calculation(...values);
+    result.textContent = `${formatNumber(calculated)} ${unit}`;
+    message.textContent = "";
+    saveCalculation(historyName, `${formatNumber(calculated)} ${unit}`);
+  });
+}
+
+bindSimpleCalculation(
+  "#blast-form",
+  ["#blast-burden", "#blast-spacing", "#blast-height"],
+  "#blast-result",
+  "#blast-message",
+  (burden, spacing, height) => burden * spacing * height,
+  "Volume abattu",
+  "m³"
+);
+
+bindSimpleCalculation(
+  "#cycle-form",
+  ["#cycle-loading", "#cycle-haul", "#cycle-dump", "#cycle-return"],
+  "#cycle-result",
+  "#cycle-message",
+  (loading, haul, dump, returnTime) => {
+    const cycle = loading + haul + dump + returnTime;
+    document.querySelector("#cycle-hour-result").textContent = `${formatNumber(60 / cycle)} /h`;
+    return cycle;
+  },
+  "Temps de cycle",
+  "min"
+);
+
+bindSimpleCalculation(
+  "#revenue-form",
+  ["#revenue-tonnage", "#revenue-price"],
+  "#revenue-result",
+  "#revenue-message",
+  (tonnage, price) => tonnage * price,
+  "Revenu brut",
+  "DA"
+);
+
+bindSimpleCalculation(
+  "#air-form",
+  ["#air-area", "#air-speed"],
+  "#air-result",
+  "#air-message",
+  (area, speed) => area * speed,
+  "Débit d'air",
+  "m³/s"
+);
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -533,6 +597,10 @@ const toUnit = document.querySelector("#to-unit");
 const convertButton = document.querySelector("#convert-button");
 const conversionResult = document.querySelector("#conversion-result");
 const conversionMessage = document.querySelector("#conversion-message");
+const converterSection = conversionCategory.closest(".tool-section");
+const calculatorContainer = document.querySelector("#calculateurs .container");
+
+calculatorContainer.appendChild(converterSection);
 
 function updateConversionUnits() {
   const category = conversionUnits[conversionCategory.value];
@@ -827,7 +895,6 @@ function updateDashboard() {
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
   progressElement.textContent = `${Math.round((toolCount / 9) * 100)}%`;
-  updateGoal();
 }
 
 const profileForm = document.querySelector("#profile-form");
@@ -871,30 +938,6 @@ profileForm.addEventListener("submit", (event) => {
   updateProfile();
 });
 
-const saveGoalButton = document.querySelector("#save-goal-button");
-const goalTarget = document.querySelector("#goal-target");
-const goalStatus = document.querySelector("#goal-status");
-const goalProgressBar = document.querySelector("#goal-progress-bar");
-
-function updateGoal() {
-  const target = Number(localStorage.getItem(goalStorageKey) || goalTarget.value || 10);
-  const completed = getHistory().length;
-  const percentage = Math.min(100, Math.round((completed / target) * 100));
-
-  goalTarget.value = target;
-  goalStatus.textContent = `${completed} calcul${completed > 1 ? "s" : ""} sur ${target} réalisé${target > 1 ? "s" : ""}.`;
-  goalProgressBar.style.width = `${percentage}%`;
-}
-
-saveGoalButton.addEventListener("click", () => {
-  const target = Number(goalTarget.value);
-
-  if (Number.isInteger(target) && target > 0 && target <= 100) {
-    localStorage.setItem(goalStorageKey, String(target));
-    updateGoal();
-  }
-});
-
 const exportDataButton = document.querySelector("#export-data-button");
 const importDataInput = document.querySelector("#import-data-input");
 
@@ -904,7 +947,6 @@ exportDataButton.addEventListener("click", () => {
     favorites: getFavorites(),
     notes: getNotes(),
     profile: JSON.parse(localStorage.getItem(profileStorageKey) || "null"),
-    goal: localStorage.getItem(goalStorageKey) || "10"
   };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -933,7 +975,6 @@ importDataInput.addEventListener("change", async () => {
     if (data.profile) {
       localStorage.setItem(profileStorageKey, JSON.stringify(data.profile));
     }
-    localStorage.setItem(goalStorageKey, String(Number(data.goal) || 10));
     updateProfile();
     displayHistory();
   } catch {
@@ -944,7 +985,6 @@ importDataInput.addEventListener("change", async () => {
 });
 
 updateProfile();
-updateGoal();
 
 document.querySelectorAll(".example-button").forEach((button) => {
   button.addEventListener("click", () => {
