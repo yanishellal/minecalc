@@ -17,6 +17,36 @@ const themeStorageKey = "minecalc-theme";
 const menuButton = document.querySelector("#menu-button");
 const mainNavigation = document.querySelector("#main-navigation");
 
+function updateThemeButton() {
+  const isDarkMode = document.body.classList.contains("dark-mode");
+  themeButton.textContent = isDarkMode ? "Mode clair" : "Mode sombre";
+  themeButton.setAttribute(
+    "aria-label",
+    isDarkMode ? "Activer le mode clair" : "Activer le mode sombre"
+  );
+}
+
+try {
+  if (localStorage.getItem(themeStorageKey) === "dark") {
+    document.body.classList.add("dark-mode");
+  }
+} catch {
+  console.warn("La préférence de thème ne peut pas être lue.");
+}
+
+updateThemeButton();
+themeButton.addEventListener("click", () => {
+  const isDarkMode = document.body.classList.toggle("dark-mode");
+
+  try {
+    localStorage.setItem(themeStorageKey, isDarkMode ? "dark" : "light");
+  } catch {
+    console.warn("La préférence de thème ne peut pas être enregistrée.");
+  }
+
+  updateThemeButton();
+});
+
 tonnageForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -518,6 +548,16 @@ bindSimpleCalculation(
 );
 
 bindSimpleCalculation(
+  "#powder-form",
+  ["#powder-mass", "#powder-volume"],
+  "#powder-result",
+  "#powder-message",
+  (mass, volume) => mass / volume,
+  "Charge spécifique",
+  "kg/m³"
+);
+
+bindSimpleCalculation(
   "#contained-form",
   ["#contained-tonnage", "#contained-grade"],
   "#contained-result",
@@ -724,27 +764,6 @@ function saveCalculation(name, result) {
   localStorage.setItem(historyStorageKey, JSON.stringify(history.slice(0, 10)));
   displayHistory();
 }
-
-function updateThemeButton() {
-  const isDarkMode = document.body.classList.contains("dark-mode");
-  themeButton.textContent = isDarkMode ? "Mode clair" : "Mode sombre";
-  themeButton.setAttribute(
-    "aria-label",
-    isDarkMode ? "Activer le mode clair" : "Activer le mode sombre"
-  );
-}
-
-if (localStorage.getItem(themeStorageKey) === "dark") {
-  document.body.classList.add("dark-mode");
-}
-
-themeButton.addEventListener("click", () => {
-  const isDarkMode = document.body.classList.toggle("dark-mode");
-  localStorage.setItem(themeStorageKey, isDarkMode ? "dark" : "light");
-  updateThemeButton();
-});
-
-updateThemeButton();
 
 menuButton.addEventListener("click", () => {
   const isOpen = mainNavigation.classList.toggle("is-open");

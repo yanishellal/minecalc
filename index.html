@@ -134,6 +134,24 @@
 
         <div class="tool-section">
           <div class="tool-heading">
+            <div class="calculator-category"><h3>Forage et dynamitage</h3></div>
+            <p class="eyebrow">Calculateur 05</p>
+            <h3>Charge spécifique d'explosif</h3>
+            <p>Calcule la quantité moyenne d'explosif par volume de roche abattue.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="powder-form" class="calculator-card">
+              <div class="form-group"><label for="powder-mass">Masse d'explosif <span>(kg)</span></label><input id="powder-mass" type="number" min="0" step="any" placeholder="Ex. 120" required></div>
+              <div class="form-group"><label for="powder-volume">Volume abattu <span>(m³)</span></label><input id="powder-volume" type="number" min="0" step="any" placeholder="Ex. 500" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer la charge</button>
+              <p id="powder-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite"><p class="result-label">Résultat</p><p id="powder-result" class="result-value">-- kg/m³</p><div class="result-details"><p><strong>Formule :</strong> q = mᵉ ÷ V</p></div><div class="explanation"><h3>Interprétation</h3><p>Cette valeur compare la masse d'explosif utilisée au volume de roche abattu.</p></div></section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
             <div class="calculator-category"><h3>Transport</h3></div>
             <p class="eyebrow">Calculateur 05</p>
             <h3>Capacité horaire d'une flotte</h3>

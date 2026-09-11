@@ -58,6 +58,7 @@ body {
   background: var(--color-background);
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.6;
+  transition: color 0.25s ease, background-color 0.25s ease;
 }
 
 a {
@@ -320,6 +321,12 @@ h2 {
 body.dark-mode .formulas-section,
 body.dark-mode .history-section {
   background: #17231b;
+}
+
+body.dark-mode .dashboard-section,
+body.dark-mode .faq-section,
+body.dark-mode .resources-section {
+  background: #111814;
 }
 
 .quiz-section {
