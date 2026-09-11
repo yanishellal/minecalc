@@ -18,6 +18,27 @@ const menuButton = document.querySelector("#menu-button");
 const mainNavigation = document.querySelector("#main-navigation");
 const introSplash = document.querySelector("#intro-splash");
 
+function closeMobileMenu() {
+  mainNavigation.classList.remove("is-open");
+  menuButton.textContent = "Menu";
+  menuButton.setAttribute("aria-expanded", "false");
+  menuButton.setAttribute("aria-label", "Ouvrir le menu");
+}
+
+menuButton.addEventListener("click", () => {
+  const isOpen = mainNavigation.classList.toggle("is-open");
+  menuButton.textContent = isOpen ? "Fermer" : "Menu";
+  menuButton.setAttribute("aria-expanded", String(isOpen));
+  menuButton.setAttribute(
+    "aria-label",
+    isOpen ? "Fermer le menu" : "Ouvrir le menu"
+  );
+});
+
+mainNavigation.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", closeMobileMenu);
+});
+
 window.setTimeout(() => {
   if (introSplash) {
     introSplash.setAttribute("aria-hidden", "true");
@@ -1523,31 +1544,9 @@ function saveCalculation(name, result) {
   displayHistory();
 }
 
-menuButton.addEventListener("click", () => {
-  const isOpen = mainNavigation.classList.toggle("is-open");
-  menuButton.textContent = isOpen ? "Fermer" : "Menu";
-  menuButton.setAttribute("aria-expanded", String(isOpen));
-  menuButton.setAttribute(
-    "aria-label",
-    isOpen ? "Fermer le menu" : "Ouvrir le menu"
-  );
-});
-
-mainNavigation.querySelectorAll("a").forEach((link) => {
-  link.addEventListener("click", () => {
-    mainNavigation.classList.remove("is-open");
-    menuButton.textContent = "Menu";
-    menuButton.setAttribute("aria-expanded", "false");
-    menuButton.setAttribute("aria-label", "Ouvrir le menu");
-  });
-});
-
 window.addEventListener("resize", () => {
-  if (window.innerWidth > 900 && mainNavigation.classList.contains("is-open")) {
-    mainNavigation.classList.remove("is-open");
-    menuButton.textContent = "Menu";
-    menuButton.setAttribute("aria-expanded", "false");
-    menuButton.setAttribute("aria-label", "Ouvrir le menu");
+  if (window.innerWidth > 900) {
+    closeMobileMenu();
   }
 });
 
