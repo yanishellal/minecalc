@@ -7,6 +7,7 @@ const historyStorageKey = "minecalc-history";
 const historyList = document.querySelector("#history-list");
 const historyEmpty = document.querySelector("#history-empty");
 const clearHistoryButton = document.querySelector("#clear-history-button");
+const exportHistoryButton = document.querySelector("#export-history-button");
 const themeButton = document.querySelector("#theme-button");
 const themeStorageKey = "minecalc-theme";
 const menuButton = document.querySelector("#menu-button");
@@ -401,6 +402,52 @@ costResetButton.addEventListener("click", () => {
   costMessage.textContent = "";
 });
 
+const loaderForm = document.querySelector("#loader-form");
+const loaderResetButton = document.querySelector("#loader-reset-button");
+const loaderResult = document.querySelector("#loader-result");
+const loaderCycleVolume = document.querySelector("#loader-cycle-volume");
+const loaderMessage = document.querySelector("#loader-message");
+
+loaderForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const bucketVolume = Number(document.querySelector("#bucket-volume").value);
+  const fillRate = Number(document.querySelector("#bucket-fill").value);
+  const cycles = Number(document.querySelector("#bucket-cycles").value);
+  const density = Number(document.querySelector("#bucket-density").value);
+
+  if (
+    !Number.isFinite(bucketVolume) ||
+    !Number.isFinite(fillRate) ||
+    !Number.isFinite(cycles) ||
+    !Number.isFinite(density) ||
+    bucketVolume <= 0 ||
+    fillRate < 0 ||
+    fillRate > 100 ||
+    cycles <= 0 ||
+    density <= 0
+  ) {
+    loaderMessage.textContent =
+      "Vérifie le volume, le taux entre 0 et 100 %, les cycles et la densité.";
+    return;
+  }
+
+  const volumePerCycle = bucketVolume * (fillRate / 100);
+  const production = volumePerCycle * cycles * density;
+
+  loaderResult.textContent = `${formatNumber(production)} t/h`;
+  loaderCycleVolume.textContent = `${formatNumber(volumePerCycle)} m³`;
+  loaderMessage.textContent = "";
+  saveCalculation("Débit de l'engin", `${formatNumber(production)} t/h`);
+});
+
+loaderResetButton.addEventListener("click", () => {
+  loaderForm.reset();
+  loaderResult.textContent = "-- t/h";
+  loaderCycleVolume.textContent = "-- m³";
+  loaderMessage.textContent = "";
+});
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -591,6 +638,7 @@ contactForm.addEventListener("submit", (event) => {
 
   const name = document.querySelector("#contact-name").value.trim();
   const email = document.querySelector("#contact-email").value.trim();
+  const subjectValue = document.querySelector("#contact-subject").value;
   const message = document.querySelector("#contact-message").value.trim();
 
   if (!name || !email || !message) {
@@ -598,7 +646,7 @@ contactForm.addEventListener("submit", (event) => {
     return;
   }
 
-  const subject = encodeURIComponent(`Suggestion MineCalc - ${name}`);
+  const subject = encodeURIComponent(`${subjectValue} - ${name}`);
   const body = encodeURIComponent(
     `Nom : ${name}\nE-mail : ${email}\n\nMessage :\n${message}`
   );
@@ -646,6 +694,27 @@ function displayHistory() {
 clearHistoryButton.addEventListener("click", () => {
   localStorage.removeItem(historyStorageKey);
   displayHistory();
+});
+
+exportHistoryButton.addEventListener("click", () => {
+  const history = getHistory();
+
+  if (history.length === 0) {
+    historyEmpty.textContent = "Aucun calcul à exporter pour le moment.";
+    return;
+  }
+
+  const content = history
+    .map((calculation) => `${calculation.date} - ${calculation.name} : ${calculation.result}`)
+    .join("\n");
+  const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "minecalc-historique.txt";
+  link.click();
+  URL.revokeObjectURL(url);
 });
 
 displayHistory();
