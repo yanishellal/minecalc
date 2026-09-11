@@ -9,7 +9,10 @@
 <body>
   <header class="site-header">
     <div class="container header-content">
-      <a class="logo" href="index.html">Mine<span>Calc</span></a>
+      <a class="logo" href="index.html" aria-label="MineCalc accueil">
+        <span class="logo-mark">⛏</span>
+        <span class="logo-name">Mine<span>Calc</span></span>
+      </a>
 
       <button
         class="menu-button"
@@ -52,6 +55,12 @@
           <a class="button button-primary" href="#calculateurs">
             Commencer un calcul
           </a>
+
+          <div class="hero-stats" aria-label="Fonctionnalités de MineCalc">
+            <div><strong>08</strong><span>outils miniers</span></div>
+            <div><strong>100%</strong><span>pédagogique</span></div>
+            <div><strong>24/7</strong><span>accessible</span></div>
+          </div>
         </div>
 
         <div class="hero-card" aria-label="Présentation de MineCalc">
@@ -554,6 +563,49 @@
                   Le stérile réduit la teneur moyenne du matériau envoyé au
                   traitement, même si le métal contenu reste celui du minerai.
                 </p>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <p class="eyebrow">Calculateur 08</p>
+            <h3>Coût de production</h3>
+            <p>Estime le coût moyen de production par tonne de minerai.</p>
+          </div>
+
+          <div class="calculator-layout">
+            <form id="cost-form" class="calculator-card">
+              <div class="form-group">
+                <label for="cost-total">Coût total <span>(DA)</span></label>
+                <input id="cost-total" type="number" min="0" step="any" placeholder="Ex. 250000" required>
+              </div>
+
+              <div class="form-group">
+                <label for="cost-production">Production totale <span>(t)</span></label>
+                <input id="cost-production" type="number" min="0" step="any" placeholder="Ex. 5000" required>
+              </div>
+
+              <button class="button button-primary button-full" type="submit">
+                Calculer le coût unitaire
+              </button>
+              <button class="button button-secondary button-full" id="cost-reset-button" type="button">
+                Réinitialiser
+              </button>
+              <p id="cost-message" class="form-message" role="alert"></p>
+            </form>
+
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="cost-result" class="result-value">-- DA/t</p>
+              <div class="result-details">
+                <p><strong>Coût total :</strong> <span id="cost-total-result">-- DA</span></p>
+                <p><strong>Formule :</strong> Cu = C ÷ Q</p>
+              </div>
+              <div class="explanation">
+                <h3>À quoi sert ce résultat ?</h3>
+                <p>Il permet de comparer le coût moyen de différentes opérations ou périodes de production.</p>
               </div>
             </section>
           </div>

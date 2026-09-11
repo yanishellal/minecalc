@@ -364,6 +364,43 @@ dilutionResetButton.addEventListener("click", () => {
   dilutionMessage.textContent = "";
 });
 
+const costForm = document.querySelector("#cost-form");
+const costResetButton = document.querySelector("#cost-reset-button");
+const costResult = document.querySelector("#cost-result");
+const costTotalResult = document.querySelector("#cost-total-result");
+const costMessage = document.querySelector("#cost-message");
+
+costForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const totalCost = Number(document.querySelector("#cost-total").value);
+  const production = Number(document.querySelector("#cost-production").value);
+
+  if (
+    !Number.isFinite(totalCost) ||
+    !Number.isFinite(production) ||
+    totalCost < 0 ||
+    production <= 0
+  ) {
+    costMessage.textContent =
+      "Le coût doit être positif ou nul et la production doit être supérieure à zéro.";
+    return;
+  }
+
+  const unitCost = totalCost / production;
+  costResult.textContent = `${formatNumber(unitCost)} DA/t`;
+  costTotalResult.textContent = `${formatNumber(totalCost)} DA`;
+  costMessage.textContent = "";
+  saveCalculation("Coût de production", `${formatNumber(unitCost)} DA/t`);
+});
+
+costResetButton.addEventListener("click", () => {
+  costForm.reset();
+  costResult.textContent = "-- DA/t";
+  costTotalResult.textContent = "-- DA";
+  costMessage.textContent = "";
+});
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
