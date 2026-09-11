@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="skip-link" href="#contenu-principal">Aller au contenu principal</a>
   <header class="site-header">
     <div class="container header-content">
       <a class="logo" href="index.html" aria-label="MineCalc accueil">
@@ -43,7 +44,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="contenu-principal">
     <section id="accueil" class="hero">
       <div class="container hero-content">
         <div>
@@ -677,6 +678,11 @@
             Comprends les calculs utilisés par les outils MineCalc avant
             d'interpréter leurs résultats.
           </p>
+          <div class="content-search">
+            <label for="content-search-input">Rechercher dans les formules et la FAQ</label>
+            <input id="content-search-input" type="search" placeholder="Ex. dilution, tonnage, densité">
+            <p id="content-search-status" class="search-status" role="status"></p>
+          </div>
         </div>
 
         <div class="formula-grid">
@@ -917,6 +923,16 @@
             <span class="dashboard-label">Dernier outil</span>
             <strong id="dashboard-last">--</strong>
             <p id="dashboard-last-date">Aucune activité</p>
+          </article>
+          <article class="dashboard-card dashboard-wide">
+            <span class="dashboard-label">Outils utilisés</span>
+            <strong id="dashboard-tools">0</strong>
+            <p>types de calcul différents dans ton historique</p>
+          </article>
+          <article class="dashboard-card dashboard-wide">
+            <span class="dashboard-label">Progression</span>
+            <strong id="dashboard-progress">0%</strong>
+            <p>des outils disponibles ont été essayés</p>
           </article>
         </div>
       </div>

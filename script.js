@@ -815,11 +815,16 @@ function updateDashboard() {
   const favoritesElement = document.querySelector("#dashboard-favorites");
   const lastElement = document.querySelector("#dashboard-last");
   const lastDateElement = document.querySelector("#dashboard-last-date");
+  const toolsElement = document.querySelector("#dashboard-tools");
+  const progressElement = document.querySelector("#dashboard-progress");
+  const toolCount = new Set(history.map((item) => item.name)).size;
 
   totalElement.textContent = history.length;
   favoritesElement.textContent = favorites.length;
   lastElement.textContent = history.length ? history[0].name : "--";
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
+  toolsElement.textContent = toolCount;
+  progressElement.textContent = `${Math.round((toolCount / 9) * 100)}%`;
 }
 
 document.querySelectorAll(".example-button").forEach((button) => {
@@ -831,6 +836,84 @@ document.querySelectorAll(".example-button").forEach((button) => {
       document.querySelector("#density").value = 2.7;
       document.querySelector("#tonnage-form").scrollIntoView({ behavior: "smooth", block: "center" });
     }
+  });
+
+  const calculatorExamples = {
+    "#grade-form": {
+      ".block-tonnage": ["1000"],
+      ".block-grade": ["2.5"]
+    },
+    "#recovery-form": {
+      "#recovery-tonnage": "1000",
+      "#recovery-grade": "3",
+      "#recovery-rate": "85"
+    },
+    "#stripping-form": {
+      "#waste-tonnage": "3000",
+      "#ore-tonnage": "1000"
+    },
+    "#productivity-form": {
+      "#production-quantity": "800",
+      "#working-time": "8"
+    },
+    "#dilution-form": {
+      "#dilution-ore-tonnage": "1000",
+      "#dilution-ore-grade": "3",
+      "#dilution-waste-tonnage": "200"
+    },
+    "#cost-form": {
+      "#cost-total": "250000",
+      "#cost-production": "5000"
+    },
+    "#loader-form": {
+      "#bucket-volume": "2.5",
+      "#bucket-fill": "85",
+      "#bucket-cycles": "20",
+      "#bucket-density": "1.8"
+    }
+  };
+
+  Object.entries(calculatorExamples).forEach(([formSelector, values]) => {
+    const form = document.querySelector(formSelector);
+    const button = document.createElement("button");
+    button.className = "example-button";
+    button.type = "button";
+    button.textContent = "Exemple";
+    form.prepend(button);
+    button.addEventListener("click", () => {
+      Object.entries(values).forEach(([selector, value]) => {
+        if (Array.isArray(value)) {
+          document.querySelectorAll(selector).forEach((input, index) => {
+            input.value = value[index] || value[0];
+          });
+        } else {
+          document.querySelector(selector).value = value;
+        }
+      });
+    });
+  });
+
+  const contentSearchInput = document.querySelector("#content-search-input");
+  const contentSearchStatus = document.querySelector("#content-search-status");
+  const searchableContent = document.querySelectorAll(
+    ".formula-card, .faq-list details"
+  );
+
+  contentSearchInput.addEventListener("input", () => {
+    const query = contentSearchInput.value.trim().toLocaleLowerCase("fr-FR");
+    let visibleCount = 0;
+
+    searchableContent.forEach((item) => {
+      const matches = !query || item.textContent.toLocaleLowerCase("fr-FR").includes(query);
+      item.hidden = !matches;
+      if (matches) {
+        visibleCount += 1;
+      }
+    });
+
+    contentSearchStatus.textContent = query
+      ? `${visibleCount} résultat${visibleCount > 1 ? "s" : ""} trouvé${visibleCount > 1 ? "s" : ""}.`
+      : "";
   });
 });
 
