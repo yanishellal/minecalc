@@ -14,6 +14,7 @@ utilisées dans les études minières.
 - Calcul de la productivité ;
 - Calcul du facteur et du volume de foisonnement ;
 - Calcul de la densité apparente ;
+- Calcul du nombre de godets, de la durée de chargement et de la distance moyenne de transport ;
 - Quiz de révision ;
 - Historique local des calculs ;
 - Mode sombre.
@@ -91,6 +92,15 @@ Volume foisonné = volume en place × (1 + facteur ÷ 100)
 
 ```text
 ρa = masse ÷ volume occupé
+```
+
+### Chargement et transport
+
+```text
+Charge par godet = volume du godet × taux de remplissage × densité
+Nombre de godets = plafond(capacité du camion ÷ charge par godet)
+Durée de chargement = nombre de godets × temps de cycle ÷ 60
+Distance moyenne = Σ(distance × tonnage) ÷ Σ(tonnage)
 ```
 
 ## Avertissement

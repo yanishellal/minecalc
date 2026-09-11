@@ -68,7 +68,7 @@
           </a>
 
           <div class="hero-stats" aria-label="Fonctionnalités de MineCalc">
-            <div><strong>26</strong><span>outils miniers</span></div>
+            <div><strong>29</strong><span>outils miniers</span></div>
             <div><strong>100%</strong><span>pédagogique</span></div>
             <div><strong>24/7</strong><span>accessible</span></div>
           </div>
@@ -579,6 +579,77 @@
               <p id="bulk-density-result" class="result-value">-- t/m³</p>
               <div class="result-details"><p><strong>Formule :</strong> ρa = M ÷ V</p></div>
               <div class="explanation"><h3>Utilité</h3><p>La densité apparente inclut les vides entre les fragments et peut différer de la densité réelle de la roche.</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Transport</h3></div>
+            <p class="eyebrow">Calculateur 27</p>
+            <h3>Nombre de godets nécessaires</h3>
+            <p>Estime le nombre de godets nécessaires pour remplir un camion ou atteindre une quantité donnée.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="bucket-count-form" class="calculator-card">
+              <div class="form-group"><label for="bucket-count-truck">Capacité du camion <span>(t)</span></label><input id="bucket-count-truck" type="number" min="0" step="any" placeholder="Ex. 90" required></div>
+              <div class="form-group"><label for="bucket-count-volume">Volume du godet <span>(m³)</span></label><input id="bucket-count-volume" type="number" min="0" step="any" placeholder="Ex. 6" required></div>
+              <div class="form-group"><label for="bucket-count-fill">Taux de remplissage <span>(%)</span></label><input id="bucket-count-fill" type="number" min="0" max="100" step="any" placeholder="Ex. 85" required></div>
+              <div class="form-group"><label for="bucket-count-density">Densité du matériau <span>(t/m³)</span></label><input id="bucket-count-density" type="number" min="0" step="any" placeholder="Ex. 1.8" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer les godets</button>
+              <p id="bucket-count-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="bucket-count-result" class="result-value">-- godets</p>
+              <div class="result-details"><p><strong>Charge par godet :</strong> <span id="bucket-count-load">-- t</span></p><p><strong>Formule :</strong> N = plafond(C ÷ (V × F × ρ))</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Transport</h3></div>
+            <p class="eyebrow">Calculateur 28</p>
+            <h3>Durée de chargement</h3>
+            <p>Estime le temps nécessaire pour charger une quantité de matériau avec une machine.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="loading-duration-form" class="calculator-card">
+              <div class="form-group"><label for="loading-duration-target">Quantité à charger <span>(t)</span></label><input id="loading-duration-target" type="number" min="0" step="any" placeholder="Ex. 90" required></div>
+              <div class="form-group"><label for="loading-duration-bucket">Charge par godet <span>(t)</span></label><input id="loading-duration-bucket" type="number" min="0" step="any" placeholder="Ex. 9.18" required></div>
+              <div class="form-group"><label for="loading-duration-cycle">Temps d'un cycle <span>(s)</span></label><input id="loading-duration-cycle" type="number" min="0" step="any" placeholder="Ex. 35" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer la durée</button>
+              <p id="loading-duration-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="loading-duration-result" class="result-value">-- min</p>
+              <div class="result-details"><p><strong>Godets nécessaires :</strong> <span id="loading-duration-buckets">--</span></p><p><strong>Formule :</strong> T = N × tc ÷ 60</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Transport</h3></div>
+            <p class="eyebrow">Calculateur 29</p>
+            <h3>Distance moyenne de transport</h3>
+            <p>Calcule la distance moyenne parcourue à partir de plusieurs trajets pondérés par leur tonnage.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="haul-distance-form" class="calculator-card">
+              <div class="form-group"><label for="haul-distance-short">Distance courte <span>(m)</span></label><input id="haul-distance-short" type="number" min="0" step="any" placeholder="Ex. 500" required></div>
+              <div class="form-group"><label for="haul-distance-short-tonnage">Tonnage sur trajet court <span>(t)</span></label><input id="haul-distance-short-tonnage" type="number" min="0" step="any" placeholder="Ex. 300" required></div>
+              <div class="form-group"><label for="haul-distance-long">Distance longue <span>(m)</span></label><input id="haul-distance-long" type="number" min="0" step="any" placeholder="Ex. 1500" required></div>
+              <div class="form-group"><label for="haul-distance-long-tonnage">Tonnage sur trajet long <span>(t)</span></label><input id="haul-distance-long-tonnage" type="number" min="0" step="any" placeholder="Ex. 700" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer la distance</button>
+              <p id="haul-distance-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="haul-distance-result" class="result-value">-- m</p>
+              <div class="result-details"><p><strong>Tonnage total :</strong> <span id="haul-distance-total">-- t</span></p><p><strong>Formule :</strong> Dm = Σ(D × T) ÷ ΣT</p></div>
             </section>
           </div>
         </div>

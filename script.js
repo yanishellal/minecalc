@@ -835,6 +835,110 @@ bindSimpleCalculation(
   "t/m³"
 );
 
+const bucketCountForm = document.querySelector("#bucket-count-form");
+const bucketCountResult = document.querySelector("#bucket-count-result");
+const bucketCountLoad = document.querySelector("#bucket-count-load");
+const bucketCountMessage = document.querySelector("#bucket-count-message");
+
+bucketCountForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const truckCapacity = Number(document.querySelector("#bucket-count-truck").value);
+  const bucketVolume = Number(document.querySelector("#bucket-count-volume").value);
+  const fillRate = Number(document.querySelector("#bucket-count-fill").value);
+  const density = Number(document.querySelector("#bucket-count-density").value);
+
+  if (
+    !Number.isFinite(truckCapacity) ||
+    !Number.isFinite(bucketVolume) ||
+    !Number.isFinite(fillRate) ||
+    !Number.isFinite(density) ||
+    truckCapacity <= 0 ||
+    bucketVolume <= 0 ||
+    fillRate <= 0 ||
+    fillRate > 100 ||
+    density <= 0
+  ) {
+    bucketCountMessage.textContent =
+      "Vérifie la capacité, le volume, le taux de remplissage et la densité.";
+    return;
+  }
+
+  const loadPerBucket = bucketVolume * (fillRate / 100) * density;
+  const bucketCount = Math.ceil(truckCapacity / loadPerBucket);
+  bucketCountResult.textContent = `${formatNumber(bucketCount)} godets`;
+  bucketCountLoad.textContent = `${formatNumber(loadPerBucket)} t`;
+  bucketCountMessage.textContent = "";
+  saveCalculation("Nombre de godets", `${formatNumber(bucketCount)} godets`);
+});
+
+const loadingDurationForm = document.querySelector("#loading-duration-form");
+const loadingDurationResult = document.querySelector("#loading-duration-result");
+const loadingDurationBuckets = document.querySelector("#loading-duration-buckets");
+const loadingDurationMessage = document.querySelector("#loading-duration-message");
+
+loadingDurationForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const targetTonnage = Number(document.querySelector("#loading-duration-target").value);
+  const loadPerBucket = Number(document.querySelector("#loading-duration-bucket").value);
+  const cycleTime = Number(document.querySelector("#loading-duration-cycle").value);
+
+  if (
+    !Number.isFinite(targetTonnage) ||
+    !Number.isFinite(loadPerBucket) ||
+    !Number.isFinite(cycleTime) ||
+    targetTonnage <= 0 ||
+    loadPerBucket <= 0 ||
+    cycleTime <= 0
+  ) {
+    loadingDurationMessage.textContent =
+      "Toutes les valeurs doivent être supérieures à zéro.";
+    return;
+  }
+
+  const bucketCount = Math.ceil(targetTonnage / loadPerBucket);
+  const duration = (bucketCount * cycleTime) / 60;
+  loadingDurationResult.textContent = `${formatNumber(duration)} min`;
+  loadingDurationBuckets.textContent = formatNumber(bucketCount);
+  loadingDurationMessage.textContent = "";
+  saveCalculation("Durée de chargement", `${formatNumber(duration)} min`);
+});
+
+const haulDistanceForm = document.querySelector("#haul-distance-form");
+const haulDistanceResult = document.querySelector("#haul-distance-result");
+const haulDistanceTotal = document.querySelector("#haul-distance-total");
+const haulDistanceMessage = document.querySelector("#haul-distance-message");
+
+haulDistanceForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const shortDistance = Number(document.querySelector("#haul-distance-short").value);
+  const shortTonnage = Number(document.querySelector("#haul-distance-short-tonnage").value);
+  const longDistance = Number(document.querySelector("#haul-distance-long").value);
+  const longTonnage = Number(document.querySelector("#haul-distance-long-tonnage").value);
+
+  if (
+    !Number.isFinite(shortDistance) ||
+    !Number.isFinite(shortTonnage) ||
+    !Number.isFinite(longDistance) ||
+    !Number.isFinite(longTonnage) ||
+    shortDistance < 0 ||
+    longDistance < 0 ||
+    shortTonnage <= 0 ||
+    longTonnage <= 0
+  ) {
+    haulDistanceMessage.textContent =
+      "Les distances doivent être positives ou nulles et les tonnages supérieurs à zéro.";
+    return;
+  }
+
+  const totalTonnage = shortTonnage + longTonnage;
+  const averageDistance =
+    (shortDistance * shortTonnage + longDistance * longTonnage) / totalTonnage;
+  haulDistanceResult.textContent = `${formatNumber(averageDistance)} m`;
+  haulDistanceTotal.textContent = `${formatNumber(totalTonnage)} t`;
+  haulDistanceMessage.textContent = "";
+  saveCalculation("Distance moyenne", `${formatNumber(averageDistance)} m`);
+});
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -1191,7 +1295,7 @@ function updateDashboard() {
   lastElement.textContent = history.length ? history[0].name : "--";
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
-  progressElement.textContent = `${Math.round((toolCount / 26) * 100)}%`;
+  progressElement.textContent = `${Math.round((toolCount / 29) * 100)}%`;
 }
 
 const profileForm = document.querySelector("#profile-form");
