@@ -68,7 +68,7 @@
           </a>
 
           <div class="hero-stats" aria-label="Fonctionnalités de MineCalc">
-            <div><strong>14</strong><span>outils miniers</span></div>
+            <div><strong>18</strong><span>outils miniers</span></div>
             <div><strong>100%</strong><span>pédagogique</span></div>
             <div><strong>24/7</strong><span>accessible</span></div>
           </div>
@@ -93,6 +93,81 @@
             Commence par le tonnage, puis compare plusieurs blocs avec la
             teneur moyenne pondérée.
           </p>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Géologie et réserves</h3></div>
+            <p class="eyebrow">Calculateur 03</p>
+            <h3>Métal contenu</h3>
+            <p>Estime la masse de métal présente dans un tonnage de minerai.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="contained-form" class="calculator-card">
+              <div class="form-group"><label for="contained-tonnage">Tonnage de minerai <span>(t)</span></label><input id="contained-tonnage" type="number" min="0" step="any" placeholder="Ex. 2500" required></div>
+              <div class="form-group"><label for="contained-grade">Teneur <span>(%)</span></label><input id="contained-grade" type="number" min="0" max="100" step="any" placeholder="Ex. 2.5" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le métal</button>
+              <p id="contained-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite"><p class="result-label">Résultat</p><p id="contained-result" class="result-value">-- t</p><div class="result-details"><p><strong>Formule :</strong> M = T × G ÷ 100</p></div><div class="explanation"><h3>À retenir</h3><p>Le métal contenu est théorique : la récupération réelle dépend du traitement.</p></div></section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Forage et dynamitage</h3></div>
+            <p class="eyebrow">Calculateur 04</p>
+            <h3>Nombre de trous de forage</h3>
+            <p>Estime le nombre de trous nécessaires pour couvrir une surface.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="holes-form" class="calculator-card">
+              <div class="form-group"><label for="holes-length">Longueur de la zone <span>(m)</span></label><input id="holes-length" type="number" min="0" step="any" required></div>
+              <div class="form-group"><label for="holes-width">Largeur de la zone <span>(m)</span></label><input id="holes-width" type="number" min="0" step="any" required></div>
+              <div class="form-group"><label for="holes-spacing">Maille de forage <span>(m²/trou)</span></label><input id="holes-spacing" type="number" min="0" step="any" placeholder="Ex. 12" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer les trous</button>
+              <p id="holes-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite"><p class="result-label">Résultat</p><p id="holes-result" class="result-value">-- trous</p><div class="result-details"><p><strong>Formule :</strong> N = (L × l) ÷ maille</p></div></section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Transport</h3></div>
+            <p class="eyebrow">Calculateur 05</p>
+            <h3>Capacité horaire d'une flotte</h3>
+            <p>Calcule la capacité théorique de plusieurs camions.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="fleet-form" class="calculator-card">
+              <div class="form-group"><label for="fleet-trucks">Nombre de camions</label><input id="fleet-trucks" type="number" min="1" step="1" required></div>
+              <div class="form-group"><label for="fleet-capacity">Capacité par camion <span>(t)</span></label><input id="fleet-capacity" type="number" min="0" step="any" required></div>
+              <div class="form-group"><label for="fleet-cycle">Temps de cycle <span>(min)</span></label><input id="fleet-cycle" type="number" min="0" step="any" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer la capacité</button>
+              <p id="fleet-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite"><p class="result-label">Résultat</p><p id="fleet-result" class="result-value">-- t/h</p><div class="result-details"><p><strong>Formule :</strong> Q = n × C × 60 ÷ Tc</p></div></section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Économie minière</h3></div>
+            <p class="eyebrow">Calculateur 06</p>
+            <h3>Seuil de rentabilité</h3>
+            <p>Estime la production minimale nécessaire pour couvrir les coûts fixes.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="breakeven-form" class="calculator-card">
+              <div class="form-group"><label for="breakeven-fixed">Coûts fixes <span>(DA)</span></label><input id="breakeven-fixed" type="number" min="0" step="any" required></div>
+              <div class="form-group"><label for="breakeven-price">Prix par tonne <span>(DA/t)</span></label><input id="breakeven-price" type="number" min="0" step="any" required></div>
+              <div class="form-group"><label for="breakeven-variable">Coût variable par tonne <span>(DA/t)</span></label><input id="breakeven-variable" type="number" min="0" step="any" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le seuil</button>
+              <p id="breakeven-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite"><p class="result-label">Résultat</p><p id="breakeven-result" class="result-value">-- t</p><div class="result-details"><p><strong>Formule :</strong> Qs = CF ÷ (P − CV)</p></div><div class="explanation"><h3>Attention</h3><p>Ce modèle simplifié ne remplace pas une étude économique complète.</p></div></section>
+          </div>
         </div>
 
         <div class="tool-section">

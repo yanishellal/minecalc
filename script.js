@@ -517,6 +517,67 @@ bindSimpleCalculation(
   "m³/s"
 );
 
+bindSimpleCalculation(
+  "#contained-form",
+  ["#contained-tonnage", "#contained-grade"],
+  "#contained-result",
+  "#contained-message",
+  (tonnage, grade) => tonnage * grade / 100,
+  "Métal contenu",
+  "t"
+);
+
+bindSimpleCalculation(
+  "#holes-form",
+  ["#holes-length", "#holes-width", "#holes-spacing"],
+  "#holes-result",
+  "#holes-message",
+  (length, width, spacing) => Math.ceil((length * width) / spacing),
+  "Trous de forage",
+  "trous"
+);
+
+bindSimpleCalculation(
+  "#fleet-form",
+  ["#fleet-trucks", "#fleet-capacity", "#fleet-cycle"],
+  "#fleet-result",
+  "#fleet-message",
+  (trucks, capacity, cycle) => trucks * capacity * 60 / cycle,
+  "Capacité de la flotte",
+  "t/h"
+);
+
+const breakevenForm = document.querySelector("#breakeven-form");
+const breakevenResult = document.querySelector("#breakeven-result");
+const breakevenMessage = document.querySelector("#breakeven-message");
+
+breakevenForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const fixedCost = Number(document.querySelector("#breakeven-fixed").value);
+  const price = Number(document.querySelector("#breakeven-price").value);
+  const variableCost = Number(document.querySelector("#breakeven-variable").value);
+  const margin = price - variableCost;
+
+  if (
+    !Number.isFinite(fixedCost) ||
+    !Number.isFinite(price) ||
+    !Number.isFinite(variableCost) ||
+    fixedCost < 0 ||
+    price <= 0 ||
+    variableCost < 0 ||
+    margin <= 0
+  ) {
+    breakevenMessage.textContent =
+      "Le prix doit être supérieur au coût variable pour calculer un seuil.";
+    return;
+  }
+
+  const quantity = fixedCost / margin;
+  breakevenResult.textContent = `${formatNumber(quantity)} t`;
+  breakevenMessage.textContent = "";
+  saveCalculation("Seuil de rentabilité", `${formatNumber(quantity)} t`);
+});
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -894,7 +955,7 @@ function updateDashboard() {
   lastElement.textContent = history.length ? history[0].name : "--";
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
-  progressElement.textContent = `${Math.round((toolCount / 9) * 100)}%`;
+  progressElement.textContent = `${Math.round((toolCount / 18) * 100)}%`;
 }
 
 const profileForm = document.querySelector("#profile-form");
