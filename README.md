@@ -1,7 +1,7 @@
 # MineCalc
 
 MineCalc est une application web pédagogique destinée aux étudiants en génie
-minier. Elle regroupe des calculateurs simples et des explications de formules
+minier. Elle regroupe 50 calculateurs simples et des explications de formules
 utilisées dans les études minières.
 
 ## Fonctionnalités
@@ -22,6 +22,7 @@ utilisées dans les études minières.
 - Calcul du volume de stérile, de la production annuelle et de la masse d'explosif ;
 - Calcul de la consommation et du coût du carburant, ainsi que du revenu net ;
 - Calcul du volume d'eau, du coût de maintenance et de la productivité nette ;
+- Calcul de la production moyenne par trou et du coût unitaire du transport ;
 - Quiz de révision ;
 - Historique local des calculs ;
 - Mode sombre.
@@ -167,11 +168,25 @@ Coût de maintenance = heures de maintenance × tarif horaire
 Productivité nette = production ÷ (temps total − temps d'arrêt)
 ```
 
+### Outils complémentaires
+
+```text
+Production par trou = volume total abattu ÷ nombre de trous
+Coût unitaire du transport = coût total du transport ÷ tonnage transporté
+```
+
 ## Avertissement
 
 MineCalc est un outil pédagogique. Les résultats sont indicatifs et doivent
 être vérifiés avec les données de terrain, les méthodes de calcul des cours et
 la validation d'un ingénieur qualifié pour toute étude réelle.
+
+## Sécurité et confidentialité
+
+- L'application ne possède pas de serveur ni de compte distant ;
+- les données personnelles et l'historique restent dans le `localStorage` du navigateur ;
+- les sauvegardes JSON importées sont limitées, validées et affichées avec `textContent` ;
+- une politique de sécurité du contenu (CSP) limite les scripts, images et ressources aux fichiers du site.
 
 ## Auteur
 

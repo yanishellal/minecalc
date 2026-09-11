@@ -34,6 +34,15 @@ function updateThemeButton() {
   );
 }
 
+document.querySelectorAll("#calculateurs .tool-section").forEach((section, index) => {
+  const label = section.querySelector(".tool-heading > .eyebrow");
+  const form = section.querySelector("form");
+
+  if (label && form) {
+    label.textContent = `Calculateur ${index + 1}`;
+  }
+});
+
 try {
   if (localStorage.getItem(themeStorageKey) === "dark") {
     document.body.classList.add("dark-mode");
@@ -1336,6 +1345,26 @@ netProductivityForm.addEventListener("submit", (event) => {
   saveCalculation("Productivité nette", `${formatNumber(productivity)} t/h`);
 });
 
+bindSimpleCalculation(
+  "#production-per-hole-form",
+  ["#production-per-hole-volume", "#production-per-hole-count"],
+  "#production-per-hole-result",
+  "#production-per-hole-message",
+  (volume, holes) => volume / holes,
+  "Production par trou",
+  "m³/trou"
+);
+
+bindSimpleCalculation(
+  "#transport-unit-cost-form",
+  ["#transport-unit-cost-total", "#transport-unit-cost-tonnage"],
+  "#transport-unit-cost-result",
+  "#transport-unit-cost-message",
+  (cost, tonnage) => cost / tonnage,
+  "Coût unitaire du transport",
+  "DA/t"
+);
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -1540,7 +1569,14 @@ contactForm.addEventListener("submit", (event) => {
 });
 
 function getHistory() {
-  const storedHistory = localStorage.getItem(historyStorageKey);
+  let storedHistory;
+
+  try {
+    storedHistory = localStorage.getItem(historyStorageKey);
+  } catch {
+    console.warn("L'historique local n'est pas accessible.");
+    return [];
+  }
 
   if (!storedHistory) {
     return [];
@@ -1548,7 +1584,17 @@ function getHistory() {
 
   try {
     const history = JSON.parse(storedHistory);
-    return Array.isArray(history) ? history : [];
+    return Array.isArray(history)
+      ? history
+        .filter((item) => item && typeof item === "object")
+        .slice(0, 10)
+        .map((item) => ({
+          id: typeof item.id === "string" ? item.id.slice(0, 120) : "",
+          name: typeof item.name === "string" ? item.name.slice(0, 100) : "Calcul",
+          date: typeof item.date === "string" ? item.date.slice(0, 80) : "",
+          result: typeof item.result === "string" ? item.result.slice(0, 120) : ""
+        }))
+      : [];
   } catch {
     console.error("Impossible de lire l'historique enregistré.");
     return [];
@@ -1566,20 +1612,43 @@ function displayHistory() {
     const historyId = calculation.id || `${calculation.name}-${calculation.date}`;
     const item = document.createElement("div");
     item.className = "history-item";
-    item.innerHTML = `
-      <div>
-        <p><strong>${calculation.name}</strong></p>
-        <small>${calculation.date}</small>
-        ${notes[historyId] ? `<small class="history-note-text">${notes[historyId]}</small>` : ""}
-      </div>
-      <div class="history-result">
-        <strong>${calculation.result}</strong>
-        <button class="history-note-button" type="button" data-history-id="${historyId}">Note</button>
-        <button class="favorite-button${favorites.includes(historyId) ? " is-favorite" : ""}" type="button" data-history-id="${historyId}" aria-label="${favorites.includes(historyId) ? "Retirer des favoris" : "Ajouter aux favoris"}">
-          ${favorites.includes(historyId) ? "★" : "☆"}
-        </button>
-      </div>
-    `;
+    const details = document.createElement("div");
+    const name = document.createElement("p");
+    const nameStrong = document.createElement("strong");
+    const date = document.createElement("small");
+    const result = document.createElement("strong");
+    const resultPanel = document.createElement("div");
+    const noteButton = document.createElement("button");
+    const favoriteButton = document.createElement("button");
+
+    nameStrong.textContent = calculation.name;
+    name.appendChild(nameStrong);
+    date.textContent = calculation.date;
+    result.textContent = calculation.result;
+    noteButton.className = "history-note-button";
+    noteButton.type = "button";
+    noteButton.dataset.historyId = historyId;
+    noteButton.textContent = "Note";
+    favoriteButton.className = `favorite-button${favorites.includes(historyId) ? " is-favorite" : ""}`;
+    favoriteButton.type = "button";
+    favoriteButton.dataset.historyId = historyId;
+    favoriteButton.setAttribute(
+      "aria-label",
+      favorites.includes(historyId) ? "Retirer des favoris" : "Ajouter aux favoris"
+    );
+    favoriteButton.textContent = favorites.includes(historyId) ? "★" : "☆";
+    details.append(name, date);
+
+    if (typeof notes[historyId] === "string" && notes[historyId]) {
+      const note = document.createElement("small");
+      note.className = "history-note-text";
+      note.textContent = notes[historyId].slice(0, 500);
+      details.appendChild(note);
+    }
+
+    resultPanel.className = "history-result";
+    resultPanel.append(result, noteButton, favoriteButton);
+    item.append(details, resultPanel);
     historyList.appendChild(item);
   });
 
@@ -1588,7 +1657,13 @@ function displayHistory() {
 }
 
 function getFavorites() {
-  const storedFavorites = localStorage.getItem(favoritesStorageKey);
+  let storedFavorites;
+
+  try {
+    storedFavorites = localStorage.getItem(favoritesStorageKey);
+  } catch {
+    return [];
+  }
 
   if (!storedFavorites) {
     return [];
@@ -1596,14 +1671,22 @@ function getFavorites() {
 
   try {
     const favorites = JSON.parse(storedFavorites);
-    return Array.isArray(favorites) ? favorites : [];
+    return Array.isArray(favorites)
+      ? favorites.filter((item) => typeof item === "string").slice(0, 50)
+      : [];
   } catch {
     return [];
   }
 }
 
 function getNotes() {
-  const storedNotes = localStorage.getItem(notesStorageKey);
+  let storedNotes;
+
+  try {
+    storedNotes = localStorage.getItem(notesStorageKey);
+  } catch {
+    return {};
+  }
 
   if (!storedNotes) {
     return {};
@@ -1611,7 +1694,15 @@ function getNotes() {
 
   try {
     const notes = JSON.parse(storedNotes);
-    return notes && typeof notes === "object" ? notes : {};
+    if (!notes || typeof notes !== "object" || Array.isArray(notes)) {
+      return {};
+    }
+    return Object.fromEntries(
+      Object.entries(notes)
+        .filter(([key, value]) => typeof key === "string" && typeof value === "string")
+        .slice(0, 50)
+        .map(([key, value]) => [key.slice(0, 120), value.slice(0, 500)])
+    );
   } catch {
     return {};
   }
@@ -1636,12 +1727,18 @@ function renderHistoryChart(history) {
 
   Object.entries(counts).forEach(([name, count]) => {
     const group = document.createElement("div");
+    const value = document.createElement("span");
+    const bar = document.createElement("div");
+    const label = document.createElement("span");
     group.className = "chart-bar-group";
-    group.innerHTML = `
-      <span class="chart-bar-value">${count}</span>
-      <div class="chart-bar" style="height: ${Math.max(12, (count / maxCount) * 130)}px"></div>
-      <span class="chart-bar-label">${name}</span>
-    `;
+    value.className = "chart-bar-value";
+    value.textContent = count;
+    bar.className = "chart-bar";
+    const heightLevel = Math.max(1, Math.ceil((count / maxCount) * 10));
+    bar.classList.add(`chart-height-${heightLevel}`);
+    label.className = "chart-bar-label";
+    label.textContent = name;
+    group.append(value, bar, label);
     chart.appendChild(group);
   });
 }
@@ -1774,15 +1871,45 @@ importDataInput.addEventListener("change", async () => {
   }
 
   try {
+    if (file.size > 1024 * 1024 || file.type && file.type !== "application/json") {
+      throw new Error("Fichier trop volumineux ou type invalide");
+    }
+
     const data = JSON.parse(await file.text());
-    if (!Array.isArray(data.history) || !Array.isArray(data.favorites)) {
+    if (!data || typeof data !== "object" || !Array.isArray(data.history) || !Array.isArray(data.favorites)) {
       throw new Error("Format invalide");
     }
-    localStorage.setItem(historyStorageKey, JSON.stringify(data.history.slice(0, 10)));
-    localStorage.setItem(favoritesStorageKey, JSON.stringify(data.favorites));
-    localStorage.setItem(notesStorageKey, JSON.stringify(data.notes || {}));
-    if (data.profile) {
-      localStorage.setItem(profileStorageKey, JSON.stringify(data.profile));
+
+    const safeHistory = data.history
+      .filter((item) => item && typeof item === "object")
+      .slice(0, 10)
+      .map((item) => ({
+        id: typeof item.id === "string" ? item.id.slice(0, 120) : "",
+        name: typeof item.name === "string" ? item.name.slice(0, 100) : "Calcul",
+        date: typeof item.date === "string" ? item.date.slice(0, 80) : "",
+        result: typeof item.result === "string" ? item.result.slice(0, 120) : ""
+      }));
+    const safeFavorites = data.favorites
+      .filter((item) => typeof item === "string")
+      .slice(0, 50)
+      .map((item) => item.slice(0, 120));
+    const safeNotes = data.notes && typeof data.notes === "object" && !Array.isArray(data.notes)
+      ? Object.fromEntries(
+        Object.entries(data.notes)
+          .filter(([key, value]) => typeof key === "string" && typeof value === "string")
+          .slice(0, 50)
+          .map(([key, value]) => [key.slice(0, 120), value.slice(0, 500)])
+      )
+      : {};
+
+    localStorage.setItem(historyStorageKey, JSON.stringify(safeHistory));
+    localStorage.setItem(favoritesStorageKey, JSON.stringify(safeFavorites));
+    localStorage.setItem(notesStorageKey, JSON.stringify(safeNotes));
+    if (data.profile && typeof data.profile === "object" && typeof data.profile.name === "string") {
+      localStorage.setItem(profileStorageKey, JSON.stringify({
+        name: data.profile.name.slice(0, 80),
+        level: typeof data.profile.level === "string" ? data.profile.level.slice(0, 40) : "Débutant"
+      }));
     }
     updateProfile();
     displayHistory();
@@ -1795,94 +1922,27 @@ importDataInput.addEventListener("change", async () => {
 
 updateProfile();
 
-document.querySelectorAll(".example-button").forEach((button) => {
-  button.addEventListener("click", () => {
-    if (button.dataset.example === "tonnage") {
-      document.querySelector("#length").value = 20;
-      document.querySelector("#width").value = 10;
-      document.querySelector("#height").value = 5;
-      document.querySelector("#density").value = 2.7;
-      document.querySelector("#tonnage-form").scrollIntoView({ behavior: "smooth", block: "center" });
+const contentSearchInput = document.querySelector("#content-search-input");
+const contentSearchStatus = document.querySelector("#content-search-status");
+const searchableContent = document.querySelectorAll(
+  ".formula-card, .faq-list details"
+);
+
+contentSearchInput.addEventListener("input", () => {
+  const query = contentSearchInput.value.trim().toLocaleLowerCase("fr-FR");
+  let visibleCount = 0;
+
+  searchableContent.forEach((item) => {
+    const matches = !query || item.textContent.toLocaleLowerCase("fr-FR").includes(query);
+    item.hidden = !matches;
+    if (matches) {
+      visibleCount += 1;
     }
   });
 
-  const calculatorExamples = {
-    "#grade-form": {
-      ".block-tonnage": ["1000"],
-      ".block-grade": ["2.5"]
-    },
-    "#recovery-form": {
-      "#recovery-tonnage": "1000",
-      "#recovery-grade": "3",
-      "#recovery-rate": "85"
-    },
-    "#stripping-form": {
-      "#waste-tonnage": "3000",
-      "#ore-tonnage": "1000"
-    },
-    "#productivity-form": {
-      "#production-quantity": "800",
-      "#working-time": "8"
-    },
-    "#dilution-form": {
-      "#dilution-ore-tonnage": "1000",
-      "#dilution-ore-grade": "3",
-      "#dilution-waste-tonnage": "200"
-    },
-    "#cost-form": {
-      "#cost-total": "250000",
-      "#cost-production": "5000"
-    },
-    "#loader-form": {
-      "#bucket-volume": "2.5",
-      "#bucket-fill": "85",
-      "#bucket-cycles": "20",
-      "#bucket-density": "1.8"
-    }
-  };
-
-  Object.entries(calculatorExamples).forEach(([formSelector, values]) => {
-    const form = document.querySelector(formSelector);
-    const button = document.createElement("button");
-    button.className = "example-button";
-    button.type = "button";
-    button.textContent = "Exemple";
-    form.prepend(button);
-    button.addEventListener("click", () => {
-      Object.entries(values).forEach(([selector, value]) => {
-        if (Array.isArray(value)) {
-          document.querySelectorAll(selector).forEach((input, index) => {
-            input.value = value[index] || value[0];
-          });
-        } else {
-          document.querySelector(selector).value = value;
-        }
-      });
-    });
-  });
-
-  const contentSearchInput = document.querySelector("#content-search-input");
-  const contentSearchStatus = document.querySelector("#content-search-status");
-  const searchableContent = document.querySelectorAll(
-    ".formula-card, .faq-list details"
-  );
-
-  contentSearchInput.addEventListener("input", () => {
-    const query = contentSearchInput.value.trim().toLocaleLowerCase("fr-FR");
-    let visibleCount = 0;
-
-    searchableContent.forEach((item) => {
-      const matches = !query || item.textContent.toLocaleLowerCase("fr-FR").includes(query);
-      item.hidden = !matches;
-      if (matches) {
-        visibleCount += 1;
-      }
-    });
-
-    contentSearchStatus.textContent = query
-      ? `${visibleCount} résultat${visibleCount > 1 ? "s" : ""} trouvé${visibleCount > 1 ? "s" : ""}.`
-      : "";
-  });
+  contentSearchStatus.textContent = query
+    ? `${visibleCount} résultat${visibleCount > 1 ? "s" : ""} trouvé${visibleCount > 1 ? "s" : ""}.`
+    : "";
 });
 
 clearHistoryButton.addEventListener("click", () => {

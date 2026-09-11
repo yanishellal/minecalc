@@ -3,9 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="MineCalc : calculateurs miniers, formules et outils pédagogiques pour réviser le génie minier.">
+  <meta name="description" content="MineCalc propose 50 calculateurs miniers pédagogiques pour le tonnage, la géologie, le forage, le transport, le traitement, l'énergie et l'économie minière.">
+  <meta name="keywords" content="calculateur minier, génie minier, tonnage, teneur, forage, dynamitage, traitement du minerai, aérage">
+  <meta name="author" content="MineCalc">
+  <meta name="robots" content="index, follow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; frame-ancestors 'none';">
   <meta name="theme-color" content="#2f6b4f">
-  <title>MineCalc | Calculs miniers et révision</title>
+  <link rel="canonical" href="https://yanishellal.github.io/minecalc/">
+  <meta property="og:title" content="MineCalc | 50 calculateurs miniers pédagogiques">
+  <meta property="og:description" content="Apprends, calcule et comprends le génie minier avec 50 outils, formules expliquées et quiz.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yanishellal.github.io/minecalc/">
+  <meta property="og:image" content="https://yanishellal.github.io/minecalc/minecalc-logo.png">
+  <title>MineCalc | 50 calculateurs miniers pédagogiques</title>
   <link rel="preload" href="style.css" as="style">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -339,9 +350,6 @@
 
           <div class="calculator-layout">
             <form id="tonnage-form" class="calculator-card">
-              <button class="example-button" data-example="tonnage" type="button">
-                Exemple
-              </button>
               <div class="form-group">
                 <label for="length">
                   Longueur <span>(m)</span>
@@ -1561,6 +1569,50 @@
             </section>
           </div>
         </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Forage et dynamitage</h3></div>
+            <p class="eyebrow">Calculateur 51</p>
+            <h3>Production moyenne par trou</h3>
+            <p>Répartit le volume total abattu entre les trous d'une campagne de forage.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="production-per-hole-form" class="calculator-card">
+              <div class="form-group"><label for="production-per-hole-volume">Volume total abattu <span>(m³)</span></label><input id="production-per-hole-volume" type="number" min="0" step="any" placeholder="Ex. 1200" required></div>
+              <div class="form-group"><label for="production-per-hole-count">Nombre de trous</label><input id="production-per-hole-count" type="number" min="1" step="1" placeholder="Ex. 40" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer la production</button>
+              <p id="production-per-hole-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="production-per-hole-result" class="result-value">-- m³/trou</p>
+              <div class="result-details"><p><strong>Formule :</strong> Vt = volume total ÷ nombre de trous</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Transport et économie</h3></div>
+            <p class="eyebrow">Calculateur 52</p>
+            <h3>Coût unitaire du transport</h3>
+            <p>Calcule le coût moyen pour transporter une tonne de matériau.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="transport-unit-cost-form" class="calculator-card">
+              <div class="form-group"><label for="transport-unit-cost-total">Coût total du transport <span>(DA)</span></label><input id="transport-unit-cost-total" type="number" min="0" step="any" placeholder="Ex. 450000" required></div>
+              <div class="form-group"><label for="transport-unit-cost-tonnage">Tonnage transporté <span>(t)</span></label><input id="transport-unit-cost-tonnage" type="number" min="0" step="any" placeholder="Ex. 10000" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le coût unitaire</button>
+              <p id="transport-unit-cost-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="transport-unit-cost-result" class="result-value">-- DA/t</p>
+              <div class="result-details"><p><strong>Formule :</strong> Cu = coût total ÷ tonnage transporté</p></div>
+            </section>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1592,22 +1644,9 @@
           <article class="formula-card"><div class="formula-number">09</div><h3>Traitement du minerai</h3><p class="formula-equation">Rm = P ÷ A × 100<br>Gc = Mr ÷ Mc × 100<br>Gcoupure = C ÷ (V × R)</p><p>Rendement massique, teneur du concentré et teneur de coupure simplifiée.</p><p class="formula-units"><strong>Outils :</strong> rendement, concentré, tonnage sec et coupure.</p></article>
           <article class="formula-card"><div class="formula-number">10</div><h3>Économie minière</h3><p class="formula-equation">Cu = C ÷ Q<br>Qs = CF ÷ (P − CV)<br>Rn = Rb − C</p><p>Ces modèles pédagogiques estiment coûts unitaires, seuil de rentabilité et revenu net.</p><p class="formula-units"><strong>Outils :</strong> coûts, seuil, revenu, forage, maintenance et carburant.</p></article>
           <article class="formula-card"><div class="formula-number">11</div><h3>Énergie, carburant et environnement</h3><p class="formula-equation">E = P × t<br>C = E × tarif<br>V eau = débit × durée</p><p>Les consommations d'énergie, de carburant et d'eau peuvent être converties en coûts.</p><p class="formula-units"><strong>Outils :</strong> énergie, carburant, eau et maintenance.</p></article>
-          <article class="formula-card"><div class="formula-number">12</div><h3>Conversion d'unités</h3><p class="formula-equation">Résultat = valeur × facteur</p><p>Les facteurs de conversion relient les unités de masse, volume et longueur.</p><p class="formula-units"><strong>Exemple :</strong> 1 t = 1 000 kg.</p></article>
+          <article class="formula-card"><div class="formula-number">12</div><h3>Conversion d'unités</h3><p class="formula-equation">Résultat = valeur × facteur</p><p>Les facteurs de conversion relient les unités de masse, volume et longueur.</p><p class="formula-units"><strong>Référence :</strong> 1 t = 1 000 kg.</p></article>
         </div>
 
-        <div class="example-box">
-          <h3>Exemple complet</h3>
-          <p>
-            Un bloc mesure 20 m × 10 m × 5 m et possède une densité de
-            2,7 t/m³.
-          </p>
-          <p>
-            <strong>Volume :</strong> 20 × 10 × 5 = 1 000 m³
-          </p>
-          <p>
-            <strong>Tonnage :</strong> 1 000 × 2,7 = 2 700 tonnes
-          </p>
-        </div>
       </div>
     </section>
 

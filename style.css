@@ -844,23 +844,6 @@ body.dark-mode .resources-section {
   font-size: 0.9rem;
 }
 
-.example-box {
-  margin-top: 26px;
-  border-left: 5px solid var(--color-orange);
-  border-radius: 0 14px 14px 0;
-  padding: 24px 28px;
-  background: var(--color-white);
-}
-
-.example-box h3 {
-  margin-top: 0;
-}
-
-.example-box p {
-  margin: 8px 0;
-  color: var(--color-text-muted);
-}
-
 .quiz-card {
   max-width: 820px;
   border: 1px solid var(--color-border);
@@ -989,6 +972,17 @@ body.dark-mode .resources-section {
   border-radius: 8px 8px 0 0;
   background: linear-gradient(180deg, var(--color-orange), var(--color-green));
 }
+
+.chart-height-1 { height: 12px; }
+.chart-height-2 { height: 26px; }
+.chart-height-3 { height: 39px; }
+.chart-height-4 { height: 52px; }
+.chart-height-5 { height: 65px; }
+.chart-height-6 { height: 78px; }
+.chart-height-7 { height: 91px; }
+.chart-height-8 { height: 104px; }
+.chart-height-9 { height: 117px; }
+.chart-height-10 { height: 130px; }
 
 .chart-bar-value {
   color: var(--color-green);
@@ -1159,18 +1153,7 @@ body.dark-mode .projects-section {
   padding: 30px;
 }
 
-.example-button {
-  float: right;
-  border: 0;
-  border-radius: 999px;
-  padding: 7px 12px;
-  cursor: pointer;
-  color: var(--color-green);
-  background: var(--color-green-light);
-  font: inherit;
-  font-size: 0.78rem;
-  font-weight: 800;
-}
+
 
 .converter-card {
   padding: 30px;
