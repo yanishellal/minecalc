@@ -68,7 +68,7 @@
           </a>
 
           <div class="hero-stats" aria-label="Fonctionnalités de MineCalc">
-            <div><strong>38</strong><span>outils miniers</span></div>
+            <div><strong>41</strong><span>outils miniers</span></div>
             <div><strong>100%</strong><span>pédagogique</span></div>
             <div><strong>24/7</strong><span>accessible</span></div>
           </div>
@@ -1250,6 +1250,73 @@
               <p class="result-label">Résultat</p>
               <p id="metal-balance-recovery" class="result-value">-- %</p>
               <div class="result-details"><p><strong>Métal contenu :</strong> <span id="metal-balance-contained">-- t</span></p><p><strong>Pertes estimées :</strong> <span id="metal-balance-loss">-- t</span></p><p><strong>Formule :</strong> R = Mr ÷ Mc × 100</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Géologie et réserves</h3></div>
+            <p class="eyebrow">Calculateur 39</p>
+            <h3>Réserves exploitables</h3>
+            <p>Estime le tonnage réellement exploitable après application d'un taux de récupération minière.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="recoverable-reserves-form" class="calculator-card">
+              <div class="form-group"><label for="recoverable-reserves-resource">Ressource estimée <span>(t)</span></label><input id="recoverable-reserves-resource" type="number" min="0" step="any" placeholder="Ex. 1000000" required></div>
+              <div class="form-group"><label for="recoverable-reserves-rate">Récupération minière <span>(%)</span></label><input id="recoverable-reserves-rate" type="number" min="0" max="100" step="any" placeholder="Ex. 90" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer les réserves</button>
+              <p id="recoverable-reserves-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="recoverable-reserves-result" class="result-value">-- t</p>
+              <div class="result-details"><p><strong>Formule :</strong> R = ressource × récupération ÷ 100</p></div>
+              <div class="explanation"><h3>Attention</h3><p>Cette estimation ne remplace pas une classification complète des ressources et réserves minérales.</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Planification minière</h3></div>
+            <p class="eyebrow">Calculateur 40</p>
+            <h3>Durée d'exploitation</h3>
+            <p>Estime le nombre de jours nécessaires pour extraire une réserve à une cadence donnée.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="mine-life-form" class="calculator-card">
+              <div class="form-group"><label for="mine-life-reserves">Réserves exploitables <span>(t)</span></label><input id="mine-life-reserves" type="number" min="0" step="any" placeholder="Ex. 500000" required></div>
+              <div class="form-group"><label for="mine-life-production">Production journalière <span>(t/j)</span></label><input id="mine-life-production" type="number" min="0" step="any" placeholder="Ex. 2500" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer la durée</button>
+              <p id="mine-life-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="mine-life-result" class="result-value">-- jours</p>
+              <div class="result-details"><p><strong>Durée estimée :</strong> <span id="mine-life-years">-- années</span></p><p><strong>Formule :</strong> D = réserves ÷ production journalière</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Forage et dynamitage</h3></div>
+            <p class="eyebrow">Calculateur 41</p>
+            <h3>Coût de forage</h3>
+            <p>Calcule le coût total d'une campagne de forage à partir de la longueur forée et du prix unitaire.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="drilling-cost-form" class="calculator-card">
+              <div class="form-group"><label for="drilling-cost-length">Longueur totale forée <span>(m)</span></label><input id="drilling-cost-length" type="number" min="0" step="any" placeholder="Ex. 1200" required></div>
+              <div class="form-group"><label for="drilling-cost-rate">Coût par mètre <span>(DA/m)</span></label><input id="drilling-cost-rate" type="number" min="0" step="any" placeholder="Ex. 450" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le coût</button>
+              <p id="drilling-cost-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="drilling-cost-result" class="result-value">-- DA</p>
+              <div class="result-details"><p><strong>Formule :</strong> C = longueur forée × coût unitaire</p></div>
             </section>
           </div>
         </div>

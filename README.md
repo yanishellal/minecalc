@@ -18,6 +18,7 @@ utilisées dans les études minières.
 - Calcul de la ventilation totale, de la puissance mécanique et du métal récupéré après traitement ;
 - Calcul de la vitesse moyenne, de la disponibilité mécanique et du taux d'utilisation ;
 - Calcul de l'énergie consommée, du coût énergétique et du bilan métal ;
+- Calcul des réserves exploitables, de la durée d'exploitation et du coût de forage ;
 - Quiz de révision ;
 - Historique local des calculs ;
 - Mode sombre.
@@ -129,6 +130,14 @@ Utilisation = (temps de fonctionnement ÷ temps disponible) × 100
 Coût énergétique = énergie consommée × tarif
 Métal contenu = tonnage alimenté × teneur ÷ 100
 Récupération = métal récupéré ÷ métal contenu × 100
+```
+
+### Planification et forage
+
+```text
+Réserves exploitables = ressource estimée × récupération minière ÷ 100
+Durée d'exploitation = réserves exploitables ÷ production journalière
+Coût de forage = longueur totale forée × coût par mètre
 ```
 
 ## Avertissement

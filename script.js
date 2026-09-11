@@ -1150,6 +1150,55 @@ metalBalanceForm.addEventListener("submit", (event) => {
   saveCalculation("Bilan métal", `${formatNumber(recovery)} %`);
 });
 
+bindSimpleCalculation(
+  "#recoverable-reserves-form",
+  ["#recoverable-reserves-resource", "#recoverable-reserves-rate"],
+  "#recoverable-reserves-result",
+  "#recoverable-reserves-message",
+  (resource, rate) => resource * rate / 100,
+  "Réserves exploitables",
+  "t"
+);
+
+const mineLifeForm = document.querySelector("#mine-life-form");
+const mineLifeResult = document.querySelector("#mine-life-result");
+const mineLifeYears = document.querySelector("#mine-life-years");
+const mineLifeMessage = document.querySelector("#mine-life-message");
+
+mineLifeForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const reserves = Number(document.querySelector("#mine-life-reserves").value);
+  const dailyProduction = Number(document.querySelector("#mine-life-production").value);
+
+  if (
+    !Number.isFinite(reserves) ||
+    !Number.isFinite(dailyProduction) ||
+    reserves <= 0 ||
+    dailyProduction <= 0
+  ) {
+    mineLifeMessage.textContent =
+      "Les réserves et la production journalière doivent être supérieures à zéro.";
+    return;
+  }
+
+  const days = reserves / dailyProduction;
+  const years = days / 365;
+  mineLifeResult.textContent = `${formatNumber(days)} jours`;
+  mineLifeYears.textContent = `${formatNumber(years)} années`;
+  mineLifeMessage.textContent = "";
+  saveCalculation("Durée d'exploitation", `${formatNumber(years)} années`);
+});
+
+bindSimpleCalculation(
+  "#drilling-cost-form",
+  ["#drilling-cost-length", "#drilling-cost-rate"],
+  "#drilling-cost-result",
+  "#drilling-cost-message",
+  (length, rate) => length * rate,
+  "Coût de forage",
+  "DA"
+);
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -1506,7 +1555,7 @@ function updateDashboard() {
   lastElement.textContent = history.length ? history[0].name : "--";
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
-  progressElement.textContent = `${Math.round((toolCount / 38) * 100)}%`;
+  progressElement.textContent = `${Math.round((toolCount / 41) * 100)}%`;
 }
 
 const profileForm = document.querySelector("#profile-form");
