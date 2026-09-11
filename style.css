@@ -803,6 +803,24 @@ body.dark-mode .resources-section {
 
 .formula-grid {
   display: grid;
+  gap: 34px;
+}
+
+.formula-group {
+  display: grid;
+  gap: 16px;
+}
+
+.formula-group > h3 {
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-green);
+  color: var(--color-green);
+  font-size: 1.35rem;
+}
+
+.formula-group-grid {
+  display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 22px;
 }
@@ -1747,7 +1765,7 @@ body.dark-mode .site-footer {
   .resource-grid,
   .dashboard-grid,
   .contact-grid,
-  .formula-grid {
+  .formula-group-grid {
     grid-template-columns: 1fr;
   }
 

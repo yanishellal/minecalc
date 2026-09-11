@@ -1391,6 +1391,7 @@ function getCalculatorFormulaData() {
     .map((section) => {
       const form = section.querySelector("form");
       const title = section.querySelector(".tool-heading > h3");
+      const category = section.querySelector(".calculator-category h3");
       const formulaParagraph = Array.from(
         section.querySelectorAll(".result-details p")
       ).find((paragraph) => paragraph.textContent.includes("Formule"));
@@ -1398,12 +1399,13 @@ function getCalculatorFormulaData() {
       const explanation = section.querySelector(".explanation p")
         || section.querySelector(".tool-heading > p:last-child");
 
-      if (!form || !title || !formulaParagraph) {
+      if (!form || !title || !formulaParagraph || !category) {
         return null;
       }
 
       return {
         id: form.id,
+        category: category.textContent.trim(),
         name: title.textContent.trim(),
         formula: formulaParagraph.textContent
           .replace(/^.*?Formule\s*:\s*/i, "")
@@ -1422,7 +1424,25 @@ function getCalculatorFormulaData() {
 const calculatorFormulaData = getCalculatorFormulaData();
 const formulaGrid = document.querySelector("#formula-grid");
 
+const formulaGroups = new Map();
+
 calculatorFormulaData.forEach((calculator, index) => {
+  if (!formulaGroups.has(calculator.category)) {
+    const group = document.createElement("section");
+    group.className = "formula-group";
+    group.setAttribute("aria-labelledby", `formula-group-${formulaGroups.size}`);
+
+    const heading = document.createElement("h3");
+    heading.id = `formula-group-${formulaGroups.size}`;
+    heading.textContent = calculator.category;
+
+    const cards = document.createElement("div");
+    cards.className = "formula-group-grid";
+    group.append(heading, cards);
+    formulaGroups.set(calculator.category, cards);
+    formulaGrid.appendChild(group);
+  }
+
   const card = document.createElement("article");
   card.className = "formula-card";
 
@@ -1447,7 +1467,7 @@ calculatorFormulaData.forEach((calculator, index) => {
   units.append(unitsLabel, document.createTextNode(calculator.units));
 
   card.append(number, title, equation, explanation, units);
-  formulaGrid.appendChild(card);
+  formulaGroups.get(calculator.category).appendChild(card);
 });
 
 const quizQuestions = document.querySelector("#quiz-questions");
