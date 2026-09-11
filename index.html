@@ -68,7 +68,7 @@
           </a>
 
           <div class="hero-stats" aria-label="Fonctionnalités de MineCalc">
-            <div><strong>19</strong><span>outils miniers</span></div>
+            <div><strong>20</strong><span>outils miniers</span></div>
             <div><strong>100%</strong><span>pédagogique</span></div>
             <div><strong>24/7</strong><span>accessible</span></div>
           </div>
@@ -766,6 +766,29 @@
                 <h3>À quoi sert ce résultat ?</h3>
                 <p>Il permet de comparer le coût moyen de différentes opérations ou périodes de production.</p>
               </div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Traitement du minerai</h3></div>
+            <p class="eyebrow">Calculateur 09</p>
+            <h3>Rendement massique</h3>
+            <p>Calcule la proportion de produit obtenu par rapport au minerai alimenté.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="yield-form" class="calculator-card">
+              <div class="form-group"><label for="yield-feed">Minerai alimenté <span>(t)</span></label><input id="yield-feed" type="number" min="0" step="any" placeholder="Ex. 1000" required></div>
+              <div class="form-group"><label for="yield-product">Produit obtenu <span>(t)</span></label><input id="yield-product" type="number" min="0" step="any" placeholder="Ex. 850" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le rendement</button>
+              <p id="yield-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="yield-result" class="result-value">-- %</p>
+              <div class="result-details"><p><strong>Perte apparente :</strong> <span id="yield-loss-result">-- %</span></p><p><strong>Formule :</strong> Rm = (P ÷ A) × 100</p></div>
+              <div class="explanation"><h3>Interprétation</h3><p>Le rendement massique compare la masse du produit à la masse introduite dans le traitement.</p></div>
             </section>
           </div>
         </div>

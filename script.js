@@ -648,6 +648,37 @@ breakevenForm.addEventListener("submit", (event) => {
   saveCalculation("Seuil de rentabilité", `${formatNumber(quantity)} t`);
 });
 
+const yieldForm = document.querySelector("#yield-form");
+const yieldResult = document.querySelector("#yield-result");
+const yieldLossResult = document.querySelector("#yield-loss-result");
+const yieldMessage = document.querySelector("#yield-message");
+
+yieldForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const feed = Number(document.querySelector("#yield-feed").value);
+  const product = Number(document.querySelector("#yield-product").value);
+
+  if (
+    !Number.isFinite(feed) ||
+    !Number.isFinite(product) ||
+    feed <= 0 ||
+    product < 0 ||
+    product > feed
+  ) {
+    yieldMessage.textContent =
+      "Le produit doit être positif ou nul et ne peut pas dépasser l'alimentation.";
+    return;
+  }
+
+  const massYield = (product / feed) * 100;
+  const apparentLoss = 100 - massYield;
+
+  yieldResult.textContent = `${formatNumber(massYield)} %`;
+  yieldLossResult.textContent = `${formatNumber(apparentLoss)} %`;
+  yieldMessage.textContent = "";
+  saveCalculation("Rendement massique", `${formatNumber(massYield)} %`);
+});
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -1004,7 +1035,7 @@ function updateDashboard() {
   lastElement.textContent = history.length ? history[0].name : "--";
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
-  progressElement.textContent = `${Math.round((toolCount / 19) * 100)}%`;
+  progressElement.textContent = `${Math.round((toolCount / 20) * 100)}%`;
 }
 
 const profileForm = document.querySelector("#profile-form");
