@@ -791,30 +791,6 @@ body.dark-mode .about-section {
   max-width: 720px;
 }
 
-.portfolio-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 24px;
-}
-
-.portfolio-tags span {
-  border-radius: 999px;
-  padding: 7px 13px;
-  color: var(--color-green);
-  background: var(--color-green-light);
-  font-size: 0.85rem;
-  font-weight: 700;
-}
-
-.portfolio-note {
-  margin-top: 18px;
-}
-
-.portfolio-note strong {
-  color: var(--color-green);
-}
-
 .site-footer {
   padding: 26px 20px;
   color: #d6e5db;
