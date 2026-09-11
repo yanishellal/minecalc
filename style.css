@@ -648,6 +648,30 @@ body.dark-mode .contact-section {
   color: var(--color-text-muted);
 }
 
+.contact-form {
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 30px;
+  background: var(--color-white);
+  box-shadow: var(--shadow);
+}
+
+.contact-form textarea {
+  width: 100%;
+  resize: vertical;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 13px;
+  color: var(--color-dark);
+  background: var(--color-background);
+  font: inherit;
+}
+
+.contact-form textarea:focus {
+  outline: 3px solid rgba(47, 107, 79, 0.2);
+  border-color: var(--color-green);
+}
+
 .contact-actions {
   display: flex;
   flex-wrap: wrap;
@@ -701,6 +725,26 @@ body.dark-mode .about-section {
 
 .about-section > .container > p:last-child {
   max-width: 720px;
+}
+
+.portfolio-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.portfolio-tags span {
+  border-radius: 999px;
+  padding: 7px 13px;
+  color: var(--color-green);
+  background: var(--color-green-light);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.portfolio-note {
+  margin-top: 18px;
 }
 
 .site-footer {

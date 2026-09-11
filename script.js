@@ -317,6 +317,53 @@ productivityResetButton.addEventListener("click", () => {
   productivityMessage.textContent = "";
 });
 
+const dilutionForm = document.querySelector("#dilution-form");
+const dilutionResetButton = document.querySelector("#dilution-reset-button");
+const dilutionResult = document.querySelector("#dilution-result");
+const dilutionTotalTonnage = document.querySelector("#dilution-total-tonnage");
+const dilutionRateResult = document.querySelector("#dilution-rate-result");
+const dilutionMessage = document.querySelector("#dilution-message");
+
+dilutionForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const oreTonnage = Number(document.querySelector("#dilution-ore-tonnage").value);
+  const oreGrade = Number(document.querySelector("#dilution-ore-grade").value);
+  const wasteTonnage = Number(document.querySelector("#dilution-waste-tonnage").value);
+
+  if (
+    !Number.isFinite(oreTonnage) ||
+    !Number.isFinite(oreGrade) ||
+    !Number.isFinite(wasteTonnage) ||
+    oreTonnage <= 0 ||
+    oreGrade < 0 ||
+    oreGrade > 100 ||
+    wasteTonnage < 0
+  ) {
+    dilutionMessage.textContent =
+      "Le minerai doit être positif, la teneur comprise entre 0 et 100 %, et le stérile positif ou nul.";
+    return;
+  }
+
+  const totalTonnage = oreTonnage + wasteTonnage;
+  const finalGrade = (oreTonnage * oreGrade) / totalTonnage;
+  const dilutionRate = (wasteTonnage / totalTonnage) * 100;
+
+  dilutionResult.textContent = `${formatNumber(finalGrade)} %`;
+  dilutionTotalTonnage.textContent = `${formatNumber(totalTonnage)} t`;
+  dilutionRateResult.textContent = `${formatNumber(dilutionRate)} %`;
+  dilutionMessage.textContent = "";
+  saveCalculation("Dilution", `${formatNumber(finalGrade)} %`);
+});
+
+dilutionResetButton.addEventListener("click", () => {
+  dilutionForm.reset();
+  dilutionResult.textContent = "-- %";
+  dilutionTotalTonnage.textContent = "-- t";
+  dilutionRateResult.textContent = "-- %";
+  dilutionMessage.textContent = "";
+});
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -497,6 +544,31 @@ mainNavigation.querySelectorAll("a").forEach((link) => {
     menuButton.setAttribute("aria-expanded", "false");
     menuButton.setAttribute("aria-label", "Ouvrir le menu");
   });
+});
+
+const contactForm = document.querySelector("#contact-form");
+const contactFormMessage = document.querySelector("#contact-form-message");
+
+contactForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const name = document.querySelector("#contact-name").value.trim();
+  const email = document.querySelector("#contact-email").value.trim();
+  const message = document.querySelector("#contact-message").value.trim();
+
+  if (!name || !email || !message) {
+    contactFormMessage.textContent = "Complète tous les champs avant de continuer.";
+    return;
+  }
+
+  const subject = encodeURIComponent(`Suggestion MineCalc - ${name}`);
+  const body = encodeURIComponent(
+    `Nom : ${name}\nE-mail : ${email}\n\nMessage :\n${message}`
+  );
+
+  window.location.href =
+    `mailto:yanishellal26@gmail.com?subject=${subject}&body=${body}`;
+  contactFormMessage.textContent = "Ouverture de ton application e-mail...";
 });
 
 function getHistory() {

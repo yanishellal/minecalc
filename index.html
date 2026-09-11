@@ -502,6 +502,62 @@
             </section>
           </div>
         </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <p class="eyebrow">Calculateur 07</p>
+            <h3>Dilution du minerai</h3>
+            <p>Estime la teneur finale après l'ajout de stérile au minerai.</p>
+          </div>
+
+          <div class="calculator-layout">
+            <form id="dilution-form" class="calculator-card">
+              <div class="form-group">
+                <label for="dilution-ore-tonnage">Minerai <span>(t)</span></label>
+                <input id="dilution-ore-tonnage" type="number" min="0" step="any" placeholder="Ex. 1000" required>
+              </div>
+
+              <div class="form-group">
+                <label for="dilution-ore-grade">Teneur du minerai <span>(%)</span></label>
+                <input id="dilution-ore-grade" type="number" min="0" max="100" step="any" placeholder="Ex. 3" required>
+              </div>
+
+              <div class="form-group">
+                <label for="dilution-waste-tonnage">Stérile ajouté <span>(t)</span></label>
+                <input id="dilution-waste-tonnage" type="number" min="0" step="any" placeholder="Ex. 200" required>
+              </div>
+
+              <button class="button button-primary button-full" type="submit">
+                Calculer la dilution
+              </button>
+
+              <button class="button button-secondary button-full" id="dilution-reset-button" type="button">
+                Réinitialiser
+              </button>
+
+              <p id="dilution-message" class="form-message" role="alert"></p>
+            </form>
+
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="dilution-result" class="result-value">-- %</p>
+
+              <div class="result-details">
+                <p><strong>Tonnage total :</strong> <span id="dilution-total-tonnage">-- t</span></p>
+                <p><strong>Dilution :</strong> <span id="dilution-rate-result">-- %</span></p>
+                <p><strong>Formule :</strong> Gf = (To × Go) ÷ (To + Ts)</p>
+              </div>
+
+              <div class="explanation">
+                <h3>Pourquoi ce calcul est utile ?</h3>
+                <p>
+                  Le stérile réduit la teneur moyenne du matériau envoyé au
+                  traitement, même si le métal contenu reste celui du minerai.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -741,7 +797,28 @@
             </div>
           </div>
 
-          <div class="contact-grid">
+          <form id="contact-form" class="contact-form">
+            <div class="form-group">
+              <label for="contact-name">Nom</label>
+              <input id="contact-name" name="name" type="text" placeholder="Ton nom" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-email">E-mail</label>
+              <input id="contact-email" name="email" type="email" placeholder="ton@email.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-message">Message</label>
+              <textarea id="contact-message" name="message" rows="5" placeholder="Écris ta suggestion..." required></textarea>
+            </div>
+
+            <button class="button button-primary button-full" type="submit">Préparer l'e-mail</button>
+            <p id="contact-form-message" class="form-message" role="status"></p>
+          </form>
+        </div>
+
+        <div class="contact-grid">
             <div class="contact-card">
               <span class="contact-icon">📧</span>
               <h3>E-mail</h3>
@@ -762,7 +839,6 @@
               <p>Proposer des nouveaux exercices ou modules.</p>
               <a href="#quiz">Tester le quiz</a>
             </div>
-          </div>
         </div>
       </div>
     </section>
@@ -777,6 +853,16 @@
           MineCalc est un projet étudiant. Les résultats sont indicatifs et
           doivent être vérifiés avec les données de terrain et les méthodes
           utilisées dans tes cours.
+        </p>
+        <div class="portfolio-tags" aria-label="Technologies utilisées">
+          <span>HTML</span>
+          <span>CSS</span>
+          <span>JavaScript</span>
+          <span>GitHub Pages</span>
+        </div>
+        <p class="portfolio-note">
+          Projet réalisé par <strong>Yanis Hellal</strong>, étudiant en génie
+          minier et membre du club scientifique des mines.
         </p>
       </div>
     </section>
