@@ -4,6 +4,7 @@ const resultValue = document.querySelector("#result-value");
 const volumeValue = document.querySelector("#volume-value");
 const formMessage = document.querySelector("#form-message");
 const historyStorageKey = "minecalc-history";
+const favoritesStorageKey = "minecalc-favorites";
 const historyList = document.querySelector("#history-list");
 const historyEmpty = document.querySelector("#history-empty");
 const clearHistoryButton = document.querySelector("#clear-history-button");
@@ -578,6 +579,7 @@ function saveCalculation(name, result) {
   const history = getHistory();
 
   history.unshift({
+    id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
     name,
     result,
     date: new Intl.DateTimeFormat("fr-FR", {
@@ -674,10 +676,12 @@ function getHistory() {
 
 function displayHistory() {
   const history = getHistory();
+  const favorites = getFavorites();
   historyList.innerHTML = "";
   historyEmpty.hidden = history.length > 0;
 
   history.forEach((calculation) => {
+    const historyId = calculation.id || `${calculation.name}-${calculation.date}`;
     const item = document.createElement("div");
     item.className = "history-item";
     item.innerHTML = `
@@ -685,11 +689,83 @@ function displayHistory() {
         <p><strong>${calculation.name}</strong></p>
         <small>${calculation.date}</small>
       </div>
-      <strong>${calculation.result}</strong>
+      <div class="history-result">
+        <strong>${calculation.result}</strong>
+        <button class="favorite-button${favorites.includes(historyId) ? " is-favorite" : ""}" type="button" data-history-id="${historyId}" aria-label="${favorites.includes(historyId) ? "Retirer des favoris" : "Ajouter aux favoris"}">
+          ${favorites.includes(historyId) ? "★" : "☆"}
+        </button>
+      </div>
     `;
     historyList.appendChild(item);
   });
+
+  renderHistoryChart(history);
 }
+
+function getFavorites() {
+  const storedFavorites = localStorage.getItem(favoritesStorageKey);
+
+  if (!storedFavorites) {
+    return [];
+  }
+
+  try {
+    const favorites = JSON.parse(storedFavorites);
+    return Array.isArray(favorites) ? favorites : [];
+  } catch {
+    return [];
+  }
+}
+
+function renderHistoryChart(history) {
+  const chart = document.querySelector("#history-chart");
+  const counts = {};
+
+  history.forEach((calculation) => {
+    counts[calculation.name] = (counts[calculation.name] || 0) + 1;
+  });
+
+  chart.innerHTML = "";
+
+  if (Object.keys(counts).length === 0) {
+    chart.innerHTML = '<p class="chart-empty">Les résultats apparaîtront ici après ton premier calcul.</p>';
+    return;
+  }
+
+  const maxCount = Math.max(...Object.values(counts));
+
+  Object.entries(counts).forEach(([name, count]) => {
+    const group = document.createElement("div");
+    group.className = "chart-bar-group";
+    group.innerHTML = `
+      <span class="chart-bar-value">${count}</span>
+      <div class="chart-bar" style="height: ${Math.max(12, (count / maxCount) * 130)}px"></div>
+      <span class="chart-bar-label">${name}</span>
+    `;
+    chart.appendChild(group);
+  });
+}
+
+historyList.addEventListener("click", (event) => {
+  const button = event.target.closest(".favorite-button");
+
+  if (!button) {
+    return;
+  }
+
+  const historyId = button.dataset.historyId;
+  const favorites = getFavorites();
+  const index = favorites.indexOf(historyId);
+
+  if (index >= 0) {
+    favorites.splice(index, 1);
+  } else {
+    favorites.push(historyId);
+  }
+
+  localStorage.setItem(favoritesStorageKey, JSON.stringify(favorites));
+  displayHistory();
+});
 
 clearHistoryButton.addEventListener("click", () => {
   localStorage.removeItem(historyStorageKey);

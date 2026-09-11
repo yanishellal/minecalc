@@ -274,6 +274,10 @@ h2 {
   background: var(--color-green-light);
 }
 
+.hero-secondary-button {
+  margin-left: 8px;
+}
+
 .button-full {
   width: 100%;
   margin-top: 12px;
@@ -464,6 +468,106 @@ body.dark-mode .history-section {
   margin-top: 22px;
 }
 
+.chart-card {
+  margin-top: 28px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 26px;
+  background: var(--color-white);
+  box-shadow: var(--shadow);
+}
+
+.chart-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.chart-heading h3 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.chart-heading p:last-child {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.history-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  min-height: 180px;
+  margin-top: 26px;
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 12px;
+}
+
+.chart-bar-group {
+  display: flex;
+  min-width: 60px;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.chart-bar {
+  width: min(54px, 100%);
+  min-height: 6px;
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(180deg, var(--color-orange), var(--color-green));
+}
+
+.chart-bar-value {
+  color: var(--color-green);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.chart-bar-label {
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.chart-empty {
+  width: 100%;
+  align-self: center;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.faq-section {
+  padding: 90px 0;
+  background: var(--color-background);
+}
+
+.faq-list {
+  display: grid;
+  gap: 12px;
+  max-width: 850px;
+}
+
+.faq-list details {
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  background: var(--color-white);
+}
+
+.faq-list summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.faq-list details p {
+  margin: 14px 0 0;
+  color: var(--color-text-muted);
+}
+
 .history-item {
   display: flex;
   align-items: center;
@@ -481,6 +585,27 @@ body.dark-mode .history-section {
 
 .history-item small {
   color: var(--color-text-muted);
+}
+
+.history-result {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.favorite-button {
+  border: 0;
+  padding: 3px 6px;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  background: transparent;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.favorite-button:hover,
+.favorite-button.is-favorite {
+  color: var(--color-orange);
 }
 
 .calculator-layout {
@@ -882,6 +1007,7 @@ body.dark-mode .site-footer {
   .formulas-section,
   .quiz-section,
   .history-section,
+  .faq-section,
   .contact-section,
   .about-section {
     padding: 60px 0;
@@ -901,5 +1027,19 @@ body.dark-mode .site-footer {
 
   .history-actions {
     flex-direction: column;
+  }
+
+  .hero-secondary-button {
+    margin: 10px 0 0;
+  }
+
+  .chart-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .history-chart {
+    gap: 8px;
+    padding: 0 4px;
   }
 }
