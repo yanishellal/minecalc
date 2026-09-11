@@ -68,7 +68,7 @@
           </a>
 
           <div class="hero-stats" aria-label="Fonctionnalités de MineCalc">
-            <div><strong>44</strong><span>outils miniers</span></div>
+            <div><strong>47</strong><span>outils miniers</span></div>
             <div><strong>100%</strong><span>pédagogique</span></div>
             <div><strong>24/7</strong><span>accessible</span></div>
           </div>
@@ -1383,6 +1383,73 @@
               <p class="result-label">Résultat</p>
               <p id="explosive-mass-result" class="result-value">-- kg</p>
               <div class="result-details"><p><strong>Formule :</strong> Me = V × q</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Transport</h3></div>
+            <p class="eyebrow">Calculateur 45</p>
+            <h3>Consommation de carburant</h3>
+            <p>Estime la quantité de carburant consommée par une machine pendant son fonctionnement.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="fuel-consumption-form" class="calculator-card">
+              <div class="form-group"><label for="fuel-consumption-rate">Consommation horaire <span>(L/h)</span></label><input id="fuel-consumption-rate" type="number" min="0" step="any" placeholder="Ex. 35" required></div>
+              <div class="form-group"><label for="fuel-consumption-time">Temps de fonctionnement <span>(h)</span></label><input id="fuel-consumption-time" type="number" min="0" step="any" placeholder="Ex. 8" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer la consommation</button>
+              <p id="fuel-consumption-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="fuel-consumption-result" class="result-value">-- L</p>
+              <div class="result-details"><p><strong>Formule :</strong> V = consommation horaire × temps</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Économie minière</h3></div>
+            <p class="eyebrow">Calculateur 46</p>
+            <h3>Coût du carburant</h3>
+            <p>Calcule le coût total du carburant consommé par une machine ou une flotte.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="fuel-cost-form" class="calculator-card">
+              <div class="form-group"><label for="fuel-cost-volume">Volume consommé <span>(L)</span></label><input id="fuel-cost-volume" type="number" min="0" step="any" placeholder="Ex. 280" required></div>
+              <div class="form-group"><label for="fuel-cost-price">Prix du carburant <span>(DA/L)</span></label><input id="fuel-cost-price" type="number" min="0" step="any" placeholder="Ex. 45" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le coût</button>
+              <p id="fuel-cost-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="fuel-cost-result" class="result-value">-- DA</p>
+              <div class="result-details"><p><strong>Formule :</strong> C = volume × prix unitaire</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Économie minière</h3></div>
+            <p class="eyebrow">Calculateur 47</p>
+            <h3>Revenu net simplifié</h3>
+            <p>Estime le revenu restant après déduction du coût total d'une opération minière.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="net-revenue-form" class="calculator-card">
+              <div class="form-group"><label for="net-revenue-gross">Revenu brut <span>(DA)</span></label><input id="net-revenue-gross" type="number" min="0" step="any" placeholder="Ex. 5000000" required></div>
+              <div class="form-group"><label for="net-revenue-cost">Coût total <span>(DA)</span></label><input id="net-revenue-cost" type="number" min="0" step="any" placeholder="Ex. 3200000" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le revenu net</button>
+              <p id="net-revenue-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="net-revenue-result" class="result-value">-- DA</p>
+              <div class="result-details"><p><strong>Formule :</strong> Rn = revenu brut − coûts</p></div>
+              <div class="explanation"><h3>Attention</h3><p>Ce résultat est une estimation pédagogique avant impôts, amortissements et autres charges financières.</p></div>
             </section>
           </div>
         </div>

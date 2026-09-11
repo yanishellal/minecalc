@@ -20,6 +20,7 @@ utilisées dans les études minières.
 - Calcul de l'énergie consommée, du coût énergétique et du bilan métal ;
 - Calcul des réserves exploitables, de la durée d'exploitation et du coût de forage ;
 - Calcul du volume de stérile, de la production annuelle et de la masse d'explosif ;
+- Calcul de la consommation et du coût du carburant, ainsi que du revenu net ;
 - Quiz de révision ;
 - Historique local des calculs ;
 - Mode sombre.
@@ -147,6 +148,14 @@ Coût de forage = longueur totale forée × coût par mètre
 Stérile à déplacer = tonnage de minerai × rapport de découverture
 Production annuelle = production journalière × jours travaillés
 Masse d'explosif = volume abattu × charge spécifique
+```
+
+### Carburant et économie
+
+```text
+Consommation de carburant = consommation horaire × temps de fonctionnement
+Coût du carburant = volume consommé × prix unitaire
+Revenu net = revenu brut − coût total
 ```
 
 ## Avertissement

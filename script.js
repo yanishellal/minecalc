@@ -1229,6 +1229,52 @@ bindSimpleCalculation(
   "kg"
 );
 
+bindSimpleCalculation(
+  "#fuel-consumption-form",
+  ["#fuel-consumption-rate", "#fuel-consumption-time"],
+  "#fuel-consumption-result",
+  "#fuel-consumption-message",
+  (hourlyRate, time) => hourlyRate * time,
+  "Consommation de carburant",
+  "L"
+);
+
+bindSimpleCalculation(
+  "#fuel-cost-form",
+  ["#fuel-cost-volume", "#fuel-cost-price"],
+  "#fuel-cost-result",
+  "#fuel-cost-message",
+  (volume, price) => volume * price,
+  "Coût du carburant",
+  "DA"
+);
+
+const netRevenueForm = document.querySelector("#net-revenue-form");
+const netRevenueResult = document.querySelector("#net-revenue-result");
+const netRevenueMessage = document.querySelector("#net-revenue-message");
+
+netRevenueForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const grossRevenue = Number(document.querySelector("#net-revenue-gross").value);
+  const totalCost = Number(document.querySelector("#net-revenue-cost").value);
+
+  if (
+    !Number.isFinite(grossRevenue) ||
+    !Number.isFinite(totalCost) ||
+    grossRevenue < 0 ||
+    totalCost < 0
+  ) {
+    netRevenueMessage.textContent =
+      "Le revenu brut et les coûts doivent être positifs ou nuls.";
+    return;
+  }
+
+  const netRevenue = grossRevenue - totalCost;
+  netRevenueResult.textContent = `${formatNumber(netRevenue)} DA`;
+  netRevenueMessage.textContent = "";
+  saveCalculation("Revenu net", `${formatNumber(netRevenue)} DA`);
+});
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -1585,7 +1631,7 @@ function updateDashboard() {
   lastElement.textContent = history.length ? history[0].name : "--";
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
-  progressElement.textContent = `${Math.round((toolCount / 44) * 100)}%`;
+  progressElement.textContent = `${Math.round((toolCount / 47) * 100)}%`;
 }
 
 const profileForm = document.querySelector("#profile-form");
