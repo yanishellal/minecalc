@@ -68,7 +68,7 @@
           </a>
 
           <div class="hero-stats" aria-label="Fonctionnalités de MineCalc">
-            <div><strong>18</strong><span>outils miniers</span></div>
+            <div><strong>19</strong><span>outils miniers</span></div>
             <div><strong>100%</strong><span>pédagogique</span></div>
             <div><strong>24/7</strong><span>accessible</span></div>
           </div>
@@ -537,6 +537,35 @@
               <p id="conversion-result">--</p>
               <p id="conversion-message" class="form-message" role="alert"></p>
             </div>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Exploitation &agrave; ciel ouvert</h3></div>
+            <p class="eyebrow">Calculateur 07</p>
+            <h3>Angle de pente d'un talus</h3>
+            <p>Calcule l'angle d'un talus à partir de sa hauteur et de sa distance horizontale.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="slope-form" class="calculator-card">
+              <div class="form-group"><label for="slope-height">Hauteur verticale <span>(m)</span></label><input id="slope-height" type="number" min="0" step="any" placeholder="Ex. 12" required></div>
+              <div class="form-group"><label for="slope-horizontal">Distance horizontale <span>(m)</span></label><input id="slope-horizontal" type="number" min="0" step="any" placeholder="Ex. 20" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer la pente</button>
+              <p id="slope-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="slope-result" class="result-value">-- °</p>
+              <div class="result-details">
+                <p><strong>Pente :</strong> <span id="slope-percent-result">-- %</span></p>
+                <p><strong>Formule :</strong> θ = arctan(H ÷ D)</p>
+              </div>
+              <div class="explanation">
+                <h3>Interprétation</h3>
+                <p>Un angle plus élevé correspond à un talus plus raide. La stabilité réelle dépend aussi du matériau, de l'eau et des conditions géotechniques.</p>
+              </div>
+            </section>
           </div>
         </div>
 

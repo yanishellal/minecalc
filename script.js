@@ -557,6 +557,36 @@ bindSimpleCalculation(
   "kg/m³"
 );
 
+const slopeForm = document.querySelector("#slope-form");
+const slopeResult = document.querySelector("#slope-result");
+const slopePercentResult = document.querySelector("#slope-percent-result");
+const slopeMessage = document.querySelector("#slope-message");
+
+slopeForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const height = Number(document.querySelector("#slope-height").value);
+  const horizontal = Number(document.querySelector("#slope-horizontal").value);
+
+  if (
+    !Number.isFinite(height) ||
+    !Number.isFinite(horizontal) ||
+    height <= 0 ||
+    horizontal <= 0
+  ) {
+    slopeMessage.textContent =
+      "La hauteur et la distance horizontale doivent être supérieures à zéro.";
+    return;
+  }
+
+  const angle = Math.atan(height / horizontal) * (180 / Math.PI);
+  const percentage = (height / horizontal) * 100;
+
+  slopeResult.textContent = `${formatNumber(angle)} °`;
+  slopePercentResult.textContent = `${formatNumber(percentage)} %`;
+  slopeMessage.textContent = "";
+  saveCalculation("Angle de pente", `${formatNumber(angle)} °`);
+});
+
 bindSimpleCalculation(
   "#contained-form",
   ["#contained-tonnage", "#contained-grade"],
@@ -974,7 +1004,7 @@ function updateDashboard() {
   lastElement.textContent = history.length ? history[0].name : "--";
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
-  progressElement.textContent = `${Math.round((toolCount / 18) * 100)}%`;
+  progressElement.textContent = `${Math.round((toolCount / 19) * 100)}%`;
 }
 
 const profileForm = document.querySelector("#profile-form");
