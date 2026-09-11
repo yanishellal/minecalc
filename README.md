@@ -24,6 +24,9 @@ utilisées dans les études minières.
 - Calcul du volume d'eau, du coût de maintenance et de la productivité nette ;
 - Calcul de la production moyenne par trou et du coût unitaire du transport ;
 - Quiz de révision ;
+- Section Formules avec une fiche individuelle par calculateur (nom, formule,
+  unités et explication) ;
+- Quiz de 50 questions, avec une question dédiée à chaque calculateur ;
 - Recherche et filtrage des calculateurs par domaine ;
 - Historique local des calculs ;
 - Mode sombre.

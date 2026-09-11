@@ -1386,26 +1386,115 @@ bindSimpleCalculation(
   "DA/t"
 );
 
+function getCalculatorFormulaData() {
+  return Array.from(document.querySelectorAll("#calculateurs .tool-section"))
+    .map((section) => {
+      const form = section.querySelector("form");
+      const title = section.querySelector(".tool-heading > h3");
+      const formulaParagraph = Array.from(
+        section.querySelectorAll(".result-details p")
+      ).find((paragraph) => paragraph.textContent.includes("Formule"));
+      const result = section.querySelector(".result-value");
+      const explanation = section.querySelector(".explanation p")
+        || section.querySelector(".tool-heading > p:last-child");
+
+      if (!form || !title || !formulaParagraph) {
+        return null;
+      }
+
+      return {
+        id: form.id,
+        name: title.textContent.trim(),
+        formula: formulaParagraph.textContent
+          .replace(/^.*?Formule\s*:\s*/i, "")
+          .trim(),
+        units: result
+          ? result.textContent.replace(/^--\s*/, "").trim()
+          : "unités du résultat",
+        explanation: explanation
+          ? explanation.textContent.trim()
+          : "Relation pédagogique utilisée par cet outil."
+      };
+    })
+    .filter(Boolean);
+}
+
+const calculatorFormulaData = getCalculatorFormulaData();
+const formulaGrid = document.querySelector("#formula-grid");
+
+calculatorFormulaData.forEach((calculator, index) => {
+  const card = document.createElement("article");
+  card.className = "formula-card";
+
+  const number = document.createElement("div");
+  number.className = "formula-number";
+  number.textContent = String(index + 1).padStart(2, "0");
+
+  const title = document.createElement("h3");
+  title.textContent = calculator.name;
+
+  const equation = document.createElement("p");
+  equation.className = "formula-equation";
+  equation.textContent = calculator.formula;
+
+  const explanation = document.createElement("p");
+  explanation.textContent = calculator.explanation;
+
+  const units = document.createElement("p");
+  units.className = "formula-units";
+  const unitsLabel = document.createElement("strong");
+  unitsLabel.textContent = "Unités : ";
+  units.append(unitsLabel, document.createTextNode(calculator.units));
+
+  card.append(number, title, equation, explanation, units);
+  formulaGrid.appendChild(card);
+});
+
+const quizQuestions = document.querySelector("#quiz-questions");
+const correctAnswers = {};
+
+calculatorFormulaData.forEach((calculator, index) => {
+  const questionNumber = index + 1;
+  const questionName = `question-${questionNumber}`;
+  const correctOption = String.fromCharCode(97 + (index % 3));
+  correctAnswers[questionName] = correctOption;
+
+  const question = document.createElement("fieldset");
+  question.className = "question";
+
+  const legend = document.createElement("legend");
+  legend.textContent = `${questionNumber}. Quelle formule utilise « ${calculator.name} » ?`;
+  question.appendChild(legend);
+
+  const options = [
+    calculator.formula,
+    "Cette relation ne comporte aucun calcul.",
+    "Résultat = valeur + unité"
+  ];
+  const rotatedOptions = options
+    .map((option, optionIndex) => ({
+      option,
+      position: (optionIndex - (index % 3) + 3) % 3
+    }))
+    .sort((first, second) => first.position - second.position);
+
+  rotatedOptions.forEach(({ option }, optionIndex) => {
+    const label = document.createElement("label");
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.name = questionName;
+    input.value = String.fromCharCode(97 + optionIndex);
+    input.required = optionIndex === 0;
+    label.append(input, document.createTextNode(` ${option}`));
+    question.appendChild(label);
+  });
+
+  quizQuestions.appendChild(question);
+});
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
-const correctAnswers = {
-  "question-1": "a",
-  "question-2": "a",
-  "question-3": "a",
-  "question-4": "b",
-  "question-5": "a",
-  "question-6": "a",
-  "question-7": "a",
-  "question-8": "c",
-  "question-9": "a",
-  "question-10": "a",
-  "question-11": "a",
-  "question-12": "a",
-  "question-13": "a",
-  "question-14": "a",
-  "question-15": "a"
-};
 
 quizForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -1424,11 +1513,13 @@ quizForm.addEventListener("submit", (event) => {
 
   const totalQuestions = Object.keys(correctAnswers).length;
 
+  const scoreRate = totalQuestions === 0 ? 0 : score / totalQuestions;
+
   if (score === totalQuestions) {
     quizResult.textContent = `Excellent ! Score : ${score}/${totalQuestions}.`;
-  } else if (score >= 8) {
+  } else if (scoreRate >= 0.8) {
     quizResult.textContent = `Très bien ! Score : ${score}/${totalQuestions}.`;
-  } else if (score >= 5) {
+  } else if (scoreRate >= 0.5) {
     quizResult.textContent = `Bon travail ! Score : ${score}/${totalQuestions}. Relis quelques formules.`;
   } else {
     quizResult.textContent = `Score : ${score}/${totalQuestions}. Consulte la section Formules puis recommence.`;
