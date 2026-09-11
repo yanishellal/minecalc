@@ -68,7 +68,7 @@
           </a>
 
           <div class="hero-stats" aria-label="Fonctionnalités de MineCalc">
-            <div><strong>23</strong><span>outils miniers</span></div>
+            <div><strong>26</strong><span>outils miniers</span></div>
             <div><strong>100%</strong><span>pédagogique</span></div>
             <div><strong>24/7</strong><span>accessible</span></div>
           </div>
@@ -511,6 +511,74 @@
                   qu'un petit bloc.
                 </p>
               </div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Exploitation à ciel ouvert</h3></div>
+            <p class="eyebrow">Calculateur 24</p>
+            <h3>Facteur de foisonnement</h3>
+            <p>Calcule l'augmentation de volume d'un matériau après son extraction ou son abattage.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="swell-factor-form" class="calculator-card">
+              <div class="form-group"><label for="swell-loose-volume">Volume foisonné <span>(m³)</span></label><input id="swell-loose-volume" type="number" min="0" step="any" placeholder="Ex. 1200" required></div>
+              <div class="form-group"><label for="swell-bank-volume">Volume en place <span>(m³)</span></label><input id="swell-bank-volume" type="number" min="0" step="any" placeholder="Ex. 1000" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le foisonnement</button>
+              <p id="swell-factor-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="swell-factor-result" class="result-value">-- %</p>
+              <div class="result-details"><p><strong>Formule :</strong> F = ((Vf − Ve) ÷ Ve) × 100</p></div>
+              <div class="explanation"><h3>Interprétation</h3><p>Le foisonnement dépend de la fragmentation, de la nature de la roche et de la méthode d'abattage.</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Exploitation à ciel ouvert</h3></div>
+            <p class="eyebrow">Calculateur 25</p>
+            <h3>Volume foisonné</h3>
+            <p>Estime le volume après extraction à partir du volume en place et du facteur de foisonnement.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="loose-volume-form" class="calculator-card">
+              <div class="form-group"><label for="loose-bank-volume">Volume en place <span>(m³)</span></label><input id="loose-bank-volume" type="number" min="0" step="any" placeholder="Ex. 1000" required></div>
+              <div class="form-group"><label for="loose-swell-rate">Facteur de foisonnement <span>(%)</span></label><input id="loose-swell-rate" type="number" min="0" step="any" placeholder="Ex. 20" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le volume</button>
+              <p id="loose-volume-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="loose-volume-result" class="result-value">-- m³</p>
+              <div class="result-details"><p><strong>Augmentation :</strong> <span id="loose-volume-increase">-- m³</span></p><p><strong>Formule :</strong> Vf = Ve × (1 + F ÷ 100)</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Géologie et réserves</h3></div>
+            <p class="eyebrow">Calculateur 26</p>
+            <h3>Densité apparente</h3>
+            <p>Calcule la masse volumique apparente d'un matériau à partir de sa masse et de son volume.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="bulk-density-form" class="calculator-card">
+              <div class="form-group"><label for="bulk-density-mass">Masse du matériau <span>(t)</span></label><input id="bulk-density-mass" type="number" min="0" step="any" placeholder="Ex. 1500" required></div>
+              <div class="form-group"><label for="bulk-density-volume">Volume occupé <span>(m³)</span></label><input id="bulk-density-volume" type="number" min="0" step="any" placeholder="Ex. 1000" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer la densité</button>
+              <p id="bulk-density-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="bulk-density-result" class="result-value">-- t/m³</p>
+              <div class="result-details"><p><strong>Formule :</strong> ρa = M ÷ V</p></div>
+              <div class="explanation"><h3>Utilité</h3><p>La densité apparente inclut les vides entre les fragments et peut différer de la densité réelle de la roche.</p></div>
             </section>
           </div>
         </div>

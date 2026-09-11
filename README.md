@@ -12,6 +12,8 @@ utilisées dans les études minières.
 - Calcul de la récupération métallurgique ;
 - Calcul du rapport de découverture ;
 - Calcul de la productivité ;
+- Calcul du facteur et du volume de foisonnement ;
+- Calcul de la densité apparente ;
 - Quiz de révision ;
 - Historique local des calculs ;
 - Mode sombre.
@@ -76,6 +78,19 @@ Rd = tonnage de stérile ÷ tonnage de minerai
 
 ```text
 P = quantité produite ÷ temps de travail
+```
+
+### Foisonnement
+
+```text
+Facteur de foisonnement = ((volume foisonné − volume en place) ÷ volume en place) × 100
+Volume foisonné = volume en place × (1 + facteur ÷ 100)
+```
+
+### Densité apparente
+
+```text
+ρa = masse ÷ volume occupé
 ```
 
 ## Avertissement

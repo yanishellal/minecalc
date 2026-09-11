@@ -769,6 +769,72 @@ cutoffForm.addEventListener("submit", (event) => {
   saveCalculation("Teneur de coupure", `${formatNumber(cutoffGrade)} %`);
 });
 
+const swellFactorForm = document.querySelector("#swell-factor-form");
+const swellFactorResult = document.querySelector("#swell-factor-result");
+const swellFactorMessage = document.querySelector("#swell-factor-message");
+
+swellFactorForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const looseVolume = Number(document.querySelector("#swell-loose-volume").value);
+  const bankVolume = Number(document.querySelector("#swell-bank-volume").value);
+
+  if (
+    !Number.isFinite(looseVolume) ||
+    !Number.isFinite(bankVolume) ||
+    looseVolume <= 0 ||
+    bankVolume <= 0 ||
+    looseVolume < bankVolume
+  ) {
+    swellFactorMessage.textContent =
+      "Le volume foisonné doit être supérieur ou égal au volume en place.";
+    return;
+  }
+
+  const swellFactor = ((looseVolume - bankVolume) / bankVolume) * 100;
+  swellFactorResult.textContent = `${formatNumber(swellFactor)} %`;
+  swellFactorMessage.textContent = "";
+  saveCalculation("Facteur de foisonnement", `${formatNumber(swellFactor)} %`);
+});
+
+const looseVolumeForm = document.querySelector("#loose-volume-form");
+const looseVolumeResult = document.querySelector("#loose-volume-result");
+const looseVolumeIncrease = document.querySelector("#loose-volume-increase");
+const looseVolumeMessage = document.querySelector("#loose-volume-message");
+
+looseVolumeForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const bankVolume = Number(document.querySelector("#loose-bank-volume").value);
+  const swellRate = Number(document.querySelector("#loose-swell-rate").value);
+
+  if (
+    !Number.isFinite(bankVolume) ||
+    !Number.isFinite(swellRate) ||
+    bankVolume <= 0 ||
+    swellRate < 0
+  ) {
+    looseVolumeMessage.textContent =
+      "Le volume doit être supérieur à zéro et le foisonnement positif ou nul.";
+    return;
+  }
+
+  const looseVolume = bankVolume * (1 + swellRate / 100);
+  const increase = looseVolume - bankVolume;
+  looseVolumeResult.textContent = `${formatNumber(looseVolume)} m³`;
+  looseVolumeIncrease.textContent = `${formatNumber(increase)} m³`;
+  looseVolumeMessage.textContent = "";
+  saveCalculation("Volume foisonné", `${formatNumber(looseVolume)} m³`);
+});
+
+bindSimpleCalculation(
+  "#bulk-density-form",
+  ["#bulk-density-mass", "#bulk-density-volume"],
+  "#bulk-density-result",
+  "#bulk-density-message",
+  (mass, volume) => mass / volume,
+  "Densité apparente",
+  "t/m³"
+);
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -1125,7 +1191,7 @@ function updateDashboard() {
   lastElement.textContent = history.length ? history[0].name : "--";
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
-  progressElement.textContent = `${Math.round((toolCount / 23) * 100)}%`;
+  progressElement.textContent = `${Math.round((toolCount / 26) * 100)}%`;
 }
 
 const profileForm = document.querySelector("#profile-form");
