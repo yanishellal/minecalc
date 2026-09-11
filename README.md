@@ -15,6 +15,7 @@ utilisées dans les études minières.
 - Calcul du facteur et du volume de foisonnement ;
 - Calcul de la densité apparente ;
 - Calcul du nombre de godets, de la durée de chargement et de la distance moyenne de transport ;
+- Calcul de la ventilation totale, de la puissance mécanique et du métal récupéré après traitement ;
 - Quiz de révision ;
 - Historique local des calculs ;
 - Mode sombre.
@@ -101,6 +102,14 @@ Charge par godet = volume du godet × taux de remplissage × densité
 Nombre de godets = plafond(capacité du camion ÷ charge par godet)
 Durée de chargement = nombre de godets × temps de cycle ÷ 60
 Distance moyenne = Σ(distance × tonnage) ÷ Σ(tonnage)
+```
+
+### Ventilation, énergie et récupération
+
+```text
+Ventilation totale = nombre de galeries × débit par galerie
+P = (m × g × h) ÷ (t × η)
+Métal récupéré = tonnage × teneur ÷ 100 × récupération ÷ 100
 ```
 
 ## Avertissement

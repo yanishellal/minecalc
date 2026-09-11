@@ -68,7 +68,7 @@
           </a>
 
           <div class="hero-stats" aria-label="Fonctionnalités de MineCalc">
-            <div><strong>29</strong><span>outils miniers</span></div>
+            <div><strong>32</strong><span>outils miniers</span></div>
             <div><strong>100%</strong><span>pédagogique</span></div>
             <div><strong>24/7</strong><span>accessible</span></div>
           </div>
@@ -1044,6 +1044,78 @@
                 <h3>Interprétation</h3>
                 <p>Le résultat est une estimation. Les temps d'attente et les conditions du chantier peuvent réduire la production réelle.</p>
               </div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Aérage et sécurité</h3></div>
+            <p class="eyebrow">Calculateur 30</p>
+            <h3>Ventilation totale de plusieurs galeries</h3>
+            <p>Additionne les débits nécessaires pour plusieurs galeries ou zones de travail.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="total-air-form" class="calculator-card">
+              <div class="form-group"><label for="total-air-galleries">Nombre de galeries</label><input id="total-air-galleries" type="number" min="1" step="1" placeholder="Ex. 3" required></div>
+              <div class="form-group"><label for="total-air-flow">Débit par galerie <span>(m³/s)</span></label><input id="total-air-flow" type="number" min="0" step="any" placeholder="Ex. 25" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le débit total</button>
+              <p id="total-air-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="total-air-result" class="result-value">-- m³/s</p>
+              <div class="result-details"><p><strong>Formule :</strong> Qt = n × Qg</p></div>
+              <div class="explanation"><h3>Attention</h3><p>Le débit réel doit aussi tenir compte des pertes, des fuites et des exigences réglementaires d'aérage.</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Énergie et équipements</h3></div>
+            <p class="eyebrow">Calculateur 31</p>
+            <h3>Puissance mécanique simplifiée</h3>
+            <p>Estime la puissance nécessaire pour déplacer une charge à une vitesse donnée.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="power-form" class="calculator-card">
+              <div class="form-group"><label for="power-load">Charge déplacée <span>(kg)</span></label><input id="power-load" type="number" min="0" step="any" placeholder="Ex. 5000" required></div>
+              <div class="form-group"><label for="power-height">Dénivelé <span>(m)</span></label><input id="power-height" type="number" min="0" step="any" placeholder="Ex. 10" required></div>
+              <div class="form-group"><label for="power-time">Temps de déplacement <span>(s)</span></label><input id="power-time" type="number" min="0" step="any" placeholder="Ex. 20" required></div>
+              <div class="form-group"><label for="power-efficiency">Rendement global <span>(%)</span></label><input id="power-efficiency" type="number" min="0" max="100" step="any" placeholder="Ex. 80" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer la puissance</button>
+              <p id="power-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="power-result" class="result-value">-- kW</p>
+              <div class="result-details"><p><strong>Énergie :</strong> <span id="power-energy-result">-- kJ</span></p><p><strong>Formule :</strong> P = (m × g × h) ÷ (t × η)</p></div>
+              <div class="explanation"><h3>Hypothèse</h3><p>Ce modèle considère uniquement le travail contre le poids. Les frottements, accélérations et pertes mécaniques ne sont pas détaillés.</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Traitement du minerai</h3></div>
+            <p class="eyebrow">Calculateur 32</p>
+            <h3>Teneur récupérée après traitement</h3>
+            <p>Calcule la quantité de métal récupérée à partir du tonnage, de la teneur et du taux de récupération.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="recovered-grade-form" class="calculator-card">
+              <div class="form-group"><label for="recovered-grade-tonnage">Tonnage traité <span>(t)</span></label><input id="recovered-grade-tonnage" type="number" min="0" step="any" placeholder="Ex. 1000" required></div>
+              <div class="form-group"><label for="recovered-grade-grade">Teneur d'alimentation <span>(%)</span></label><input id="recovered-grade-grade" type="number" min="0" max="100" step="any" placeholder="Ex. 2.5" required></div>
+              <div class="form-group"><label for="recovered-grade-recovery">Récupération <span>(%)</span></label><input id="recovered-grade-recovery" type="number" min="0" max="100" step="any" placeholder="Ex. 85" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer le métal récupéré</button>
+              <p id="recovered-grade-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="recovered-grade-result" class="result-value">-- t</p>
+              <div class="result-details"><p><strong>Pourcentage récupéré :</strong> <span id="recovered-grade-percent">-- %</span></p><p><strong>Formule :</strong> Mr = T × G ÷ 100 × R ÷ 100</p></div>
+              <div class="explanation"><h3>Interprétation</h3><p>Le résultat représente le métal contenu dans le produit récupéré, et non la masse totale du concentré.</p></div>
             </section>
           </div>
         </div>

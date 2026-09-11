@@ -939,6 +939,87 @@ haulDistanceForm.addEventListener("submit", (event) => {
   saveCalculation("Distance moyenne", `${formatNumber(averageDistance)} m`);
 });
 
+bindSimpleCalculation(
+  "#total-air-form",
+  ["#total-air-galleries", "#total-air-flow"],
+  "#total-air-result",
+  "#total-air-message",
+  (galleries, flow) => galleries * flow,
+  "Ventilation totale",
+  "m³/s"
+);
+
+const powerForm = document.querySelector("#power-form");
+const powerResult = document.querySelector("#power-result");
+const powerEnergyResult = document.querySelector("#power-energy-result");
+const powerMessage = document.querySelector("#power-message");
+
+powerForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const load = Number(document.querySelector("#power-load").value);
+  const height = Number(document.querySelector("#power-height").value);
+  const time = Number(document.querySelector("#power-time").value);
+  const efficiency = Number(document.querySelector("#power-efficiency").value);
+
+  if (
+    !Number.isFinite(load) ||
+    !Number.isFinite(height) ||
+    !Number.isFinite(time) ||
+    !Number.isFinite(efficiency) ||
+    load <= 0 ||
+    height <= 0 ||
+    time <= 0 ||
+    efficiency <= 0 ||
+    efficiency > 100
+  ) {
+    powerMessage.textContent =
+      "Les charges, le dénivelé et le temps doivent être positifs, avec un rendement entre 0 et 100 %.";
+    return;
+  }
+
+  const energy = load * 9.81 * height / 1000;
+  const power = energy / time / (efficiency / 100);
+  powerResult.textContent = `${formatNumber(power)} kW`;
+  powerEnergyResult.textContent = `${formatNumber(energy)} kJ`;
+  powerMessage.textContent = "";
+  saveCalculation("Puissance mécanique", `${formatNumber(power)} kW`);
+});
+
+const recoveredGradeForm = document.querySelector("#recovered-grade-form");
+const recoveredGradeResult = document.querySelector("#recovered-grade-result");
+const recoveredGradePercent = document.querySelector("#recovered-grade-percent");
+const recoveredGradeMessage = document.querySelector("#recovered-grade-message");
+
+recoveredGradeForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const tonnage = Number(document.querySelector("#recovered-grade-tonnage").value);
+  const grade = Number(document.querySelector("#recovered-grade-grade").value);
+  const recovery = Number(document.querySelector("#recovered-grade-recovery").value);
+
+  if (
+    !Number.isFinite(tonnage) ||
+    !Number.isFinite(grade) ||
+    !Number.isFinite(recovery) ||
+    tonnage <= 0 ||
+    grade < 0 ||
+    grade > 100 ||
+    recovery < 0 ||
+    recovery > 100
+  ) {
+    recoveredGradeMessage.textContent =
+      "Le tonnage doit être positif et les pourcentages compris entre 0 et 100.";
+    return;
+  }
+
+  const containedMetal = tonnage * grade / 100;
+  const recoveredMetal = containedMetal * recovery / 100;
+  const recoveredPercent = grade * recovery / 100;
+  recoveredGradeResult.textContent = `${formatNumber(recoveredMetal)} t`;
+  recoveredGradePercent.textContent = `${formatNumber(recoveredPercent)} %`;
+  recoveredGradeMessage.textContent = "";
+  saveCalculation("Métal récupéré après traitement", `${formatNumber(recoveredMetal)} t`);
+});
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -1295,7 +1376,7 @@ function updateDashboard() {
   lastElement.textContent = history.length ? history[0].name : "--";
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
-  progressElement.textContent = `${Math.round((toolCount / 29) * 100)}%`;
+  progressElement.textContent = `${Math.round((toolCount / 32) * 100)}%`;
 }
 
 const profileForm = document.querySelector("#profile-form");
