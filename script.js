@@ -648,6 +648,37 @@ breakevenForm.addEventListener("submit", (event) => {
   saveCalculation("Seuil de rentabilité", `${formatNumber(quantity)} t`);
 });
 
+const dryTonnageForm = document.querySelector("#dry-tonnage-form");
+const dryTonnageResult = document.querySelector("#dry-tonnage-result");
+const waterTonnageResult = document.querySelector("#water-tonnage-result");
+const dryTonnageMessage = document.querySelector("#dry-tonnage-message");
+
+dryTonnageForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const wetTonnage = Number(document.querySelector("#wet-tonnage").value);
+  const moistureRate = Number(document.querySelector("#moisture-rate").value);
+
+  if (
+    !Number.isFinite(wetTonnage) ||
+    !Number.isFinite(moistureRate) ||
+    wetTonnage <= 0 ||
+    moistureRate < 0 ||
+    moistureRate > 100
+  ) {
+    dryTonnageMessage.textContent =
+      "Le tonnage doit être supérieur à zéro et l'humidité comprise entre 0 et 100 %.";
+    return;
+  }
+
+  const dryTonnage = wetTonnage / (1 + moistureRate / 100);
+  const waterTonnage = wetTonnage - dryTonnage;
+
+  dryTonnageResult.textContent = `${formatNumber(dryTonnage)} t`;
+  waterTonnageResult.textContent = `${formatNumber(waterTonnage)} t`;
+  dryTonnageMessage.textContent = "";
+  saveCalculation("Tonnage sec", `${formatNumber(dryTonnage)} t`);
+});
+
 const yieldForm = document.querySelector("#yield-form");
 const yieldResult = document.querySelector("#yield-result");
 const yieldLossResult = document.querySelector("#yield-loss-result");
@@ -1063,7 +1094,7 @@ function updateDashboard() {
   lastElement.textContent = history.length ? history[0].name : "--";
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
-  progressElement.textContent = `${Math.round((toolCount / 21) * 100)}%`;
+  progressElement.textContent = `${Math.round((toolCount / 22) * 100)}%`;
 }
 
 const profileForm = document.querySelector("#profile-form");
