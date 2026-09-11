@@ -16,6 +16,7 @@ utilisées dans les études minières.
 - Calcul de la densité apparente ;
 - Calcul du nombre de godets, de la durée de chargement et de la distance moyenne de transport ;
 - Calcul de la ventilation totale, de la puissance mécanique et du métal récupéré après traitement ;
+- Calcul de la vitesse moyenne, de la disponibilité mécanique et du taux d'utilisation ;
 - Quiz de révision ;
 - Historique local des calculs ;
 - Mode sombre.
@@ -110,6 +111,14 @@ Distance moyenne = Σ(distance × tonnage) ÷ Σ(tonnage)
 Ventilation totale = nombre de galeries × débit par galerie
 P = (m × g × h) ÷ (t × η)
 Métal récupéré = tonnage × teneur ÷ 100 × récupération ÷ 100
+```
+
+### Performance des équipements
+
+```text
+Vitesse moyenne = distance ÷ temps
+Disponibilité = ((temps programmé − temps d'arrêt) ÷ temps programmé) × 100
+Utilisation = (temps de fonctionnement ÷ temps disponible) × 100
 ```
 
 ## Avertissement

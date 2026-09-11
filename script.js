@@ -1020,6 +1020,73 @@ recoveredGradeForm.addEventListener("submit", (event) => {
   saveCalculation("Métal récupéré après traitement", `${formatNumber(recoveredMetal)} t`);
 });
 
+bindSimpleCalculation(
+  "#haul-speed-form",
+  ["#haul-speed-distance", "#haul-speed-time"],
+  "#haul-speed-result",
+  "#haul-speed-message",
+  (distance, time) => distance / (time / 60),
+  "Vitesse moyenne",
+  "km/h"
+);
+
+const availabilityForm = document.querySelector("#availability-form");
+const availabilityResult = document.querySelector("#availability-result");
+const availabilityOperating = document.querySelector("#availability-operating");
+const availabilityMessage = document.querySelector("#availability-message");
+
+availabilityForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const plannedTime = Number(document.querySelector("#availability-planned").value);
+  const breakdownTime = Number(document.querySelector("#availability-breakdown").value);
+
+  if (
+    !Number.isFinite(plannedTime) ||
+    !Number.isFinite(breakdownTime) ||
+    plannedTime <= 0 ||
+    breakdownTime < 0 ||
+    breakdownTime > plannedTime
+  ) {
+    availabilityMessage.textContent =
+      "Le temps de panne doit être compris entre zéro et le temps programmé.";
+    return;
+  }
+
+  const operatingTime = plannedTime - breakdownTime;
+  const availability = (operatingTime / plannedTime) * 100;
+  availabilityResult.textContent = `${formatNumber(availability)} %`;
+  availabilityOperating.textContent = `${formatNumber(operatingTime)} h`;
+  availabilityMessage.textContent = "";
+  saveCalculation("Disponibilité mécanique", `${formatNumber(availability)} %`);
+});
+
+const utilizationForm = document.querySelector("#utilization-form");
+const utilizationResult = document.querySelector("#utilization-result");
+const utilizationMessage = document.querySelector("#utilization-message");
+
+utilizationForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const operatingTime = Number(document.querySelector("#utilization-operating").value);
+  const availableTime = Number(document.querySelector("#utilization-available").value);
+
+  if (
+    !Number.isFinite(operatingTime) ||
+    !Number.isFinite(availableTime) ||
+    operatingTime < 0 ||
+    availableTime <= 0 ||
+    operatingTime > availableTime
+  ) {
+    utilizationMessage.textContent =
+      "Le temps de fonctionnement doit être compris entre zéro et le temps disponible.";
+    return;
+  }
+
+  const utilization = (operatingTime / availableTime) * 100;
+  utilizationResult.textContent = `${formatNumber(utilization)} %`;
+  utilizationMessage.textContent = "";
+  saveCalculation("Taux d'utilisation", `${formatNumber(utilization)} %`);
+});
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -1376,7 +1443,7 @@ function updateDashboard() {
   lastElement.textContent = history.length ? history[0].name : "--";
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
-  progressElement.textContent = `${Math.round((toolCount / 32) * 100)}%`;
+  progressElement.textContent = `${Math.round((toolCount / 35) * 100)}%`;
 }
 
 const profileForm = document.querySelector("#profile-form");
