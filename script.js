@@ -1342,7 +1342,14 @@ const quizResult = document.querySelector("#quiz-result");
 const correctAnswers = {
   "question-1": "a",
   "question-2": "a",
-  "question-3": "a"
+  "question-3": "a",
+  "question-4": "b",
+  "question-5": "a",
+  "question-6": "a",
+  "question-7": "a",
+  "question-8": "c",
+  "question-9": "a",
+  "question-10": "a"
 };
 
 quizForm.addEventListener("submit", (event) => {
@@ -1360,12 +1367,16 @@ quizForm.addEventListener("submit", (event) => {
     }
   });
 
-  if (score === 3) {
-    quizResult.textContent = "Excellent ! Score : 3/3.";
-  } else if (score === 2) {
-    quizResult.textContent = "Très bien ! Score : 2/3. Relis une formule et réessaie.";
+  const totalQuestions = Object.keys(correctAnswers).length;
+
+  if (score === totalQuestions) {
+    quizResult.textContent = `Excellent ! Score : ${score}/${totalQuestions}.`;
+  } else if (score >= 8) {
+    quizResult.textContent = `Très bien ! Score : ${score}/${totalQuestions}.`;
+  } else if (score >= 5) {
+    quizResult.textContent = `Bon travail ! Score : ${score}/${totalQuestions}. Relis quelques formules.`;
   } else {
-    quizResult.textContent = `Score : ${score}/3. Consulte la section Formules puis recommence.`;
+    quizResult.textContent = `Score : ${score}/${totalQuestions}. Consulte la section Formules puis recommence.`;
   }
 });
 

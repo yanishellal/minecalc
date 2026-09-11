@@ -1561,8 +1561,8 @@
           <p class="eyebrow">Apprendre</p>
           <h2>Formules minières essentielles</h2>
           <p>
-            Comprends les calculs utilisés par les outils MineCalc avant
-            d'interpréter leurs résultats.
+            Retrouve les formules des 50 outils MineCalc, classées par domaine,
+            avant d'interpréter leurs résultats.
           </p>
           <div class="content-search">
             <label for="content-search-input">Rechercher dans les formules et la FAQ</label>
@@ -1572,96 +1572,18 @@
         </div>
 
         <div class="formula-grid">
-          <article class="formula-card">
-            <div class="formula-number">01</div>
-            <h3>Calcul du volume</h3>
-            <p class="formula-equation">V = L × l × h</p>
-            <p>
-              Le volume d'un bloc rectangulaire est obtenu en multipliant sa
-              longueur, sa largeur et sa hauteur.
-            </p>
-            <p class="formula-units">
-              <strong>Unités :</strong> mètres et mètres cubes (m³)
-            </p>
-          </article>
-
-          <article class="formula-card">
-            <div class="formula-number">02</div>
-            <h3>Calcul du tonnage</h3>
-            <p class="formula-equation">T = V × ρ</p>
-            <p>
-              Le tonnage est obtenu en multipliant le volume du bloc par la
-              densité du matériau.
-            </p>
-            <p class="formula-units">
-              <strong>Unités :</strong> m³ × t/m³ = tonnes
-            </p>
-          </article>
-
-          <article class="formula-card">
-            <div class="formula-number">03</div>
-            <h3>Teneur moyenne pondérée</h3>
-            <p class="formula-equation">Gm = Σ(T × G) ÷ ΣT</p>
-            <p>
-              Chaque teneur est pondérée par le tonnage de son bloc. Les blocs
-              les plus importants ont donc davantage d'influence.
-            </p>
-            <p class="formula-units">
-              <strong>Unités :</strong> tonnage en t et teneur en %
-            </p>
-          </article>
-
-          <article class="formula-card">
-            <div class="formula-number">04</div>
-            <h3>Récupération métallurgique</h3>
-            <p class="formula-equation">Mᵣ = T × (G ÷ 100) × (R ÷ 100)</p>
-            <p>
-              La récupération représente la quantité de métal extraite du
-              minerai pendant le traitement.
-            </p>
-            <p class="formula-units">
-              <strong>Unités :</strong> tonnage en t, teneur et récupération en %
-            </p>
-          </article>
-
-          <article class="formula-card">
-            <div class="formula-number">05</div>
-            <h3>Rapport de découverture</h3>
-            <p class="formula-equation">Rd = Ts ÷ Tm</p>
-            <p>
-              Ce rapport compare le tonnage de stérile au tonnage de minerai
-              dans une exploitation à ciel ouvert.
-            </p>
-            <p class="formula-units">
-              <strong>Unités :</strong> tonnes de stérile par tonne de minerai
-            </p>
-          </article>
-
-          <article class="formula-card">
-            <div class="formula-number">06</div>
-            <h3>Productivité</h3>
-            <p class="formula-equation">P = Q ÷ t</p>
-            <p>
-              La productivité indique la quantité moyenne de matériau produite
-              ou déplacée pendant une heure de travail.
-            </p>
-            <p class="formula-units">
-              <strong>Unités :</strong> tonnes par heure (t/h)
-            </p>
-          </article>
-
-          <article class="formula-card">
-            <div class="formula-number">07</div>
-            <h3>Conversion d'unités</h3>
-            <p class="formula-equation">Résultat = valeur × facteur</p>
-            <p>
-              Une conversion utilise un facteur qui relie l'unité de départ à
-              l'unité d'arrivée.
-            </p>
-            <p class="formula-units">
-              <strong>Exemple :</strong> 1 t = 1 000 kg
-            </p>
-          </article>
+          <article class="formula-card"><div class="formula-number">01</div><h3>Géologie et tonnage</h3><p class="formula-equation">V = L × l × h<br>T = V × ρ<br>Gm = Σ(T × G) ÷ ΣT</p><p>Volume, tonnage et teneur moyenne pondérée des blocs.</p><p class="formula-units"><strong>Outils :</strong> tonnage, teneur moyenne, densité apparente.</p></article>
+          <article class="formula-card"><div class="formula-number">02</div><h3>Métal contenu et récupération</h3><p class="formula-equation">Mc = T × G ÷ 100<br>Mr = Mc × R ÷ 100</p><p>Le métal contenu est théorique ; la récupération estime la part récupérée au traitement.</p><p class="formula-units"><strong>Outils :</strong> métal contenu, récupération, métal récupéré, bilan métal.</p></article>
+          <article class="formula-card"><div class="formula-number">03</div><h3>Exploitation à ciel ouvert</h3><p class="formula-equation">Rd = Ts ÷ Tm<br>Ts = Tm × Rd</p><p>Le rapport de découverture relie le stérile au minerai et permet d'estimer le stérile à déplacer.</p><p class="formula-units"><strong>Outils :</strong> découverture, volume de stérile, réserves exploitables.</p></article>
+          <article class="formula-card"><div class="formula-number">04</div><h3>Foisonnement</h3><p class="formula-equation">F = ((Vf − Ve) ÷ Ve) × 100<br>Vf = Ve × (1 + F ÷ 100)</p><p>Après abattage, les fragments occupent généralement un volume supérieur au volume en place.</p><p class="formula-units"><strong>Outils :</strong> facteur et volume foisonné.</p></article>
+          <article class="formula-card"><div class="formula-number">05</div><h3>Forage et dynamitage</h3><p class="formula-equation">V = B × E × H<br>q = Me ÷ V<br>Me = V × q</p><p>La maille donne le volume abattu et la charge spécifique permet d'estimer l'explosif.</p><p class="formula-units"><strong>Outils :</strong> trous, volume abattu, charge et masse d'explosif.</p></article>
+          <article class="formula-card"><div class="formula-number">06</div><h3>Transport et chargement</h3><p class="formula-equation">Tc = Σt<br>Q = n × C × 60 ÷ Tc<br>N = plafond(C ÷ charge)</p><p>Ces relations servent à estimer cycles, flotte, godets, chargement et distance moyenne.</p><p class="formula-units"><strong>Outils :</strong> cycle, flotte, godets, chargement, distance et vitesse.</p></article>
+          <article class="formula-card"><div class="formula-number">07</div><h3>Engins et productivité</h3><p class="formula-equation">P = Q ÷ t<br>Pn = Q ÷ (T − Ta)<br>U = To ÷ Td × 100</p><p>La productivité nette retire les arrêts, tandis que l'utilisation compare le temps actif au temps disponible.</p><p class="formula-units"><strong>Outils :</strong> productivité, disponibilité et utilisation.</p></article>
+          <article class="formula-card"><div class="formula-number">08</div><h3>Aérage et énergie</h3><p class="formula-equation">Q = S × v<br>Qt = n × Qg<br>P = mgh ÷ (t × η)</p><p>Les débits d'air et la puissance mécanique sont des estimations simplifiées.</p><p class="formula-units"><strong>Outils :</strong> débit d'air, ventilation totale et puissance.</p></article>
+          <article class="formula-card"><div class="formula-number">09</div><h3>Traitement du minerai</h3><p class="formula-equation">Rm = P ÷ A × 100<br>Gc = Mr ÷ Mc × 100<br>Gcoupure = C ÷ (V × R)</p><p>Rendement massique, teneur du concentré et teneur de coupure simplifiée.</p><p class="formula-units"><strong>Outils :</strong> rendement, concentré, tonnage sec et coupure.</p></article>
+          <article class="formula-card"><div class="formula-number">10</div><h3>Économie minière</h3><p class="formula-equation">Cu = C ÷ Q<br>Qs = CF ÷ (P − CV)<br>Rn = Rb − C</p><p>Ces modèles pédagogiques estiment coûts unitaires, seuil de rentabilité et revenu net.</p><p class="formula-units"><strong>Outils :</strong> coûts, seuil, revenu, forage, maintenance et carburant.</p></article>
+          <article class="formula-card"><div class="formula-number">11</div><h3>Énergie, carburant et environnement</h3><p class="formula-equation">E = P × t<br>C = E × tarif<br>V eau = débit × durée</p><p>Les consommations d'énergie, de carburant et d'eau peuvent être converties en coûts.</p><p class="formula-units"><strong>Outils :</strong> énergie, carburant, eau et maintenance.</p></article>
+          <article class="formula-card"><div class="formula-number">12</div><h3>Conversion d'unités</h3><p class="formula-equation">Résultat = valeur × facteur</p><p>Les facteurs de conversion relient les unités de masse, volume et longueur.</p><p class="formula-units"><strong>Exemple :</strong> 1 t = 1 000 kg.</p></article>
         </div>
 
         <div class="example-box">
@@ -1685,57 +1607,20 @@
         <div class="section-heading">
           <p class="eyebrow">Réviser</p>
           <h2>Quiz de génie minier</h2>
-          <p>Teste tes connaissances avec trois questions rapides.</p>
+          <p>Teste tes connaissances avec dix questions basées sur les 50 outils.</p>
         </div>
 
         <form id="quiz-form" class="quiz-card">
-          <fieldset class="question">
-            <legend>1. Quelle formule permet de calculer le tonnage ?</legend>
-            <label>
-              <input type="radio" name="question-1" value="a" required>
-              T = V × ρ
-            </label>
-            <label>
-              <input type="radio" name="question-1" value="b">
-              T = V ÷ ρ
-            </label>
-            <label>
-              <input type="radio" name="question-1" value="c">
-              T = ρ ÷ V
-            </label>
-          </fieldset>
-
-          <fieldset class="question">
-            <legend>2. Pourquoi utilise-t-on une teneur moyenne pondérée ?</legend>
-            <label>
-              <input type="radio" name="question-2" value="a" required>
-              Pour donner plus d'importance aux blocs les plus lourds
-            </label>
-            <label>
-              <input type="radio" name="question-2" value="b">
-              Pour supprimer les données des petits blocs
-            </label>
-            <label>
-              <input type="radio" name="question-2" value="c">
-              Pour convertir les tonnes en kilogrammes
-            </label>
-          </fieldset>
-
-          <fieldset class="question">
-            <legend>3. Un minerai contient 20 t de métal et la récupération est de 85 %. Combien récupère-t-on ?</legend>
-            <label>
-              <input type="radio" name="question-3" value="a" required>
-              17 t
-            </label>
-            <label>
-              <input type="radio" name="question-3" value="b">
-              20,85 t
-            </label>
-            <label>
-              <input type="radio" name="question-3" value="c">
-              23,53 t
-            </label>
-          </fieldset>
+          <fieldset class="question"><legend>1. Quelle formule donne le tonnage ?</legend><label><input type="radio" name="question-1" value="a" required> T = V × ρ</label><label><input type="radio" name="question-1" value="b"> T = V ÷ ρ</label><label><input type="radio" name="question-1" value="c"> T = ρ ÷ V</label></fieldset>
+          <fieldset class="question"><legend>2. Pourquoi pondérer une teneur moyenne ?</legend><label><input type="radio" name="question-2" value="a" required> Pour donner plus de poids aux blocs les plus tonnants</label><label><input type="radio" name="question-2" value="b"> Pour supprimer les petits blocs</label><label><input type="radio" name="question-2" value="c"> Pour convertir les unités</label></fieldset>
+          <fieldset class="question"><legend>3. Avec 20 t de métal contenu et 85 % de récupération, quelle masse est récupérée ?</legend><label><input type="radio" name="question-3" value="a" required> 17 t</label><label><input type="radio" name="question-3" value="b"> 20,85 t</label><label><input type="radio" name="question-3" value="c"> 23,53 t</label></fieldset>
+          <fieldset class="question"><legend>4. Un volume en place de 1 000 m³ foisonne de 20 %. Quel est le volume foisonné ?</legend><label><input type="radio" name="question-4" value="a" required> 1 020 m³</label><label><input type="radio" name="question-4" value="b"> 1 200 m³</label><label><input type="radio" name="question-4" value="c"> 800 m³</label></fieldset>
+          <fieldset class="question"><legend>5. La charge spécifique s'exprime généralement en :</legend><label><input type="radio" name="question-5" value="a" required> kg/m³</label><label><input type="radio" name="question-5" value="b"> t/h</label><label><input type="radio" name="question-5" value="c"> DA/t</label></fieldset>
+          <fieldset class="question"><legend>6. Trois camions de 60 t ont un cycle de 30 min. Quelle capacité théorique ?</legend><label><input type="radio" name="question-6" value="a" required> 180 t/h</label><label><input type="radio" name="question-6" value="b"> 60 t/h</label><label><input type="radio" name="question-6" value="c"> 360 t/h</label></fieldset>
+          <fieldset class="question"><legend>7. Si une machine fonctionne 16 h sur 20 h disponibles, son utilisation est de :</legend><label><input type="radio" name="question-7" value="a" required> 80 %</label><label><input type="radio" name="question-7" value="b"> 20 %</label><label><input type="radio" name="question-7" value="c"> 125 %</label></fieldset>
+          <fieldset class="question"><legend>8. Quel est le débit d'air d'une galerie de 10 m² avec une vitesse de 2 m/s ?</legend><label><input type="radio" name="question-8" value="a" required> 5 m³/s</label><label><input type="radio" name="question-8" value="b"> 12 m³/s</label><label><input type="radio" name="question-8" value="c"> 20 m³/s</label></fieldset>
+          <fieldset class="question"><legend>9. 2 000 kWh à 12 DA/kWh coûtent :</legend><label><input type="radio" name="question-9" value="a" required> 24 000 DA</label><label><input type="radio" name="question-9" value="b"> 2 012 DA</label><label><input type="radio" name="question-9" value="c"> 166,67 DA</label></fieldset>
+          <fieldset class="question"><legend>10. Une réserve exploitable de 500 000 t produite à 2 500 t/j dure environ :</legend><label><input type="radio" name="question-10" value="a" required> 200 jours</label><label><input type="radio" name="question-10" value="b"> 2 000 jours</label><label><input type="radio" name="question-10" value="c"> 125 jours</label></fieldset>
 
           <button class="button button-primary" type="submit">Voir mon score</button>
           <button class="button button-secondary" id="quiz-reset-button" type="button">Recommencer</button>
