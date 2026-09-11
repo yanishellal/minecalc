@@ -68,7 +68,7 @@
           </a>
 
           <div class="hero-stats" aria-label="Fonctionnalités de MineCalc">
-            <div><strong>20</strong><span>outils miniers</span></div>
+            <div><strong>21</strong><span>outils miniers</span></div>
             <div><strong>100%</strong><span>pédagogique</span></div>
             <div><strong>24/7</strong><span>accessible</span></div>
           </div>
@@ -789,6 +789,29 @@
               <p id="yield-result" class="result-value">-- %</p>
               <div class="result-details"><p><strong>Perte apparente :</strong> <span id="yield-loss-result">-- %</span></p><p><strong>Formule :</strong> Rm = (P ÷ A) × 100</p></div>
               <div class="explanation"><h3>Interprétation</h3><p>Le rendement massique compare la masse du produit à la masse introduite dans le traitement.</p></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <div class="tool-heading">
+            <div class="calculator-category"><h3>Traitement du minerai</h3></div>
+            <p class="eyebrow">Calculateur 10</p>
+            <h3>Teneur du concentré</h3>
+            <p>Estime la teneur du concentré à partir du métal récupéré et de sa masse.</p>
+          </div>
+          <div class="calculator-layout">
+            <form id="concentrate-form" class="calculator-card">
+              <div class="form-group"><label for="concentrate-metal">Métal récupéré <span>(t)</span></label><input id="concentrate-metal" type="number" min="0" step="any" placeholder="Ex. 20" required></div>
+              <div class="form-group"><label for="concentrate-mass">Masse du concentré <span>(t)</span></label><input id="concentrate-mass" type="number" min="0" step="any" placeholder="Ex. 100" required></div>
+              <button class="button button-primary button-full" type="submit">Calculer la teneur</button>
+              <p id="concentrate-message" class="form-message" role="alert"></p>
+            </form>
+            <section class="result-card" aria-live="polite">
+              <p class="result-label">Résultat</p>
+              <p id="concentrate-result" class="result-value">-- %</p>
+              <div class="result-details"><p><strong>Formule :</strong> Gc = (Mᵣ ÷ Mc) × 100</p></div>
+              <div class="explanation"><h3>Interprétation</h3><p>La teneur du concentré représente la proportion de métal dans le produit obtenu après traitement.</p></div>
             </section>
           </div>
         </div>

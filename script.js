@@ -679,6 +679,34 @@ yieldForm.addEventListener("submit", (event) => {
   saveCalculation("Rendement massique", `${formatNumber(massYield)} %`);
 });
 
+const concentrateForm = document.querySelector("#concentrate-form");
+const concentrateResult = document.querySelector("#concentrate-result");
+const concentrateMessage = document.querySelector("#concentrate-message");
+
+concentrateForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const recoveredMetal = Number(document.querySelector("#concentrate-metal").value);
+  const concentrateMass = Number(document.querySelector("#concentrate-mass").value);
+
+  if (
+    !Number.isFinite(recoveredMetal) ||
+    !Number.isFinite(concentrateMass) ||
+    recoveredMetal < 0 ||
+    concentrateMass <= 0 ||
+    recoveredMetal > concentrateMass
+  ) {
+    concentrateMessage.textContent =
+      "Le métal récupéré doit être positif ou nul et inférieur à la masse du concentré.";
+    return;
+  }
+
+  const concentrateGrade = (recoveredMetal / concentrateMass) * 100;
+
+  concentrateResult.textContent = `${formatNumber(concentrateGrade)} %`;
+  concentrateMessage.textContent = "";
+  saveCalculation("Teneur du concentré", `${formatNumber(concentrateGrade)} %`);
+});
+
 const quizForm = document.querySelector("#quiz-form");
 const quizResetButton = document.querySelector("#quiz-reset-button");
 const quizResult = document.querySelector("#quiz-result");
@@ -1035,7 +1063,7 @@ function updateDashboard() {
   lastElement.textContent = history.length ? history[0].name : "--";
   lastDateElement.textContent = history.length ? history[0].date : "Aucune activité";
   toolsElement.textContent = toolCount;
-  progressElement.textContent = `${Math.round((toolCount / 20) * 100)}%`;
+  progressElement.textContent = `${Math.round((toolCount / 21) * 100)}%`;
 }
 
 const profileForm = document.querySelector("#profile-form");
