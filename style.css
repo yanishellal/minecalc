@@ -26,6 +26,245 @@ body.dark-mode {
   box-sizing: border-box;
 }
 
+.intro-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  overflow: hidden;
+  place-items: center;
+  color: #fdf7e5;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(24, 76, 93, 0.95), transparent 34%),
+    linear-gradient(135deg, #071522 0%, #0c2430 52%, #150f1c 100%);
+  animation: intro-exit 5s ease forwards;
+}
+
+.intro-splash::before,
+.intro-splash::after {
+  position: absolute;
+  content: "";
+  border: 1px solid rgba(239, 185, 66, 0.28);
+  border-radius: 50%;
+  transform: rotate(-22deg);
+}
+
+.intro-splash::before {
+  width: 78vw;
+  height: 34vw;
+  animation: intro-ring 5s ease-in-out infinite;
+}
+
+.intro-splash::after {
+  width: 62vw;
+  height: 27vw;
+  border-color: rgba(65, 207, 201, 0.22);
+  animation: intro-ring 5s 0.3s ease-in-out infinite reverse;
+}
+
+.intro-atmosphere {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(214, 121, 43, 0.18), transparent 20%),
+    radial-gradient(circle at 82% 18%, rgba(48, 192, 185, 0.2), transparent 24%);
+  animation: intro-atmosphere 5s ease-in-out infinite alternate;
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  animation: intro-content 5s ease forwards;
+}
+
+.intro-logo-frame {
+  position: relative;
+  width: clamp(180px, 30vw, 280px);
+  margin: 0 auto 12px;
+}
+
+.intro-logo {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  filter: drop-shadow(0 0 18px rgba(255, 194, 69, 0.55));
+  animation: intro-logo 5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.intro-glow {
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  background: #efb942;
+  filter: blur(34px);
+  opacity: 0.4;
+  animation: intro-glow 5s ease-in-out infinite;
+}
+
+.intro-kicker {
+  margin: 0;
+  color: #8ce0d8;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.intro-content h1 {
+  margin: 2px 0 0;
+  color: #fff6d4;
+  font-size: clamp(2.5rem, 7vw, 4.8rem);
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.intro-content h1 span {
+  color: #efb942;
+}
+
+.intro-tagline {
+  margin: 12px 0 22px;
+  color: rgba(253, 247, 229, 0.78);
+}
+
+.intro-loader {
+  width: 150px;
+  height: 3px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.intro-loader span {
+  display: block;
+  width: 42%;
+  height: 100%;
+  border-radius: inherit;
+  background: #efb942;
+  animation: intro-loader 4.5s ease-in-out forwards;
+}
+
+.intro-orbit {
+  position: absolute;
+  z-index: 1;
+  width: 38vw;
+  height: 12vw;
+  border: 2px solid rgba(239, 185, 66, 0.5);
+  border-radius: 50%;
+  transform: rotate(28deg);
+  animation: intro-orbit 5s linear infinite;
+}
+
+.orbit-two {
+  width: 30vw;
+  height: 10vw;
+  border-color: rgba(65, 207, 201, 0.5);
+  transform: rotate(-35deg);
+  animation-direction: reverse;
+}
+
+.intro-rock {
+  position: absolute;
+  z-index: 2;
+  color: #efb942;
+  font-size: clamp(1.4rem, 3vw, 3rem);
+  filter: drop-shadow(0 0 8px rgba(239, 185, 66, 0.55));
+  animation: intro-rock 4.5s ease-in-out infinite;
+}
+
+.rock-one { top: 17%; left: 22%; color: #53d4cf; animation-delay: -1s; }
+.rock-two { top: 25%; right: 19%; animation-delay: -2.2s; }
+.rock-three { bottom: 20%; left: 18%; color: #d9822b; animation-delay: -3.1s; }
+.rock-four { right: 22%; bottom: 17%; color: #53d4cf; animation-delay: -0.7s; }
+.rock-five { top: 48%; left: 8%; animation-delay: -1.8s; }
+
+.intro-particle {
+  position: absolute;
+  color: #f8d778;
+  opacity: 0;
+  animation: intro-particle 4s ease-in-out infinite;
+}
+
+.particle-1 { top: 18%; left: 38%; animation-delay: -0.5s; }
+.particle-2 { top: 31%; right: 31%; animation-delay: -1.7s; }
+.particle-3 { top: 60%; left: 27%; animation-delay: -2.8s; }
+.particle-4 { right: 29%; bottom: 28%; animation-delay: -0.9s; }
+.particle-5 { bottom: 18%; left: 42%; animation-delay: -2.1s; }
+.particle-6 { top: 42%; right: 11%; animation-delay: -3.4s; }
+.particle-7 { bottom: 39%; left: 12%; animation-delay: -1.3s; }
+.particle-8 { top: 12%; right: 42%; animation-delay: -2.5s; }
+
+@keyframes intro-exit {
+  0%, 82% { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+@keyframes intro-content {
+  0% { opacity: 0; transform: translateY(24px) scale(0.9); }
+  18%, 78% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-20px) scale(1.04); }
+}
+
+@keyframes intro-logo {
+  0% { transform: scale(0.35) rotate(-18deg); opacity: 0; }
+  20% { transform: scale(1.08) rotate(4deg); opacity: 1; }
+  32%, 78% { transform: scale(1) rotate(0); opacity: 1; }
+  100% { transform: scale(1.08) rotate(3deg); opacity: 0; }
+}
+
+@keyframes intro-glow {
+  0%, 100% { transform: scale(0.7); opacity: 0.2; }
+  45% { transform: scale(1.4); opacity: 0.55; }
+}
+
+@keyframes intro-loader {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes intro-ring {
+  0%, 100% { opacity: 0.25; transform: rotate(-22deg) scale(0.85); }
+  50% { opacity: 1; transform: rotate(22deg) scale(1.08); }
+}
+
+@keyframes intro-orbit {
+  from { transform: rotate(28deg) scale(0.7); opacity: 0; }
+  25%, 80% { opacity: 1; }
+  to { transform: rotate(388deg) scale(1.15); opacity: 0; }
+}
+
+@keyframes intro-rock {
+  0%, 100% { transform: translateY(8px) rotate(0) scale(0.8); opacity: 0.45; }
+  50% { transform: translateY(-18px) rotate(110deg) scale(1.15); opacity: 1; }
+}
+
+@keyframes intro-particle {
+  0%, 100% { opacity: 0; transform: translateY(18px) scale(0.5); }
+  35%, 65% { opacity: 0.9; transform: translateY(-10px) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-splash {
+    animation-duration: 1s;
+  }
+
+  .intro-content,
+  .intro-logo,
+  .intro-glow,
+  .intro-loader span,
+  .intro-orbit,
+  .intro-rock,
+  .intro-particle,
+  .intro-splash::before,
+  .intro-splash::after,
+  .intro-atmosphere {
+    animation: none;
+  }
+}
+
 .skip-link {
   position: fixed;
   top: 10px;
@@ -109,6 +348,12 @@ body.dark-mode .site-header {
   color: var(--color-white);
   background: var(--color-green);
   font-size: 1.2rem;
+}
+
+.logo-mark img {
+  width: 31px;
+  height: 31px;
+  object-fit: contain;
 }
 
 .logo-name {

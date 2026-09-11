@@ -16,6 +16,14 @@ const themeButton = document.querySelector("#theme-button");
 const themeStorageKey = "minecalc-theme";
 const menuButton = document.querySelector("#menu-button");
 const mainNavigation = document.querySelector("#main-navigation");
+const introSplash = document.querySelector("#intro-splash");
+
+window.setTimeout(() => {
+  if (introSplash) {
+    introSplash.setAttribute("aria-hidden", "true");
+    introSplash.remove();
+  }
+}, 5100);
 
 function updateThemeButton() {
   const isDarkMode = document.body.classList.contains("dark-mode");
