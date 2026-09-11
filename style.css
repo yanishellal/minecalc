@@ -1598,7 +1598,7 @@ body.dark-mode .site-footer {
   margin: 0;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
   .container {
     width: min(100% - 28px, 600px);
   }
