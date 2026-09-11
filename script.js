@@ -1542,6 +1542,15 @@ mainNavigation.querySelectorAll("a").forEach((link) => {
   });
 });
 
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 900 && mainNavigation.classList.contains("is-open")) {
+    mainNavigation.classList.remove("is-open");
+    menuButton.textContent = "Menu";
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.setAttribute("aria-label", "Ouvrir le menu");
+  }
+});
+
 const contactForm = document.querySelector("#contact-form");
 const contactFormMessage = document.querySelector("#contact-form-message");
 

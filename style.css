@@ -1598,7 +1598,7 @@ body.dark-mode .site-footer {
   margin: 0;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .container {
     width: min(100% - 28px, 600px);
   }
@@ -1612,6 +1612,8 @@ body.dark-mode .site-footer {
   .menu-button {
     display: block;
     margin-left: auto;
+    position: relative;
+    z-index: 2;
   }
 
   nav {
@@ -1625,6 +1627,7 @@ body.dark-mode .site-footer {
 
   nav.is-open {
     display: flex;
+    animation: mobile-menu-in 0.2s ease-out both;
   }
 
   nav a {
@@ -1638,6 +1641,17 @@ body.dark-mode .site-footer {
 
   .hero {
     padding: 60px 0;
+  }
+
+  @keyframes mobile-menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .hero-content,
