@@ -1455,6 +1455,28 @@ body.dark-mode .contact-section {
   margin-top: 24px;
 }
 
+.calculator-search {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(220px, 1fr);
+  gap: 14px;
+  max-width: 850px;
+  margin-top: 24px;
+}
+
+.search-field {
+  display: grid;
+  gap: 5px;
+}
+
+.search-field label {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.calculator-search .search-status {
+  grid-column: 1 / -1;
+}
+
 .content-search label {
   font-size: 0.9rem;
 }
@@ -1598,6 +1620,39 @@ body.dark-mode .site-footer {
   margin: 0;
 }
 
+.tool-section[hidden] {
+  display: none;
+}
+
+.formula-validation {
+  margin-top: 28px;
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-orange);
+  border-radius: 12px;
+  padding: 22px;
+  background: var(--color-white);
+}
+
+.formula-validation h3 {
+  margin: 0 0 10px;
+}
+
+.formula-validation p {
+  margin: 8px 0;
+}
+
+.formula-validation ul {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0;
+  padding-left: 20px;
+}
+
+.validation-note {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
 @media (max-width: 1200px) {
   .container {
     width: min(100% - 28px, 600px);
@@ -1641,6 +1696,10 @@ body.dark-mode .site-footer {
 
   .hero {
     padding: 60px 0;
+  }
+
+  .calculator-search {
+    grid-template-columns: 1fr;
   }
 
   @keyframes mobile-menu-in {

@@ -146,6 +146,31 @@
             Commence par le tonnage, puis compare plusieurs blocs avec la
             teneur moyenne pondérée.
           </p>
+          <div class="calculator-search" role="search">
+            <div class="search-field">
+              <label for="calculator-search-input">Rechercher un calculateur</label>
+              <input id="calculator-search-input" type="search" placeholder="Ex. tonnage, forage, énergie">
+            </div>
+            <div class="search-field">
+              <label for="calculator-category-filter">Filtrer par domaine</label>
+              <select id="calculator-category-filter">
+                <option value="all">Tous les domaines</option>
+                <option value="geologie">Géologie et réserves</option>
+                <option value="exploitation">Exploitation à ciel ouvert</option>
+                <option value="forage">Forage et dynamitage</option>
+                <option value="planification">Planification minière</option>
+                <option value="transport">Transport</option>
+                <option value="production">Production minière</option>
+                <option value="traitement">Traitement du minerai</option>
+                <option value="aerage">Aérage et sécurité</option>
+                <option value="energie">Énergie et équipements</option>
+                <option value="economie">Économie minière</option>
+                <option value="environnement">Environnement</option>
+                <option value="conversion">Convertisseur d'unités</option>
+              </select>
+            </div>
+            <p id="calculator-search-status" class="search-status" role="status"></p>
+          </div>
         </div>
 
         <div class="tool-section">
@@ -1647,6 +1672,17 @@
           <article class="formula-card"><div class="formula-number">11</div><h3>Énergie, carburant et environnement</h3><p class="formula-equation">E = P × t<br>C = E × tarif<br>V eau = débit × durée</p><p>Les consommations d'énergie, de carburant et d'eau peuvent être converties en coûts.</p><p class="formula-units"><strong>Outils :</strong> énergie, carburant, eau et maintenance.</p></article>
           <article class="formula-card"><div class="formula-number">12</div><h3>Conversion d'unités</h3><p class="formula-equation">Résultat = valeur × facteur</p><p>Les facteurs de conversion relient les unités de masse, volume et longueur.</p><p class="formula-units"><strong>Référence :</strong> 1 t = 1 000 kg.</p></article>
         </div>
+        <aside class="formula-validation" aria-labelledby="formula-validation-title">
+          <p class="eyebrow">Transparence</p>
+          <h3 id="formula-validation-title">État de validation des formules</h3>
+          <p>Les relations sont présentées pour l'apprentissage et ont été contrôlées pour leur cohérence pédagogique et leurs unités.</p>
+          <ul>
+            <li><strong>Contrôle effectué :</strong> définitions, unités et conversions de base.</li>
+            <li><strong>À confirmer selon le cours :</strong> conventions, facteurs de rendement et hypothèses de terrain.</li>
+            <li><strong>Limite :</strong> aucune formule ne constitue une validation professionnelle ou une consigne d'exploitation.</li>
+          </ul>
+          <p class="validation-note">Pour un projet réel, fais relire les calculs par un enseignant ou un ingénieur minier et remplace les hypothèses par les données du site.</p>
+        </aside>
 
       </div>
     </section>

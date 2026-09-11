@@ -1935,6 +1935,52 @@ const contentSearchStatus = document.querySelector("#content-search-status");
 const searchableContent = document.querySelectorAll(
   ".formula-card, .faq-list details"
 );
+const calculatorSearchInput = document.querySelector("#calculator-search-input");
+const calculatorCategoryFilter = document.querySelector("#calculator-category-filter");
+const calculatorSearchStatus = document.querySelector("#calculator-search-status");
+const calculatorSections = document.querySelectorAll("#calculateurs .tool-section");
+
+function filterCalculators() {
+  const query = calculatorSearchInput.value.trim().toLocaleLowerCase("fr-FR");
+  const category = calculatorCategoryFilter.value;
+  let visibleCount = 0;
+
+  calculatorSections.forEach((section) => {
+    const text = section.textContent.toLocaleLowerCase("fr-FR");
+    const categoryText = section
+      .querySelector(".calculator-category")
+      .textContent.trim()
+      .toLocaleLowerCase("fr-FR");
+    const matchesQuery = !query || text.includes(query);
+    const categoryTerms = {
+      geologie: "géologie",
+      exploitation: "exploitation",
+      forage: "forage",
+      planification: "planification",
+      transport: "transport",
+      production: "production",
+      traitement: "traitement",
+      aerage: "aérage",
+      energie: "énergie",
+      economie: "économie",
+      environnement: "environnement",
+      conversion: "convertisseur"
+    };
+    const matchesCategory =
+      category === "all" || categoryText.includes(categoryTerms[category]);
+
+    section.hidden = !(matchesQuery && matchesCategory);
+    if (!section.hidden) {
+      visibleCount += 1;
+    }
+  });
+
+  calculatorSearchStatus.textContent = `${visibleCount} calculateur${visibleCount > 1 ? "s" : ""} affiché${visibleCount > 1 ? "s" : ""}.`;
+}
+
+calculatorSearchInput.addEventListener("input", filterCalculators);
+calculatorCategoryFilter.addEventListener("change", filterCalculators);
+filterCalculators();
 
 contentSearchInput.addEventListener("input", () => {
   const query = contentSearchInput.value.trim().toLocaleLowerCase("fr-FR");

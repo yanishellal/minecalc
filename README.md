@@ -24,6 +24,7 @@ utilisées dans les études minières.
 - Calcul du volume d'eau, du coût de maintenance et de la productivité nette ;
 - Calcul de la production moyenne par trou et du coût unitaire du transport ;
 - Quiz de révision ;
+- Recherche et filtrage des calculateurs par domaine ;
 - Historique local des calculs ;
 - Mode sombre.
 
@@ -54,6 +55,17 @@ minecalc/
 ├── README.md
 └── .gitignore
 ```
+
+## Validation pédagogique et limites
+
+Les formules sont contrôlées dans le projet pour la cohérence des définitions,
+des unités et des conversions de base. Elles restent des modèles pédagogiques :
+les conventions, les rendements, les facteurs de sécurité et les hypothèses de
+terrain doivent être confirmés avec le cours et les données du site.
+
+MineCalc ne constitue pas une certification professionnelle. Avant toute
+décision réelle d'exploitation, fais relire les calculs par un enseignant ou un
+ingénieur minier qualifié.
 
 ## Formules principales
 
